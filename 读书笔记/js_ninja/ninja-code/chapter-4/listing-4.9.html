@@ -2,28 +2,50 @@
 <html>
   <head>
     <title>Listing 4.9</title>
+    <meta charset="utf-8">
     <script type="text/javascript" src="../scripts/assert.js"></script>
     <link href="../styles/assert.css" rel="stylesheet" type="text/css">
   </head>
 
   <body>
+    <p>p标签</p>
+    <h3>标题</h3>
+
     <script type="text/javascript">
 
-      function isPrime(value) {
-        if (!isPrime.answers) isPrime.answers = {};                  //#1
-        if (isPrime.answers[value] != null) {                        //#2
-          return isPrime.answers[value];                             //#2
-        }                                                            //#2
-        var prime = value != 1; // 1 can never be prime
-        for (var i = 2; i < value; i++) {
-          if (value % i == 0) {
+      // function isPrime(value) {
+      //   if (!isPrime.answers) isPrime.answers = {};                  //#1
+      //   if (isPrime.answers[value] != null) {                        //#2
+      //     return isPrime.answers[value];                             //#2
+      //   }                                                            //#2
+      //   var prime = value != 1; // 1 can never be prime
+      //   for (var i = 2; i < value; i++) {
+      //     if (value % i == 0) {
+      //       prime = false;
+      //       break;
+      //     }
+      //   }
+      //   return isPrime.answers[value] = prime;                       //#3
+      // }
+      
+      function isPrime( value ) {
+        if ( !isPrime.answers ) isPrime.answers = {}
+        if ( isPrime.answers[value] != null) {
+          return isPrime.answers[value]
+        }
+        var prime = value !=1;
+        for( let i =2; i < value; i++) {
+          if( value % i === 0) {
             prime = false;
             break;
           }
         }
-        return isPrime.answers[value] = prime;                       //#3
+        return isPrime.answers[value] = prime;
       }
 
+      
+      
+      
       assert(isPrime(5), "5 is prime!" );                            //#5
       assert(isPrime.answers[5], "The answer was cached!" );         //#5
 

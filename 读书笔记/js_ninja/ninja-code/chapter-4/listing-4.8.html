@@ -9,16 +9,26 @@
   <body>
     <script type="text/javascript">
 
+      // var store = {
+      //   nextId: 1,                                        //#1
+      //   cache: {},                                        //#2
+      //   add: function(fn) {                               //#3
+      //     if (!fn.id) {                                   //#3
+      //       fn.id = store.nextId++;                       //#3
+      //       return !!(store.cache[fn.id] = fn);           //#3
+      //     }                                               //#3
+      //   }
+      // };
       var store = {
-        nextId: 1,                                        //#1
-        cache: {},                                        //#2
-        add: function(fn) {                               //#3
-          if (!fn.id) {                                   //#3
-            fn.id = store.nextId++;                       //#3
-            return !!(store.cache[fn.id] = fn);           //#3
-          }                                               //#3
+        nextId: 1,
+        cache: {},
+        add: function( fn ) {
+          if ( !fn.id ) {
+            fn.id = store.nextId++;
+            return !!(store.cache[fn.id] = fn) 
+          }
         }
-      };
+      }
 
       function ninja(){}
 
