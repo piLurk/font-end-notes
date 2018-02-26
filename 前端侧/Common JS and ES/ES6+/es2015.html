@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>es2015特性</title>
+	<style>
+		a{
+			outline: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+
+	<button id="btn1">按钮</button>
+	
+	<script type="text/javascript">
+
+	
+
+	function test(a,b=1000,c=function(){
+		
+	}){
+		console.log(a);
+		console.log(b);
+		c();
+	}
+	test();
+	
+
+	function getA() {
+		return 50;
+	}
+	function add(a,b=getA()){
+		return a+b;
+	}
+
+	console.log(add(10));
+
+	function a(){
+
+	}
+
+	function b(){
+
+	}
+	var c=function(){
+
+	}
+	var d=function test(){
+
+	}
+	var e=function(){
+
+	}
+	console.log(a.name);
+	console.log(b.name);
+	console.log(c.name);
+	console.log(d.name);
+	console.log(e.bind().name);
+	console.log((new Function()).name);
+
+	var Person=function(){
+		if (this instanceof Person) {
+			console.log('这里是构造');
+		}else{
+			console.log('这里是调用');
+		}
+	}
+
+	var p=new Person();
+	Person();
+	Person.call(p);
+
+	function Go(){
+		if (typeof new.target !== 'undefined') {
+			console.log('这里是构造');
+		}else{
+			console.log('这里是调用');
+		}
+	}
+	var p=new Go();
+	Go();
+	Go.call(p);
+
+
+	if (2<10) {
+		console.log(test10.name);
+		function test10(){
+
+		}
+	}
+	console.log(test10.name);
+
+	let show = value => value;
+
+	console.log(show(10));
+
+	let addbb = (v1,v2) => v1+v2;
+
+	console.log(addbb(10,25));
+
+
+	const btn_o=document.getElementById('btn1');
+	console.log(btn_o);
+	let myObj={
+		init:function(){
+			btn_o.addEventListener('click',()=>this.showSomething('heh'),false)
+
+
+		},
+		showSomething(v){
+			alert(v)
+		}
+	}
+	myObj.init();
+
+	var s=[1,10,20,-20].sort(function(a,b){
+		return a-b;
+	});
+	var s1=[1,10,20,-20].sort((a,b) => a-b);
+	console.log('gg');
+	console.log(s);
+	console.log(s1);
+	function ggg(a=10){
+		return (() => arguments[0])();
+	}
+
+	
+
+	console.log(ggg(50));
+
+	console.log('+0和-0是否相等：'+(+0===-0));
+	console.log(Object.is(+0,-0));
+
+	var obj={};
+	Object.assign(obj,{
+		type:"js",
+		name:'hehe'
+	},{	
+		type:'css'
+	});
+	console.log(obj);
+
+
+	var obj={
+		b:1,
+		8:1,
+		g:1,
+		a:1,
+		c:1,
+		1:1,
+		6:1,
+		2:1,
+		4:1,
+		k:1
+	}
+	obj[3]=11;
+	obj.m=10;
+	console.log(Object.keys(obj));
+	console.log(Object.getOwnPropertyNames(obj).join(''));
+
+	// let person={
+	// 	getName(){
+	// 		return 'tom'
+	// 	}
+	// }
+	// let friend = Object.create(person);
+	// console.log(friend.getName());
+
+	// let dog={
+	// 	getName(){
+	// 		return 'laifu'
+	// 	}
+	// }
+	// Object.setPrototypeOf(friend,dog);
+	// console.log(friend.getName());
+
+
+	let person={
+		getName(){
+			return 'wu'
+		}
+	}
+
+	let dog={
+		getName(){
+			return 'laifu'
+		}
+	}
+
+	let friend={
+		getName(){
+
+			return Object.getPrototypeOf(this).getName.call(this)+',hi';
+		}
+	}
+	Object.setPrototypeOf(friend,person);
+	console.log(friend.getName());
+	console.log(Object.getPrototypeOf(friend));
+
+
+
+	</script>
+</body>
+</html>

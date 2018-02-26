@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>webJs</title>
+</head>
+<body>
+	<!--   ajax   -->
+
+	<script type="text/javascript">
+		function ajax(obj,handler){
+		    var xmlhttp;
+		    if(window.XMLHttpRequest){
+		        xmlhttp = new XMLHttpRequest();
+		    }else{
+		        // code for IE6, IE5
+		        xmlhttp = ActiveXObject("Microsoft.XMLHTTP");
+		    }
+
+		    var objAll={
+		    	method:'Post',
+		    	url:'',
+		    	header:{
+		    		"Content-type":"application/x-www-form-urlencoded"
+		    	}
+
+		    }
+		    // 初始化对象
+		    for(var i in obj){
+
+		    	if (i in objAll) {
+		    		objAll[i]=obj[i]
+		    	}
+		    }
+
+		    // init xmlhttp对象
+		    console.log(objAll);
+		    ajaxInit(xmlhttp,objAll,handler);
+
+		      
+		}
+
+		function ajaxInit(xmlhttp,obj,handler) {
+			//判定执行状态
+			xmlhttp.onreadystatechange = function(r){
+			    /*
+			    readyState
+			        0: 请求未初始化
+			        1: 服务器连接已建立
+			        2: 请求已接收
+			        3: 请求处理中
+			        4: 请求已完成，且响应已就绪
+			    status
+			        200:请求成功
+			        404:未找到
+			        500:服务器内部错误
+			    */
+			    if (xmlhttp.readyState==4){
+			    	
+			        handler(xmlhttp);//获得字符串形式的响应数据
+			    }
+			  }
+			xmlhttp.open(obj.method,obj.url,true);
+
+			//设置头信息
+			for(var i in obj.header){
+				xmlhttp.setRequestHeader(i,obj[i]);
+			}
+			
+
+			//将信息发送到服务器
+			xmlhttp.send();  
+		}
+
+		ajax({
+			url:'http://192.168.1.90:8006/ttt',
+			method:'post'
+
+		},function (r) {
+			console.log(r.response);
+		});
+
+
+Date.prototype.getBJMonth = function (value) {
+    //获得当前运行环境时间
+
+    var currentDate = new Date(value), 
+        tmpHours = currentDate.getHours();
+    //时区
+  
+    var time_zone = -currentDate.getTimezoneOffset() / 60;
+   //少于0的是西区 西区应该用时区绝对值加京八区 重新设置时间（西区时间比东区时间早 所以加时区间隔）
+    if (time_zone < 0) {
+        time_zone = Math.abs(time_zone) + 8; currentDate.setHours(tmpHours + time_zone);
+    } else {
+        //大于0的是东区  东区时间直接跟京八区相减
+        time_zone -= 8; currentDate.setHours(tmpHours - time_zone);
+    }
+    var year = currentDate.getFullYear();
+	var month = currentDate.getMonth() + 1 < 10 ? "0" + (currentDate.getMonth() + 1):currentDate.getMonth() + 1;
+	var dateStr = year + "-" + month;
+	return dateStr
+}
+
+
+
+var date=new Date();
+
+var time_zone=-date.getTimezoneOffset() / 60;
+console.log(time_zone);
+var date_b=new Date('2017-08-31T16:00:00.000Z');
+
+console.log(date_b.getFullYear());
+console.log(date_b.getMonth()+1);
+console.log(date_b.getDate());
+console.log(date_b.getHours());
+console.log(date_b.getUTCHours());
+console.log(date_b.getMinutes());
+	</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+深入理解ES6   --- 100% × 1
+
+JavaScript架构设计  
+
+
+大型网站技术架构（入门）
+
+编写可维护的JavaScript  Node.js开发指南
+
+HTTP权威指南（web架构师）
+
+高性能JavaScript
+
+JavaScript编程精解
+
+JavaScript异步编程
+
+You dont know JS
+
+Web性能权威指南
+
+深入浅出Node.js
+
+javascript ninja

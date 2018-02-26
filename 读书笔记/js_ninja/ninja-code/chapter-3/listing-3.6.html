@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Listing 3.6</title>
+    <script type="text/javascript" src="../scripts/assert.js"></script>
+    <link href="../styles/assert.css" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <script type="text/javascript">
+var class2type = {}, toString = class2type.toString;
+
+forEach( "Boolean Number String Function Array Date RegExp Object Error Symbol".split( " " ), 
+  function( i, name ) {
+    class2type[ "[object " + name +"]"] = name.toLowerCase();
+} )
+      
+function forEach( obj, callback ) {
+  var length, i = 0;
+  
+  if( isArrayLike ( obj ) ) {
+    length = obj.length;
+    for( ; i < length; i++ ) {
+      if( callback.call( obj[ i ], i, obj[ i ] ) === false) {
+        break;
+      }
+    }
+  } else {
+    for(i in obj) {
+      if( callback.call( obj[ i ], i, obj[ i ] ) === false) {
+        break;
+      }
+    }
+  }
+  return obj;
+}
+
+function isArrayLike( obj ) {
+  var length = !!obj && "length" in obj && obj.length,
+      type = toType( obj );
+  if( isFunction( obj ) ||  isWindow( obj ) ) {
+    return false
+  }
+  return type == 'array' || length === 0 || 
+    typeof length === 'number' && length > 0 && ( length - 1 ) in obj;
+}
+function toType( obj ) {
+  if ( obj === null ) {
+    return obj + '';
+  } 
+
+  return typeof obj === 'object' || typeof obj === 'function' ?
+    class2type[ toString.call( obj ) ] || 'object' : 
+    typeof obj;
+}
+
+function isFunction( obj ) {
+  return typeof obj === "function" && typeof obj.nodeType !== "number";
+}
+
+function isWindow( obj ) {
+  return obj != null && obj === obj.window;
+}
+var arr = [100,20,10,10,45],obj={
+  0:12,
+  1:10,
+  2:"hehe",
+  length:3
+};
+var all = 0;
+forEach(arr, function( i, item) {
+  if( item <= 20 ){
+    return false
+  } else {
+    all += item
+  } 
+})
+
+forEach(obj, function(i , item) {
+  console.log(item,i,'aa')
+})
+
+
+    </script>
+  </body>
+</html>

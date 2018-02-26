@@ -1,0 +1,248 @@
+@charset "utf-8";
+#wrapper {width: 100%;height: 100%;overflow-x: hidden;}
+/*左侧导航*/
+.navbar-static-side {
+    position: fixed;
+    width: 160px;
+    z-index: 2001;
+    height: 100%;
+    background: #1c2b36;
+}
+.edition{position: fixed;  width: 160px;height: 35px;line-height:35px;color:#6c8190;text-align: center;bottom: 45px;font-size: 12px;}
+.edition a:hover{text-decoration: underline;}
+.switchBar { width: 160px; height: 45px; background: #2a3f4e; position: fixed; bottom: 0; left: 0; cursor: pointer; }
+.switchBar i { width: 20px; height: 17px; background: url(../images/closeBar.png);display: inline-block; float:left;margin: 14px 0 0 23px;}
+.switchBar p { color: #6c8190; float: left; font-size: 14px; padding: 14px 0 0 30px; }
+
+.navbar-static-side .logo { width: 100%; height: 54px; border-bottom: 1px dotted #131a1f; background: url(../images/newlogo.png) center center no-repeat;}
+.navbar-static-side .system-user {text-align: center; font-size: 14px; padding-bottom: 30px; border-bottom: 2px solid #17242e;}
+.navbar-static-side .system-user .imgbox { width: 50px;height: 50px;margin: 0 auto; margin-top: 30px;}
+.navbar-static-side .system-user .imgbox img { width: 100%; }
+.navbar-static-side .system-user .name { padding: 16px 0 10px 0; color: #c1cfe0; }
+.navbar-static-side .system-user .job {color: #44657b;}
+
+/*收起后的样式*/
+.navbar-static-side.smallside .logo {background-image: url(../images/newlogo2.png);}
+.navbar-static-side.smallside .system-user .imgbox { width: 40px; height: 40px; }
+.navbar-static-side.smallside .system-user .job {display: none;}
+.navbar-static-side.smallside .switchBar i { background-image:url(../images/openbar.png);margin-left: 15px;}
+.navbar-static-side.smallside .system-user .switchBar p {display: none;}
+.navbar-static-side.smallside .nav>li>a {overflow: hidden;}
+.navbar-static-side.smallside .nav-second-level { width: 110px;position: absolute; top: 50px; right: 0px; background-color: #2f3b45; }
+.navbar-static-side.smallside .nav-second-level li a {padding-left: 8px;}
+.navbar-static-side.smallside .nav-label {display: none;padding-left: 12px;}
+.navbar-static-side.smallside .nav>li>a em.i-liarrow {display: none;}
+.navbar-static-side.smallside .nav>li.lihover>a em.i-liarrow {display: block;}
+.navbar-static-side.smallside .edition{width: 50px;}
+.navbar-static-side.smallside .editionWords{display: none;}
+.nav:after {content:".";display:block;height:0;clear:both;visibility:hidden;}
+.nav>li {
+	position: relative;
+}
+.nav>li.lihover {
+	background-color:#3ca0ff;
+	color:#fff
+}
+.nav>li.lihover>a {
+	color:#fff
+}
+
+.nav>li>a {
+	color:#7194ad;
+	font-size: 14px;
+	height: 50px;
+	line-height: 50px;
+	padding-left: 46px;
+	display:block;
+	border-left:4px solid transparent;
+	position: relative;
+}
+.nav.navbar-right>li>a {
+	color:#fff
+}
+.nav>li.active>a {
+	background-color:#3ca0ff;
+	color:#fff
+}
+.nav>li>a:hover {
+	color: #fff;
+}
+.nav-second-level>li>a.active {
+	/*background-color:#fff;*/
+	color:#3ca0ff
+}
+.nav .open>a,.nav .open>a:focus,.nav .open>a:hover {
+	background:#fff
+}
+.nav>li>a i {
+	width:20px; 
+	height: 20px;
+	position: absolute;
+	top: 15px;
+	left: 13px;
+	display: inline-block;
+}
+.nav>li>a em.i-liarrow {
+	width: 10px;
+	height: 6px;
+	position: absolute;
+	right:10px;
+	top:22px;
+	background: url(../images/liarrow.png) no-repeat;
+	display: none;
+}
+.nav>li.active>a em.i-liarrow{
+	display: block;
+}
+.nav>li.active>a {
+	border-left:4px solid #52abff;
+	background-color:#3ca0ff;
+	color:#fff;
+}
+.nav-second-level,.nav-third-level{
+	display: none;
+	background-color: #2f3b45;
+}
+.nav.nav-second-level>li.active {
+	border:none
+}
+.nav.nav-second-level>li a:hover {
+	color: #3ca0ff;
+}
+.nav.nav-second-level.collapse[style] {
+	height:auto!important
+}
+.nav .i-organization { background: url(../images/sideBarIcon.png) 0 0 no-repeat; }/*组织架构*/
+.nav .i-permission { background: url(../images/sideBarIcon.png) 50% 0 no-repeat; }/*权限管理*/
+.nav .i-info { background: url(../images/sideBarIcon.png) 100% 0 no-repeat; }/*人员信息管理*/
+
+
+
+.nav>li.active .i-organization { background: url(../images/sideBarIcon.png) 0 100% no-repeat; }/*组织架构*/
+.nav>li.active .i-permission { background: url(../images/sideBarIcon.png) 50% 100% no-repeat; }/*权限管理*/
+.nav>li.active .i-info { background: url(../images/sideBarIcon.png) 100% 100% no-repeat; }/*人员信息管理*/
+
+
+.nav>li>a:hover .i-organization { background: url(../images/sideBarIcon.png) 0 100% no-repeat; }/*组织架构*/
+.nav>li>a:hover .i-permission { background: url(../images/sideBarIcon.png) 50% 100% no-repeat; }/*权限管理*/
+.nav>li>a:hover .i-info { background: url(../images/sideBarIcon.png) 100% 100% no-repeat; }/*人员信息管理*/
+
+.nav>li.lihover .i-organization { background: url(../images/sideBarIcon.png) 0 100% no-repeat; }/*组织架构*/
+.nav>li.lihover .i-permission { background: url(../images/sideBarIcon.png) 50% 100% no-repeat; }/*权限管理*/
+.nav>li.lihover .i-info { background: url(../images/sideBarIcon.png) 100% 100% no-repeat; }/*人员信息管理*/
+
+.fa-arrow{
+	background: url(../images/arrow-r.png); 
+}
+.active>a>.fa-arrow {
+	width: 12px; height: 10px;
+	background: url(../images/arrowon-d.png); 
+}
+.nav>li.active>a>.fa-arrow {
+	background: url(../images/arrowon-r.png); 
+}
+.nav-second-level li,.nav-third-level li {
+	border-bottom:none!important
+}
+.nav-second-level li a {
+	padding-left:46px;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+}
+.nav-second-level li a em.i-rightarrow {
+	width: 5px;
+	height: 10px;
+	position: absolute;
+	right:15px;
+	top:20px;
+	background: url(../images/rightarrow.png) no-repeat;
+	display: none;
+}
+.nav-second-level li a.active em.i-rightarrow{
+	display: block;
+}
+
+.nav-third-level li a {
+	padding-left:62px
+}
+.nav-second-level li:last-child {
+	/*margin-bottom:10px*/
+}
+/*子页面样式表*/
+#page-wrapper {
+    padding: 0 15px;
+    height: 100%;
+    min-height: auto;
+    position: inherit;
+    margin: 0 0 0 160px;
+}
+/* .mytopbar { height: 54px; background-color: #fff; position: relative; }
+.mytopbar .user-info { position: absolute; top: 15px; height: 30px; line-height: 30px; right: 40px; } */
+
+/*右侧顶部标签tab选项卡 begin*/
+.content-tabs {
+    position: relative;
+    height: 53px;
+    background: #fff;
+    line-height: 53px;
+    -moz-box-shadow: 0px 0px 2px rgba(000,000,000,0.1);
+    -webkit-box-shadow: 0px 0px 2px rgba(000,000,000,0.1);
+    box-shadow: 0px 0px 2px rgba(000,000,000,0.1);
+}
+.content-tabs .systemName { width: 200px; height: 53px; position:absolute;top:0;left:0; }
+.content-tabs .systemName h2 {font-size: 18px; color:#8894a4; line-height:53px; font-weight: bolder; margin-left: 20px;}
+.content-tabs .roll-nav,.page-tabs-list{position:absolute;width:53px;height:53px;text-align:center;color:#999;z-index:2;top:0}
+.content-tabs .roll-left{left:135px;border-right:solid 1px #eee}
+.content-tabs .roll-right{right:0;border-left:solid 1px #eee}
+.content-tabs button{background:#fff;border:0;height:53px;width:53px;outline:0}
+.content-tabs button .i-prev { width: 10px; height: 18px; margin: 0 auto; background: url(../images/i-prev.png) no-repeat; display: block;}
+.content-tabs button .i-next { width: 10px; height: 18px; margin: 0 auto; background: url(../images/i-next.png) no-repeat; display: block;}
+.content-tabs button:hover{background:#fafafa}
+.content-tabs button:hover .i-prev {background-image: url(../images/ih-prev.png);}
+.content-tabs button:hover .i-next {background-image: url(../images/ih-next.png);}
+nav.page-tabs{margin-left:187px;width:100000px;height:53px;overflow:hidden}
+nav.page-tabs .page-tabs-content{float:left}
+.page-tabs a{display:block;float:left; height:51px; border-right:solid 1px #f2f2f2;border-bottom: 2px solid transparent;padding:0 15px}
+.page-tabs a i:hover{color:#c00}
+.content-tabs .roll-nav:hover,.page-tabs a:hover{color:#777;background:#f6f8f8;cursor:pointer}
+.roll-right.J_tabRight{right:100px}
+.roll-right.btn-group{right:60px;width:80px;padding:0}
+.roll-right.btn-group button{width:80px}
+.roll-right.J_tabExit{background:#fff;height:40px;width:60px;outline:0}
+.dropdown-menu-right{left:auto}
+.page-tabs a{color:#999;position: relative;}
+.page-tabs a i{color:#ccc;width: 7px; height: 7px; background: url(../images/closedTab.png) no-repeat; position: absolute; top:2px;right:2px; display: none; }
+.page-tabs a.active{background:#f6f8f8;color:#7194ad; border-bottom: 2px solid #7194ad;}
+.page-tabs a:hover i {display: block;}
+
+.dropdown-menu{border:medium none;display:none;float:left;font-size:12px;left:0;list-style:none outside none;padding:0;position:absolute;text-shadow:none;top:100%;z-index:1000;border-radius:0;box-shadow:0 0 3px rgba(86,96,117,.3)}
+.dropdown-menu>li>a{border-radius:3px;color:inherit;line-height:25px;margin:4px;text-align:left;font-weight:400}
+.dropdown-menu>li>a.font-bold{font-weight:600}
+.content-tabs .outlogin { width: 100px;height: 53px;cursor: pointer;
+background:url(/src/assets/images/out_1.png)  13px center no-repeat #fff;line-height: 53px;text-indent: 38px;position:absolute;
+right: 0;top: 0;font-size: 12px;
+}
+.content-tabs .outlogin a{color:#44657b;}
+.content-tabs .outlogin:hover{background:url(/src/assets/images/out_2.png)  13px center no-repeat #fff}
+.content-tabs .outlogin:hover a{color:#fa7a74;}
+/*右侧顶部标签tab选项卡 end*/
+
+#mainbox {
+	/*height: 100%;*/
+	height: calc(100% - 93px);
+	overflow: hidden;
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+#mypage {background: #f2f4f8; padding: 20px; padding-top: 0}
+/*面包屑*/
+.crumbsbg {background-color: #f4f4f4;}
+.crumbs{height: 30px;line-height: 30px; font-size: 14px; color: #999;}
+.crumbs a{margin:0 5px; color: #999;}
+.crumbs a:hover { color: #3ba0ff; }
+
+
+

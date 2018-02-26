@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>垂直居中</title>
+	<style type="text/css">
+		.item{
+			width: 1200px;
+			border:1px solid #d1d1d1;
+			margin:0 auto;
+		}
+		.item h1{
+			width: 100%;
+			box-sizing: border-box;
+			padding-left: 100px;
+			height: 80px;
+			border-bottom: 1px solid #d1d1d1;
+			line-height: 80px;
+			margin:0;
+
+		}
+		.item .content{
+			height: 500px;
+		}
+		.item .content .part-box{
+			height: 250px;
+			border:1px solid #eee;
+			margin:100px;
+			position: relative;
+		}
+		.item .content .part-box .center-part{
+			height: 100px;
+			border:1px solid #333;
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50px);
+		}
+	</style>
+</head>
+<body>
+	<div class="item">
+		<h1>文字垂直居中</h1>
+		<div class="content"></div>
+	</div>
+	<div class="item">
+		<h1>元素垂直居中</h1>
+		<div class="content">
+			<div class="part-box">
+				<div class="center-part">一、绝对定位top:50% + transform: translateY(-50px);</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+
+
+</html>

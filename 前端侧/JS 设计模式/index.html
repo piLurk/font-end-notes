@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS设计模式</title>
+</head>
+<body>
+	<select id="select">
+		<optgroup label="创建型设计模式">
+			<option>简单工厂模式</option>
+			<option>工厂方法模式</option>
+			<option>抽象工厂模式</option>
+			<option>建造者模式</option>
+			<option>原型模式</option>
+			<option>单例模式</option>
+		</optgroup>
+		<optgroup label="结构型设计模式">
+			<option>外观模式</option>
+			<option>适配器模式</option>
+			<option>代理模式</option>
+			<option>装饰者模式</option>
+			<option>桥接模式</option>
+			<option>组合模式</option>
+			<option>享元模式</option>
+		</optgroup>
+		<optgroup label="行为型设计模式">
+			<option>模板方法模式</option>
+			<option>观察者模式</option>
+			<option>状态模式</option>
+			<option>策略模式</option>
+			<option>职责链模式</option>
+			<option>命令模式</option>
+			<option>访问者模式</option>
+			<option>中介者模式</option>
+			<option>备忘录模式</option>
+			<option>迭代器模式</option>
+			<option>解释器模式</option>
+		</optgroup>
+		<optgroup label="技巧型设计模式">
+			<option>链模式</option>
+			<option>委托模式</option>
+			<option>数据访问对象模式</option>
+			<option>节流模式</option>
+			<option>简单模板模式</option>
+			<option>惰性模式</option>
+			<option>参与者模式</option>
+			<option>等待者模式</option>
+		</optgroup>
+		<optgroup label="架构型设计模式">
+			<option>同步模块模式</option>
+			<option>异步模块模式</option>
+			<option>Widget模式</option>
+			<option>MVC模式</option>
+			<option>MVP模式</option>
+			<option>MWM模式</option>
+		</optgroup>
+		<optgroup label="司徒正美设计模式">
+			<option>种子模式</option>
+		</optgroup>
+	</select>
+	<script type="text/javascript">
+		var selectObj=document.getElementById('select');
+		var type='简单工厂模式';//默认为：'简单工厂模式'
+		selectObj.onchange=function(){
+			type=this.value;
+			factory(type);
+		}
+		var factory=function(type){
+			switch(type) {
+				case '简单工厂模式':
+					simpleFactoryFun();
+					break;
+				case '工厂方法模式':
+					factoryFun();
+					break;
+				case '抽象工厂模式':
+					vehicleFactoryFun();
+					break;
+				case '建造者模式':
+					buildFun();
+					break;
+				case '原型模式':
+					prototypeFun();
+					break;
+				case '单例模式':
+					spaceFun();
+					break;
+				case '外观模式':
+					viewFun();
+					break;
+				case '适配器模式':
+					adapter();
+					break;
+				case '代理模式':
+					simpleFactory(9);
+					break;
+				case '装饰者模式':
+					simpleFactory(10);
+					break;
+				case '桥接模式':
+					simpleFactory(11);
+					break;
+				case '组合模式':
+					simpleFactory(12);
+					break;
+				case '享元模式':
+					simpleFactory(13);
+					break;
+				case '模板方法模式':
+					simpleFactory(14);
+					break;
+				case '观察者模式':
+					simpleFactory(15);
+					break;
+				case '状态模式':
+					simpleFactory(16);
+					break;
+				case '策略模式':
+					simpleFactory(17);
+					break;
+				case '职责链模式':
+					simpleFactory(18);
+					break;
+				case '命令模式':
+					simpleFactory(19);
+					break;
+				case '访问者模式':
+					simpleFactory(20);
+					break;
+				case '中介者模式':
+					simpleFactory(21);
+					break;
+				case '备忘录模式':
+					simpleFactory(22);
+					break;
+				case '迭代器模式':
+					simpleFactory(23);
+					break;
+				case '解释器模式':
+					simpleFactory(24);
+					break;
+				case '链模式':
+					simpleFactory(25);
+					break;
+				case '委托模式':
+					simpleFactory(26);
+					break;
+				case '数据访问对象模式':
+					simpleFactory(27);
+					break;
+				case '节流模式':
+					simpleFactory(28);
+					break;
+				case '简单模板模式':
+					simpleFactory(29);
+					break;
+				case '惰性模式':
+					simpleFactory(30);
+					break;
+				case '参与者模式':
+					simpleFactory(31);
+					break;
+				case '等待者模式':
+					simpleFactory(32);
+					break;
+				case '同步模块模式':
+					simpleFactory(33);
+					break;
+				case '异步模块模式':
+					simpleFactory(34);
+					break;
+				case 'Widget模式':
+					simpleFactory(35);
+					break;
+				case 'MVC模式':
+					simpleFactory(36);
+					break;
+				case 'MVP模式':
+					simpleFactory(37);
+					break;
+				case 'MWM模式':
+					simpleFactory(38);
+				case '种子模式':
+					coreModule();
+					break;
+			}
+
+		}
+		factory(type);
+		// 1.简单工厂模式——创建同一类对象。（减少全局变量，代码量，同一管理）
+			
+			function simpleFactoryFun(){
+				// 1.1依赖于外部基类（统一一个出口，返回一个实例）
+				var Tennis=function(){
+
+				}
+				var Basball=function () {
+					
+				}
+				var Football=function(){
+
+				}
+				function SportsFactory(name){
+
+					switch(name) {
+						case 'a-sport':
+							return new Tennis();
+							break;
+						case 'b-sport':
+							return new Basball();
+							break;
+						case 'c-sport':
+							return new Football();
+							break;	
+					}
+				}
+
+				//1.2 返回一个简单对象
+				function simpleFactory(num){
+					function creatBook(name,time,type) {
+						var o={};
+						o.name=name;
+						o.time=time;
+						o.type=type;
+						if (type="") {
+							
+						}else if(type=""){
+
+						}else if (type="") {
+							
+						}
+						return o;
+					}
+				}
+			}
+			
+
+		//2.工厂模式(安全模式下) 
+		function factoryFun(){
+			var Factory=function(type,content){
+				if (this instanceof Factory) {
+					var s=new this[type](content);
+				}else{
+					return new Factory(type,content)
+				}
+			}
+			Factory.prototype={
+				Java:function(content){
+
+				},
+				Javascript:function(content){
+
+				}
+			}	
+
+		}
+		
+		//3.抽象工厂模式。上述模式都是返回一个具体的对象。当我们需要工厂返回一个一个抽象的类时。
+		function vehicleFactoryFun(){
+
+			var VehicleFactory=function (subType,superType) {
+				if (typeof VehicleFactory[superType] === 'function') {
+					function F(){
+
+					}
+					F.prototype=new VehicleFactory[superType]();
+
+					subType.constructor=subType;
+
+					subType.prototype=new F();
+				}else {
+					throw new Error('未创建该抽象类')
+				}
+
+				//汽车抽象类
+				VehicleFactory.Car=function(){
+					this.type='car'
+				}
+				VehicleFactory.Car.prototype={
+					getPrice:function(){
+						
+					}
+				}
+
+				
+			}
+		}
+
+		
+
+		// 4.建造模式。
+		function buildFun(){
+			var Human= function(param){
+				this.skill=param && param.skill || '保密';
+				this.hobby=param && param.hobby || '保密'
+			}
+
+			Human.prototype={
+				getSkill:function(){
+					return this.skill;
+				},
+				getHobby:function(){
+					return this.skill;
+				}
+			}
+			var Named=function(name){
+				var that=this;
+
+				(function(name){
+					that.wholeName=name;
+					if (name.indexOf(' ')>-1) {
+						that.firstName=name.slice(0,name.indexOf(' '));
+						that.secondName=name.slice(name.indexOf(' '));
+					}
+				})(name,that)
+			}
+
+			var Work=function(work){
+				var that=this;
+				(function(work,that){
+					switch(work) {
+						case 'code':
+							that.work=work;
+							that.workDescript='程序猿，熬夜到天亮'
+							break;
+						case 'Ui':
+							that.work=work;
+							that.workDescript='设计就是满足一切可能的需求'
+							break;
+						case 'teach':
+							that.work=work;
+							that.workDescript='教书育人'
+							break;
+						default:
+							that.work=work;
+							that.workDescript='对不起，我们不清楚您所选择的职位的相关描述'
+					}
+				})(work,that)
+			}
+
+			Work.prototype.changeWork=function(work){
+				this.work=work;
+			}
+
+			Work.prototype.changeDescript=function(setence){
+				this.workDescript=setence;
+			}
+
+			var Person=function(name,work){
+				var _person=new Human();
+				_person.name=new Named(name);
+				_person.work=new Work(work);
+
+				return _person;
+			}
+
+			var person1=new Person('tom jim','code');
+			console.log(person1);
+
+		}
+
+		//5.原型模式--(轮播图) 基类+子扩展类
+		function prototypeFun(){
+
+			var LoopImages=function(imgArr,container){
+				this.imagesArray=imgArr;
+				this.container=container;
+			}
+			LoopImages.prototype={
+				createImage:function(){
+
+				},
+				changeImage:function(){
+
+				}
+			}
+
+			var SlideLoopImg=function(imgArr,container){
+				LoopImages.call(this,imgArr,container);
+			}
+
+			SlideLoopImg.prototype=new LoopImages();
+			//重写继承的切换图片方法
+			SlideLoopImg.prototype.changeImage=function(){
+
+			}
+
+			var FadeLoopImg=function(imgArr,container,arrow){
+				LoopImages.call(this,imgArr,container);
+
+
+			}
+			FadeLoopImg.prototype=new LoopImages();
+
+			FadeLoopImg.prototype.changeImage=function(){
+
+			}
+
+		}
+		// 6.单例模式——为我们提供一个命名空间（obj.a:点语法）。单例模式管理代码库各个模块。
+
+		function spaceFun(){
+			var style={
+				g:function(id){
+					return document.getElementById(id);
+				},
+				css:function(id,key,value){
+					this.g(id).style[key] = value;
+				}
+			}
+			
+		}
+		// 7.外观模式——为一组复杂的子系统接口提供一个更高级的统一接口。由这个接口使得对子系统接口的访问更容易。
+		function viewFun(){
+			(function(){
+				console.log('g0001生效！');
+				function addEvent(dom,type,fn) {
+					if (dom.addEventListener) {
+						dom.addEventListener(type,fn,false);
+						
+					}else if(dom.attachEvent){
+						dom.attachEvent('on'+type,fn);
+					}else{
+						dom['on'+type]=fn;
+					}
+				}
+
+				var fun1=function(){
+					console.log(1);
+				}
+				var fun2=function(){
+					console.log(2);
+				}
+				var doc=document;
+				addEvent(doc,'click',fun1);
+				addEvent(doc,'click',fun2);
+			})()
+		}
+
+		// 8.适配器模式——兼容器：将一个类的接口（对象）转换为另一个接口，是类（对象）之间接口的不兼容问题通过适配器得以解决。可以理解为一个插排：适配多个插头。
+
+		function adapter(){
+			// 案例一、适配两个类似库。如 A库和jQuery库.A库绑定id事件
+			function A(){
+
+			}
+			A.on=function(id,type,fn){
+				var dom=typeof id ==='string' ? $('#'+id) : $(id);
+				dom.on(type,fn)
+			}
+
+			// 案例二、适配数据
+			var arr=['javascirpt','book','前端语言','2017-8-3'];
+
+			function arrToObjAdapter(arr){
+				return {
+					name:arr[0],
+					type:arr[1],
+					title:arr[2],
+					time:arr[3]
+				}
+			}
+			console.log(arrToObjAdapter(arr));
+		}
+
+		//9.代理模式——
+
+		// 7.核心模块——为一组复杂的子系统接口提供一个更高级的统一接口。由这个接口使得对子系统接口的访问更容易。		
+		function coreModule(){
+			let avalon;
+			avalon.mix=	function(){
+				var options,name,src,copy,copyIsArray,clone,
+					target = arguments[0] || {},
+					i = 1,
+					length = arguments.length,
+					deep = false;
+				//是否深拷贝
+				if(typeof target === 'boolean'){
+					deep = target;
+					target =arguments[1] || {};
+					i++;
+				}
+
+				//确保接受方为复杂数据类型
+				if(typeof target !== 'object' && !avalon.isFunction(target)){
+					target = {};
+				}
+
+				//如果只有一个参数，那么新成员添加与mix所在的对象上
+				if(i === length){
+					target = this;
+					i--;
+				}
+
+				for(; i < length; i++){
+					//只处理非空参数
+					if((options = arguments[i]) != null){
+						for(name in options){
+							try{
+								src = target[name];
+								copy = options[name];//当options为VBS时报错
+							} catch(e){
+								continue;
+							}
+
+							//防止循环引用
+							if(target === copy){
+								continue;
+							}
+
+							if(deep && copy && (avalon.isPlaninObject(copy) || (copyIsArray = Array.isArray(copy)))){
+								if(copyIsArray){
+									copyIsArray = false;
+									clone = src && Array.isArray(src) ? src : [];
+					
+								}else{
+									clone = src && avalon.isPlaninObject(src) ? src : {};
+								}
+								target[name] = avalon.mix(deep,clone,copy);
+
+							}else if(copy !== void 0){
+								target[name] = copy;
+							}
+
+						}
+					}
+				}
+
+				return target;
+			}
+			
+		}
+		
+
+		
+	</script>
+
+
+</body>
+</html>

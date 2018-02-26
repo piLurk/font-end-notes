@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>布局</title>
+	<style type="text/css">
+		*{margin:0;padding: 0}
+		.clearfix:after{
+			content: '.';
+			display:block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.container{ width: 1200px;margin:0 auto;}
+		.middle,.left,.right{border:1px solid black;height: 500px;}
+		.middle{width:100%;float: left;padding-left: 150px;padding-right:200px;box-sizing: border-box;;}
+		.left{margin-left: -100%;border-color: green;width:150px;float: left;box-sizing: border-box;}
+		.right{margin-left:-200px;width: 200px;border-color: red;float: left;box-sizing: border-box; }
+	
+		.middle_t{float: left;width: 100%;}
+		.middle_t .middle-inner{margin-left: 150px;margin-right: 200px;border:1px solid #000;height: 500px;box-sizing: border-box;}
+
+
+	</style>
+</head>
+<body>
+	<!-- 圣杯的 HTML 结构start -->
+	<div class="container  clearfix">
+	    <!-- 中间的 div 必须写在最前面 -->
+	    <div class="middle">中间弹性区</div>
+	    <div class="left">左边栏</div>
+	    <div class="right">右边栏</div>
+	</div>
+	<!-- 圣杯的 HTML 结构end -->
+
+	<!-- 双飞翼的 HTML 结构start -->
+	<div class="container" style="display: inline-block;">
+	    <!-- 中间的 div 必须写在最前面 -->
+	    <div class="middle_t">
+	         <div class="middle-inner">中间弹性区</div>
+	    </div>
+	    <div class="left">左边栏</div>
+	    <div class="right">右边栏</div>
+	</div>
+	<!-- 双飞翼的 HTML 结构end -->
+
+	<div style="position: relative; border:1px solid red;height: 250px;"></div>
+	<div style="position: relative;border:1px solid green;height:850px;">
+		<div style="position: relative;border:1px solid #000;margin-top:-50px;height: 450px;"></div>
+		<div style="border:1px solid red; margin-bottom: -50px;">aaaaaa</br>aaaaaaaaaa</br>aaaaaaaaaa</br>aaaaaaaaaa</br>aaaa</div>
+		<div style="position: relative; border:1px solid red;height: 250px;"></div>
+	</div>
+
+
+	<div style="height: 150px;width: 120px;border:1px solid #000;margin-top: 50px;word-break: break-all;display: table-cell;vertical-align: middle;">
+		aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+	</div>
+
+
+	<div style="width: 500px;height: 500px;border: 1px solid black;position: relative;">
+		<div style="width: 250px;height: 250px;position: absolute;top:50%;margin-top:-125px;border:1px solid green;"></div>
+		<div style="width: 25px;height: 25px;position: absolute;top: 0;right: 0;bottom: 0;left:0;margin:auto;border:1px solid red;">aa</div>
+	</div>
+
+
+</body>
+</html>

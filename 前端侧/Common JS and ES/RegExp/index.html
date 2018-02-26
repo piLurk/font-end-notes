@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js正则表达式</title>
+	<script type="text/javascript">
+
+
+		var str10='a10201';
+
+		var exp1=/\d/;
+		
+		
+
+		//懒惰模式
+		var rs1='aaabaabb'.match(/(a+?)b+?/gim);
+		console.log(rs1);
+
+		var regex = /ab{2,5}/g;
+		var string = "abc abbc abbbc abbbbc abbbbbc abbbbbbc";
+		
+
+		var colorReg=/#[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/g;
+
+		var colors='#ffb2ad #Fc01DF #FFF #ffE';
+		console.log(colors.match(colorReg));
+
+		// 时间
+
+		var timeReg=/^[01][0-9]|[2][0-3]:[0-5][0-9]$/;
+		var time1='12:56';
+		var time2='21:01';
+		var time3='24:00';
+		console.log(timeReg.test(time1));
+		console.log(timeReg.test(time2));
+		console.log(timeReg.test(time3));
+		console.log('test');
+
+		// 日期
+
+		var dateReg=/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][\d]|3[01])$/;
+		var date1='2017-01-30';
+		var date2='4017-11-01';
+		var date3='2017-05-20';
+		var date4='2017-02-31';
+		console.log(dateReg.test(date1));
+		console.log(dateReg.test(date2));
+		console.log(dateReg.test(date3));
+		console.log(dateReg.test(date4));
+
+		var result = "I\nlove\njavascript".replace(/^|$/gm, '#');
+console.log(result);
+var result = "[JS] Lesson_01.mp4".replace(/\B/g, '#');
+console.log(result);
+
+
+var num='233456647';
+
+var douhaoReg=/(?!^)(?=(\d{3})+\b)/g;
+var r=num.replace(douhaoReg,',');
+console.log(r);
+
+var reg = /(?=.*[0-9])^[0-9A-Za-z]{6,12}$/;
+var str='aaaa1aabbbb';
+console.log(reg.test(str));
+
+// 密码验证（同时具有数字,小写字母，大写字母，大于6位,小于12,不以下划线开头）
+
+var passwordReg=/^(?=.*[0-9])^(?=.*[a-z])^(?=.*[A-Z])^[^_]\w{6,12}$/
+var password1='aafaf12';
+var password2='aafaf12AAFAFAAAA';
+var password3='aaf1afFA_';
+console.log('test');
+console.log(passwordReg.test(password1));
+console.log(passwordReg.test(password2));
+console.log(passwordReg.test(password3));
+
+var regex = /(\d{4})-(\d{2})-(\d{2})/;
+var string = "2017-06-12";
+var gRex=/(\d{2})/;
+
+regex.test(string); // 正则操作即可
+console.log('test');
+console.log(gRex.test('10'));
+console.log(RegExp.$1);
+console.log(RegExp.$2);
+console.log(RegExp.$3);
+console.log(RegExp.$4);
+
+
+var replacStr='2012-10-10';
+
+
+var replaceRex=/(\d{4})-(\d{2})-(\d{2})/g;
+
+var r=replacStr.replace(replaceRex,function (a) {
+	console.log('测试');
+	console.log(a);
+	console.log('测试');
+
+	return RegExp.$1+'/'+RegExp.$2+'/'+RegExp.$3
+})
+console.log(r);
+
+var regex= /\d{4}(-|\/|\.)\d{2}\1\d{2}/;
+console.log('gg');
+console.log(regex.test('2011-02.10'));
+console.log(regex.test('2015.12.20'));
+function camelize(str) {
+	var a=str.replace(/[^^][-_\s]+(.)?/g, function(match, c) {
+		return c ? c.toUpperCase() : '';
+	})
+	return a.replace(/^[-_\s]/,'')
+}
+console.log( camelize('-moz-transform') ); 
+function titleize(str) {
+	return str.toLowerCase().replace(/(?:^|\s)\w/g, function(c) {
+		console.log(c);
+		return c.toUpperCase();
+	});
+}
+console.log( titleize('my name is epeli') ); 
+
+var phoneRex=/^(0\d{2,3}-?|\(0\d{2,3}\))[1-9]\d{6,7}$/;
+
+console.log(phoneRex.test('0551-88888888'));
+
+var str='2017.10.10';
+
+console.log(str.search('.'));
+		
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
