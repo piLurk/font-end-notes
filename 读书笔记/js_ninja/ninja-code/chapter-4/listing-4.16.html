@@ -8,8 +8,10 @@
   </head>
 
   <body>
+    <object id="obj"></object>
     <script type="text/javascript">
-
+      var o = document.getElementsByTagName('body')[0]
+      console.log(Object.prototype.toString.call(o.getAttribute))
       var ninjas = {                                                    //#1
        values: ["Dean Edwards", "Sam Stephenson", "Alex Russell"]
       };

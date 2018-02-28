@@ -7,7 +7,15 @@
   </head>
   <body>
     <script type="text/javascript">
-
+      function get(){
+        console.log(gg)
+      }
+      get()
+      setTimeout(function(){
+        get()
+      },0)
+      var gg = 'ggg';
+      
       var outerValue = 'ninja';
       var later;
 
