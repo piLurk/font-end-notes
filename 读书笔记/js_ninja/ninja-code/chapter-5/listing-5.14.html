@@ -15,12 +15,19 @@
           this._values[key] = this.apply(this, arguments);
       };
 
-      Function.prototype.memoize = function(){
-        var fn = this;                                  //#1
-        return function(){                              //#2
-          return fn.memoized.apply(fn, arguments);
-        };
-      };
+      // Function.prototype.memoize = function(){
+      //   var fn = this;                                  //#1
+      //   return function(){                              //#2
+      //     return fn.memoized.apply(fn, arguments);
+      //   };
+      // };
+
+      Function.prototype.memoize = function() {
+        var fn = this;
+        return function() {
+          return fn.memoized.apply(fn, arguments)
+        }
+      }
 
       var isPrime = (function(num) {
         var prime = num != 1;

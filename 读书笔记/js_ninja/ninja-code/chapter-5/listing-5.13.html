@@ -8,12 +8,19 @@
   <body>
     <script type="text/javascript">
 
-      Function.prototype.memoized = function(key){
-        this._values = this._values || {};                            //#1
-        return this._values[key] !== undefined ?                      //#2
+      // Function.prototype.memoized = function(key){
+      //   this._values = this._values || {};                            //#1
+      //   return this._values[key] !== undefined ?                      //#2
+      //     this._values[key] :
+      //     this._values[key] = this.apply(this, arguments);
+      // };
+
+      Function.prototype.memoized = function(key) {
+        this._values = this._values || {};
+        return this._values[key] !== undefined ? 
           this._values[key] :
-          this._values[key] = this.apply(this, arguments);
-      };
+          this._values[key] = this.apply(this, arguments)
+      }
 
       function isPrime(num) {                                         //#3
         var prime = num != 1;
@@ -28,6 +35,7 @@
 
       assert(isPrime.memoized(5), "The function works; 5 is prime."); //#4
       assert(isPrime._values[5], "The answer has been cached.");      //#4
+      console.log(isPrime._values)
 
     </script>
   </body>
