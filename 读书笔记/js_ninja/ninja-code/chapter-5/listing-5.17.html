@@ -15,9 +15,12 @@
       var divs = document.getElementsByTagName("div");  //#1
 
       for (var i = 0; i < divs.length; i++) {
-        divs[i].addEventListener("click", function() {
+        (function(i){
+          divs[i].addEventListener("click", function() {
           alert("divs #" + i + " was clicked.");        //#2
         }, false);
+        })(i)
+        
       }
     </script>
   </body>

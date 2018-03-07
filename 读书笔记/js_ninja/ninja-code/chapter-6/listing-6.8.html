@@ -8,14 +8,21 @@
   <body>
     <script type="text/javascript">
 
-      function Person(){}
+      function Person(){
+        this.hh= 'hh'
+      }
+      console.log(Person.prototype)
       Person.prototype.dance = function(){};
+      console.log(Person.prototype)
 
-      function Ninja(){}
-
+      function Ninja(){
+        this.like = 'hong'
+      }
+      
       Ninja.prototype = new Person();                         //#1
 
       var ninja = new Ninja();
+      console.log(ninja, ninja.hh)
       assert(ninja instanceof Ninja,
              "ninja receives functionality from the Ninja prototype");
       assert(ninja instanceof Person, "... and the Person prototype");

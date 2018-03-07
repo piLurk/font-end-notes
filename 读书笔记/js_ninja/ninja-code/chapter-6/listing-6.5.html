@@ -9,7 +9,9 @@
     <script type="text/javascript">
 
       function Ninja(){}
-
+      Ninja.prototype.get = function () {
+        
+      }
       var ninja = new Ninja();
 
       assert(typeof ninja == "object",                               //#1
@@ -18,7 +20,8 @@
              "instance of identifies the constructor." );
       assert(ninja.constructor == Ninja,                             //#3
              "The ninja object was created by the Ninja function.");
-
+      console.log(ninja.__proto__)
+      console.log()
     </script>
   </body>
 </html>

@@ -14,8 +14,10 @@
       function Ninja(){}                                      //#2
 
       Ninja.prototype = { dance: Person.prototype.dance };    //#3
+      Ninja.prototype.gg = function(){}
 
       var ninja = new Ninja();
+      console.log(ninja)
       assert(ninja instanceof Ninja,
              "ninja receives functionality from the Ninja prototype" );
       assert(ninja instanceof Person, "... and the Person prototype" );

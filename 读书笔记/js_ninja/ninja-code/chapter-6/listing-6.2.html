@@ -15,11 +15,14 @@
         };
       }
 
-      Ninja.prototype.swingSword = function(){               //#3
+      Ninja.prototype.swingSwor = function(){               //#3
         return this.swung;
       };
 
-      var ninja = new Ninja();                               //#4
+      var ninja = new Ninja(); 
+      console.log(ninja.__proto__)                              //#4
+      console.log(ninja.constructor)
+      console.log(ninja)
       assert(ninja.swingSword(),
              "Called the instance method, not the prototype method.");
 
