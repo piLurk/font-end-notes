@@ -10,14 +10,24 @@
 
       Object.prototype.keys = function() {                    //#1
         var keys = [];
-        for (var p in this) keys.push(p);
+        for (var p in this)
+          if(this.hasOwnProperty(p)) keys.push(p);
         return keys;
       };
 
       var obj = { a: 1, b: 2, c: 3 };                         //#2
-
+      console.log(obj.keys())
       assert(obj.keys().length == 3,                          //#3
             "There are three properties in this object.");
+      function A(){
+        this.name = 'a'
+      }
+      A.prototype.have = true;
+      A.prototype.get = function(){}
+      var a = new A();
+      console.log(a.keys())
+      
+
 
     </script>
   </body>

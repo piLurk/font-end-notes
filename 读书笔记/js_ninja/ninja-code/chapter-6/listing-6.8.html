@@ -11,9 +11,7 @@
       function Person(){
         this.hh= 'hh'
       }
-      console.log(Person.prototype)
       Person.prototype.dance = function(){};
-      console.log(Person.prototype)
 
       function Ninja(){
         this.like = 'hong'
@@ -27,7 +25,29 @@
              "ninja receives functionality from the Ninja prototype");
       assert(ninja instanceof Person, "... and the Person prototype");
       assert(ninja instanceof Object, "... and the Object prototype");
-      assert(typeof ninja.dance == "function", "... and can dance!")
+      assert(typeof ninja.dance == "function", "... and can dance!");
+
+      function A(){
+        this.aa = 'A'
+      }
+      A.prototype.type = 'dd'
+
+      function B(){
+        this.bb = 'B'
+      }
+      B.prototype = new A();
+      B.prototype.bg = 'bg'
+
+      function C(){
+        this.cc = 'C'
+        C.prototype.get = function(){};
+      }
+
+      
+
+      var c = new C();
+      console.log('start')
+      console.log(c);
 
     </script>
   </body>
