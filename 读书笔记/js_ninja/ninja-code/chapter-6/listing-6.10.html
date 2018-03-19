@@ -13,10 +13,14 @@
     </div>
 
     <script>
-      HTMLElement.prototype.remove = function() {     //#1
-        if (this.parentNode)
-          this.parentNode.removeChild(this);
-      };
+      // HTMLElement.prototype.remove = function() {     //#1
+      //   if (this.parentNode)
+      //     this.parentNode.removeChild(this);
+      // };
+      HTMLElement.prototype.remove = function(){
+        if(this.parentNode)
+          this.parentNode.removeChild(this)
+      }
 
       var a = document.getElementById("a");            //#2
       a.parentNode.removeChild(a);                     //#2
