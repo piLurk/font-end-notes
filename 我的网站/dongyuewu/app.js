@@ -11,9 +11,9 @@ app.use(cookieParser())
 //静态文件请求
 app.use(serveStatic('public'))
 
+
 //设置一个默认cookie
 app.use('/',function(req, res, next){
-	console.log(req.cookies)
 	res.cookie('islogin', 'value-from-dongyuewu.me', { maxAge: 600000 })
 	next()
 })
