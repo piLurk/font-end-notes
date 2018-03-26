@@ -2,3 +2,10 @@
 .sec_part{
   margin-bottom: 85px;
 }
+
+a.disable{
+  pointer-events: none;
+  text-decoration:none;
+  color: #999;
+  opacity: 0.4;
+}
