@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js对象</title>
+</head>
+<body>
+  <script>
+    let person = {year:17}
+    person['love'] = 'hong'
+    Object.defineProperty(person, 'name', {
+      value:'吴东岳'
+    })
+    var props_1 = Object.getOwnPropertyDescriptor(person, 'year'), 
+        props_2 = Object.getOwnPropertyDescriptor(person, 'love'),
+        props_3 = Object.getOwnPropertyDescriptor(person, 'name')
+    console.log(props_1,'\n', props_2, '\n',props_3)
+    // Object.defineProperty(person, 'name', {
+    //   value:'吴东岳',
+    //   configurable:false,
+    //   writable:true,
+    //   enumerable:true
+    // })
+    // Object.defineProperty(person, 'name', {
+    //   value:'吴东岳1',
+    //   configurable:false,
+    //   writable:false
+    // })
+
+    // console.log(person.name)
+    // delete person.name
+    // console.log(person.name)
+  </script>
+  
+</body>
+</html>
