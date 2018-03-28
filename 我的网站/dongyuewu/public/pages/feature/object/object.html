@@ -11,18 +11,37 @@
     let person = {year:17}
     person['love'] = 'hong'
     Object.defineProperty(person, 'name', {
-      value:'吴东岳'
+      value:'吴东岳',
+      configurable:true,
+      writable:true,
+      enumerable:true
+
+    })
+    // Object.defineProperty(person, 'can', {
+    //   configurable:true,
+    //   enumerable:true,
+    //   get(va1){
+    //     return val
+    //   },
+    //   set(val){
+    //     return val
+    //   }
+    // })
+    // person.can = 'swim'
+    // console.log(person.can)
+    //console.log('can', '\n', person.can, '\n', can in person)
+    
+    
+    Object.defineProperty(person, 'name', {
+      value:'吴东岳1',
+      configurable:true,
+      writable:false,
+      enumerable:true
     })
     var props_1 = Object.getOwnPropertyDescriptor(person, 'year'), 
         props_2 = Object.getOwnPropertyDescriptor(person, 'love'),
         props_3 = Object.getOwnPropertyDescriptor(person, 'name')
-    console.log(props_1,'\n', props_2, '\n',props_3)
-    // Object.defineProperty(person, 'name', {
-    //   value:'吴东岳',
-    //   configurable:false,
-    //   writable:true,
-    //   enumerable:true
-    // })
+        console.log(props_1,'\n', props_2, '\n',props_3)
     // Object.defineProperty(person, 'name', {
     //   value:'吴东岳1',
     //   configurable:false,
@@ -32,6 +51,51 @@
     // console.log(person.name)
     // delete person.name
     // console.log(person.name)
+    function Archiver () {
+      let temperature = null
+      let archive = []
+      Object.defineProperty(this, 'temperature', {
+        get: function () {
+          console.log('Get!')
+          return temperature
+        },
+        set(va1ue){
+          console.log('set')
+          return va1ue
+        }
+      })
+      this.getArchive = function () { return archive }
+    }
+      let arc = new Archiver()
+      console.log(arc, 'lla')
+      arc.temperature
+     // console.log(arc.temperature)
+      arc.temperature = 11
+      //console.log(arc.temperature)
+      arc.temperature = 13
+     // console.log(arc.temperature)
+      arc.getArchive()
+
+
+    let proto = {
+      get foo() {
+        console.log('getter')
+        return 'a'
+      },
+      set foo(x) {
+        console.log('setter: ${x}')
+      }
+    }
+
+    let obj = Object.create(proto)
+
+    Object.defineProperty(obj, 'foo', {
+      value:'b'
+    })
+    console.log(obj)
+    console.log(proto.foo)
+
+
   </script>
   
 </body>

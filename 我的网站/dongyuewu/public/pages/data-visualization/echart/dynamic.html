@@ -206,9 +206,7 @@ $.get('/data/asset/data/life-expectancy.json', function (data) {
                         return sizeFunction(val[2]);
                     }
                 }
-            ],
-            animationDurationUpdate: 1000,
-            animationEasingUpdate: 'quinticInOut'
+            ]
         },
         options: []
     };
@@ -231,6 +229,7 @@ $.get('/data/asset/data/life-expectancy.json', function (data) {
             }
         });
     }
+    console.log(JSON.stringify(option1))
 
     myChart1.setOption(option1);
 
