@@ -1,8 +1,16 @@
 date_1522201954633
 	js对象
 	xhr深度解析
-
 	复制携带版权信息
+
+date_1522289798364
+	// seletion wep api 深度解析
+	// 动画深度
+	// https证书
+	chrome使用
+
+	
+	
 
 	
 	
