@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ajax页面</title>
+</head>
+<body>
+  <script>
+    function get(option){
+      if(typeof XMLHttpRequest === 'undefined') {
+        return ;
+      }
+      var xhr = new XMLHttpRequest()
+
+      xhr.open(option.method, option.url, option.async)
+
+      const formData = new FormData();
+
+      if(option.data) {
+        Object.keys(option.data).map( (key) =>{
+          formData.append(key, option.data[key])
+        })
+      }
+      xhr.onerror = function error(e){
+        option.onerror(e) 
+      }
+      if (option.withCredentials && 'withCredentials' in xhr) {
+        xhr.withCredentials = true;
+        console.log('lal')
+      }else{
+        xhr.withCredentials = false;
+      }
+      //xhr.timeout = option.timeout
+      xhr.responseType = option.responseType;
+      
+      const headers = option.headers || {};
+
+      for (let item in headers) {
+        if (headers.hasOwnProperty(item) && headers[item] !== null) {
+          xhr.setRequestHeader(item, headers[item]);
+        }
+      }
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4 ){
+          if(xhr.status < 200 || xhr.status >= 300){
+            return option.onerror()
+          }
+          option.onsuccess()
+        }
+      }
+      xhr.send(formData)
+      return xhr
+    }  
+
+    get({
+      method:'get',
+      url:'http://dongyuewu.me/getJson/test1',
+      async:false,
+      withCredentials:true,
+      responseType:"text/json",
+      timeout:1000,
+      onerror(e){
+        console.log('错误！')
+      },
+      onsuccess(){ 
+        console.log('成功！')
+      }
+    })
+  </script>
+</body>
+</html>

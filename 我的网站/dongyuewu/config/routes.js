@@ -8,6 +8,7 @@ module.exports = function( app ) {
 
   // ajax
   app.get('/getJson/test1',function(req, res) {
+    //res.end('测试数据')
     res.json({
       code:200,
       message:'请求成功！',
