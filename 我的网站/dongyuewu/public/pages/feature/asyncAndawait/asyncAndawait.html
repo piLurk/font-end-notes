@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>async and wait</title>
+</head>
+<body>
+  <script>
+    function resolveAfter2Seconds(x){
+      return new Promise( resolve => {
+        setTimeout(() => {
+          resolve(x) 
+        },2000);
+      })
+    }
+    //需要4秒
+    async function add1(x) {
+      var a = await resolveAfter2Seconds(20)
+      var b = await resolveAfter2Seconds(45)
+      return x + a + b
+    }
+    // 需要2秒
+    async function add2(x) {
+      var a =  resolveAfter2Seconds(20)
+      var b =  resolveAfter2Seconds(45)
+      return x + await a + await b
+    }
+
+    add1(12).then( r => {
+      console.log(r)  
+    })
+  </script>
+</body>
+</html>

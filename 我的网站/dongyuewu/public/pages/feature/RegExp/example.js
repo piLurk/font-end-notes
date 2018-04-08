@@ -14,11 +14,11 @@ function formatNum(str,n){
   return str.replace(reg,',')
 }
 
+
 //去空格
 function trim(str){
-  return str.replace(/(^\s*)|(\s*$)/g, '')
+  return str.replace(/(^\s+)|(\s+$)/g, '')
 }
-
 //判读是否为质数
 function isPrime(num) {
   return !/^1?$|^(11+?)\1+$/.test(Array(num+1).join('1'))

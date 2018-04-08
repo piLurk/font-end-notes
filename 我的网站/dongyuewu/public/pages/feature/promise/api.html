@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>promise api test</title>
+</head>
+<body>
+  <script>
+    
+    /**
+     * Promse.all(iterable)
+     * 
+     * 
+    */
+    function getEmptyIterate(){
+      return []
+    }
+    function getNOtEmptyIterate(){
+      return [1,20,1]
+    }
+    function getResolveIterate(){
+      return  [Promise.resolve(33), Promise.resolve(44)];
+    }
+
+    function getPromiseIterate(){
+      var p1 = Promise.resolve(3);
+      var p2 = 1337;
+      var p3 = new Promise((resolve, reject) => {
+        setTimeout(resolve, 100, 'foo');
+      }); 
+      return [p1, p2, p3]
+    }
+    var p = Promise.all(getNOtEmptyIterate()).then((r) =>{
+      console.log(r)
+    }).catch(e => {
+     console.error(e)
+    })
+    console.log(p)
+    setTimeout(() => {
+      console.log(p,'gg')
+    });
+    
+
+    
+  </script>
+</body>
+</html>

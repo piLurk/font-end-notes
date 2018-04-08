@@ -8,7 +8,7 @@
   <body>
     <script type="text/javascript">
 
-      function upper(all,letter) { return letter.toUpperCase(); }      //#1
+      function upper(all,letter) {console.log(all); return letter.toUpperCase(); }      //#1
 
       assert("border-bottom-width".replace(/-(\w)/g,upper)             //#2
               == "borderBottomWidth",

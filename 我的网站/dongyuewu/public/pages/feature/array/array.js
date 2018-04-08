@@ -12,6 +12,9 @@
 ['a','b','c'].indexOf('b')  // 1
 
 
+// fill
+var arr = [1,2,3,4];
+arr.fill('test',2,5)
 
 
 // 数组与set集合

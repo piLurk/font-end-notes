@@ -13,7 +13,18 @@ date_1522378280949
 	忍者正则 + 深度解析
 	//seletion web api
 date_1522635982744
-	xhr深度解析 axios源码
+	xhr深度解析 
+	// axios源码
+date_1522720943014
+	async await 迭代器异步语法糖
+	promise api
+date_1522832925793
+	瀑布流（vue 块映射 渲染）
+	https://zhuanlan.zhihu.com/p/34380557
+	日历（ react 拖拽等交互 ）
+	https://zhuanlan.zhihu.com/p/35258078
+
+
 
 	
 	
