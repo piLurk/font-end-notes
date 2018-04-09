@@ -24,7 +24,16 @@ date_1522832925793
 	日历（ react 拖拽等交互 ）
 	https://zhuanlan.zhihu.com/p/35258078
 
+date_1523153094179
+	setTimeout与渐进式大量渲染
+	
 
+date_1523239494179
+	现代浏览器优化---createDocumentFragment,innerHtml实际效果接近。
+	
+	中央定时器控制
+
+	
 
 	
 	

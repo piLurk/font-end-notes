@@ -4,14 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>计时器</title>
+  <title>计时器优化大量渲染任务</title>
 </head>
 <body>
     <table><tbody></tbody></table>
   <script>
-
-      // var tbody = document.getElementsByTagName('tbody')[0];
-      // console.time('表格时间：')
+      var tbody = document.getElementsByTagName('tbody')[0];
+      var 
+          rowCount = 20000,
+          tdNum = 6;
+      /*
+      * 简单循环append
+      */
+      // console.time('script end')
+      // console.time('渲染完成');
       // for(let i = 0; i < 20000; i++) {
       //   var tr = document.createElement('tr');
       //   for(let k = 0; k < 6; k++) {
@@ -22,33 +28,99 @@
 
       //   tbody.appendChild(tr);
       // }
+      // console.timeEnd('script end')
       // setTimeout(() => {
-      //   console.timeEnd('表格时间：')
+      //   console.timeEnd('渲染完成');
       // },0);
-
+ 
+      /*
+      * 递归setTimeout append
+      */
       var 
-        rowCount = 20000,
         divideInto = 4,
         chunkSize = rowCount/divideInto,
-        iteration = 0;
-      var tbody = document.getElementsByTagName('tbody')[0];
+        iteration = 0,
+        isStart = false;
 
-      setTimeout(function generaateRows() {
+      function generaateRows() {
+        
+        if(!isStart) {
+          console.time('script end')
+          console.time('渲染完成');
+        }
         var base = chunkSize * iteration;
-        for(let i = 0; i < chunkSize; i++) {
+        for(let i = 0; i < chunkSize; i++){
           var tr = document.createElement('tr');
-          for(let k =0; k < 6; k++) {
-            var td = document.createElement('td');
-            td.appendChild(document.createTextNode((i + base) + '-' + k + '-' + iteration))
+          for(let k = 0; k < tdNum; k++) {
+            var td = document.createElement('td')
+            td.appendChild(document.createTextNode((base + i) + '-' + k + '-' + iteration))
             tr.appendChild(td)
           }
           tbody.appendChild(tr)
         }
+        if(!isStart)  {
+            isStart = true;
+            setTimeout(() => {
+              console.timeEnd('渲染完成');
+            }, 0);
+        }
         iteration++;
-        if(iteration < divideInto)
+        if(iteration < divideInto) {
           setTimeout(generaateRows, 0);
-      }, 0);
-      
+        }else{
+          console.log('iteration: '+iteration)
+          console.timeEnd('script end')
+        }
+      };
+      generaateRows()
+
+      /*
+      * innerHtml append
+      */
+
+      // var 
+      //   str =''
+        
+      // console.time('script time')
+      // console.time('渲染时间')
+      // for(let i = 0; i < rowCount; i++) {
+      //   str += '<tr>'+ generateTd(i) +'</tr>'
+      // }
+      // tbody.innerHTML = str;
+      // console.timeEnd('script time')
+      // setTimeout(() => {
+      //   console.timeEnd('渲染时间')
+      // }, 0);
+      // function generateTd(i) {
+      //   var tdStr = '';
+      //   for(let k = 0; k < tdNum; k++) {
+      //     tdStr += '<td>'+(i + '-' + k) +'</td>'
+      //   }
+      //   return tdStr;
+      // }
+
+      /*
+      *  DocumentFragment append
+      */
+      // var oFrag = document.createDocumentFragment()
+      // console.time('script time')
+      // console.time('渲染完成');
+      // for(let i = 0; i < 20000; i++) {
+      //   var tr = document.createElement('tr');
+      //   for(let k = 0; k < 6; k++) {
+      //     var td = document.createElement('td');
+      //     td.appendChild(document.createTextNode(i+ '-' + k))
+      //     tr.appendChild(td)
+      //   }
+      //   oFrag.appendChild(tr);
+      // }
+      // tbody.appendChild(oFrag)
+      // console.timeEnd('script time')
+      // setTimeout(() => {
+      //   console.timeEnd('渲染完成');
+      // },0);
+
+
   </script>
 </body>
 </html>
