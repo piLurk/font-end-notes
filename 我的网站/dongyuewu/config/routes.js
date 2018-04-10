@@ -12,7 +12,15 @@ module.exports = function( app ) {
     res.json({
       code:200,
       message:'请求成功！',
-      data:'这是数据'
+      data:'这是数据111'
+    })
+  })
+  app.get('/getJson/test2',function(req, res) {
+    //res.end('测试数据')
+    res.json({
+      code:200,
+      message:'请求成功！',
+      data:'这是数据222'
     })
   })
 }

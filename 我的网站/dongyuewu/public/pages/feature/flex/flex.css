@@ -1,0 +1,20 @@
+.flex-container {
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin:0 auto;
+}
+ 
+.flex-item {
+  padding: 5px;
+  flex-basis:auto;
+  flex-shrink: 1;
+  border:1px solid black;
+  margin: auto;
+
+}
+.flex-item:last-child {
+  margin-left: auto;
+
+}
