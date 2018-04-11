@@ -5,35 +5,157 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>div-table</title>
-  <style>
-    div:not(.tabalBox){
-      border:1px solid black;
-    }
-    .tabalBox{
-      width:1200px;
-      margin: 0 auto;
-    }
-    .table{
-      
-    }
-    .tr{
-      display: inline-block;
-    }
-    .td{
-      
-    }
-  </style>
+  <link rel="styleSheet" href="./div-table.css"> 
 </head>
 <body>
+  <table class="result">
+    <tbody id="result"></tbody>
+  </table>
+  <button id="start">开始测试</button>
+  <hr/>
   <div class="tabalBox">
-    <div class="table">
-        <div class="tr">
-          <div class="td">单元格</div>
-          <div class="td">单元格</div>
-          <div class="td">单元格</div>
-        </div>
-      </div>
+    <div id="divTable" class="table target">
+       
+    </div>
+    <table>
+      <tbody id="tbody" class="target">
+
+      </tbody>
+    </table>
   </div>
   
+  <script>
+    var test;
+    ;(function() {
+      var twrap = document.getElementById('divTable');
+      var tbody = document.getElementById('tbody');
+      var tresult = document.getElementById('result');
+      var tstart = document.getElementById('start');
+      var targets = document.getElementsByClassName('target');
+      var 
+          rowCount = 20000,
+          tdNum = 6;
+
+      test = {
+        timerId:0,
+        partId:0,
+        pause:false,
+        cicleNum:10,
+        tests:{},
+        results:{},
+        addTest(fn,name){
+          this.tests[name] = fn;
+        },
+        start: function runNext (){
+          var len = Object.keys(test.tests).length;
+          if(len < 1){
+            return test.getResult();
+          }
+          var num = test.cicleNum;
+          var item = Object.keys(test.tests)[0];
+           
+            (function generateRows() {
+              
+              var start;
+              if (num < 1) {
+                delete test.tests[item]
+                return runNext();
+              }
+              test.emputyWrap();           
+              start = window.performance.now();
+              // append
+              test.tests[item]()
+
+              test.timerId = setTimeout(() => {
+                var time = window.performance.now() - start;
+                if(test.results[item] === undefined) test.results[item] = [];
+                test.results[item].push(time)
+                num--;
+                generateRows()
+              },0)
+            })()
+          
+          
+        },
+        emputyWrap(){
+          Array.prototype.map.call(targets, (item) => {
+            item.innerHTML = '';
+          })
+        },
+        stop: function() {
+          clearTimeout(this.timerID)
+          this.pause = true;
+        },
+        getResult(){
+          var results = this.results;
+          for(let i in results) {
+            var tr = document.createElement('tr');
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode(i))
+            tr.appendChild(td)
+            var average = 0;
+            for(let k = 0; k < results[i].length; k++) {
+              var td = document.createElement('td');
+              var num = results[i][k].toFixed(3);
+              average += results[i][k]/results[i].length;
+              td.appendChild(document.createTextNode(num))
+              tr.appendChild(td)
+
+              if(k + 1 === results[i].length){
+                var td = document.createElement('td');
+                td.appendChild(document.createTextNode(average.toFixed(3)));
+                tr.appendChild(td);
+              }
+            }
+            tresult.appendChild(tr);
+          }
+        }
+      }
+      test.addTest(generateTableTest,'table')
+      test.addTest(generateFlexTest, 'flex')
+
+      tstart.onclick = function() {
+        test.start()
+      }
+      
+
+      function generateTableTest() {
+
+        for(let i = 0; i < rowCount; i++) {
+          var tr = document.createElement('tr');
+          for(let k = 0; k < tdNum; k++) {
+            var td = document.createElement('td');
+            td.appendChild(document.createTextNode(i+ '-' + k))
+            tr.appendChild(td)
+          }
+          tbody.appendChild(tr);
+        }
+
+      }
+
+      function generateFlexTest() {
+
+        for(let i = 0; i < rowCount; i++) {
+          var tr = document.createElement('div');
+          tr.className = 'tr';
+          for(let k = 0; k < tdNum; k++) {
+            var td = document.createElement('div');
+            td.className = 'td';
+            td.appendChild(document.createTextNode(i+ '-' + k))
+            tr.appendChild(td)
+          }
+          twrap.appendChild(tr);
+        }
+
+      }
+
+
+        
+
+
+        
+      })()
+    
+  </script>
 </body>
 </html>
