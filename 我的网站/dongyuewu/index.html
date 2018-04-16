@@ -6,8 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>dongyuewu.me主页</title>
   <link rel="stylesheet" href="/lib/css/base.css">
+  <script src='http://room.jiangroom.com/js/jquery.js'></script>
 </head>
 <body>
+  <div id="xss" >
+    <!--  -->
+  </div>
   <section class="sec_part">
     <h1>跨域</h1>
     <div class="item_wrap">
@@ -272,5 +276,22 @@
       </div>
   </section>
   
+  <script>
+      function escape(s) {
+          var _map ={
+            "<":"&lt;",
+            ">":"&gt;"
+          }
+          return s.replace(/[<>]/g, function(match){
+            return _map[match]
+          })
+      };
+      var str ='[0xc0]\u003cimg src=1 onerror=alert(/xss/) [0xc0]\u003e';
+      var xss= document.getElementById('xss');
+      console.log(escape(str))
+      $(xss).append(escape(str));
+  
+    </script>
+    
 </body>
 </html>

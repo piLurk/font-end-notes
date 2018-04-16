@@ -1,0 +1,25 @@
+{
+  "name": "webpack-build",
+  "version": "1.0.0",
+  "description": "test",
+  "scripts": {
+    "server": "supervisor app.js",
+    "build": "webpack --mode production"
+  },
+  "author": "wudongyue",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.3",
+    "http-proxy-middleware": "^0.18.0",
+    "serve-static": "^1.13.2",
+    "vue": "^2.5.16",
+    "webpack-cli": "^2.0.14"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.11",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.5.0"
+  }
+}

@@ -13,11 +13,11 @@
   </table>
   <button id="start">开始测试</button>
   <hr/>
-  <div class="tabalBox">
+  <div class="tabalBox" style="display:none">
     <div id="divTable" class="table target">
        
     </div>
-    <table>
+    <table style="display:none">
       <tbody id="tbody" class="target">
 
       </tbody>
@@ -33,7 +33,7 @@
       var tstart = document.getElementById('start');
       var targets = document.getElementsByClassName('target');
       var 
-          rowCount = 20000,
+          rowCount = 5000,
           tdNum = 6;
 
       test = {

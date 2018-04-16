@@ -29,7 +29,7 @@ date_1523153094179
 	
 
 date_1523239494179
-	现代浏览器优化---createDocumentFragment,innerHtml实际效果接近。
+	现代浏览器优化---createDocumentFragment,innerHtml，appendChild实际效果接近。
 	
 	中央定时器控制
 
@@ -38,11 +38,16 @@ date_1523324745532
 
 	弹性布局
 
-	分段渲染优化（vue）
 	
+date_1523413147769
+	弹性盒模型补完
 
+	关于渲染速度的计算与呈现
+
+date_1523499682155
+	忍者 --  关于js求值	
 	
-	
+	jqury grid 中的算法（是否可移植）
 
 	
 	
