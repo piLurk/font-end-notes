@@ -10,10 +10,10 @@ module.exports = {
   output: {
     path:path.resolve(__dirname, './dist'),
     publicPath:'/dist/',
-    filename:'/static/js/[name].[chunkhash].js'
+    filename:'./static/js/[name].[hash:8].js'
   },
   externals:{
-    vue:"vue"
+
   },
   resolve:{
     alias: {
