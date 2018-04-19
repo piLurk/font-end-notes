@@ -1,23 +1,25 @@
+
 <template>
-  <div class="tableWrap">
-    <table>
-      <div
+  <div class="tableBox">
+    <slot></slot>
+    <table class="modtable">
+      <template
       v-if="showHeader"
       class="el-table__header-wrapper"
       ref="headerWrapper">
-      <table-header
+      <my-table-header
         ref="tableHeader"
         :labels="labels"
         :border="border"
         :default-sort="defaultSort"
       >
-      </table-header>
-    </div>
-      <table-body
-        :data="dataList"
-        :props="props"
+      </my-table-header>
+    </template>
+      <my-table-body
+        :data="data"
+        :keys="props"
       >
-      </table-body>
+      </my-table-body>
     </table>
   </div>
 </template>
@@ -25,9 +27,8 @@
 <script>
 
 
-import MyTableBody from "./table-body"
-import MyTableHeader from "./table-header"
-
+import MyTableBody from "./table-body.vue"
+import MyTableHeader from "./table-header.vue"
 export default {
   name:'MyTable',
 
@@ -58,7 +59,6 @@ export default {
       props:[],
       showItems:[],
       defaultSort:[],
-
     }
   },
   computed:{
@@ -70,7 +70,7 @@ export default {
   },
   methods:{
     addHeader({label, prop}){
-      if(this.labels.indexOf(label) !== -1) {
+      if(this.labels.indexOf(label) === -1) {
         this.labels.push(label)
         this.props.push(prop)
       }
@@ -79,5 +79,4 @@ export default {
   }
 
 }
-
 </script>
