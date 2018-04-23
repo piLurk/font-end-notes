@@ -1,9 +1,5 @@
 <template>
   <div id="tablePage">
-    <h1>这里是表格</h1>
-
-    
-
 
     <my-table
       :data="tableList"
@@ -13,18 +9,34 @@
         prop="name"
         label="客户姓名"
       ></my-table-column>
-
       <my-table-column
         prop="name"
         label="客户姓名"
       ></my-table-column>
-
       <my-table-column
         prop="year"
         label="年龄"
       ></my-table-column>
-    
     </my-table>
+
+    </hr>
+
+    <el-table
+      :data="tableList">
+      <el-table-column
+      label="序号"
+      type="index"
+      width="50">
+      </el-table-column>
+      <el-table-column
+        prop="year"
+        label="年龄"
+      ></el-table-column>
+      <el-table-column
+        prop="year"
+        label="年龄"
+      ></el-table-column>
+    </el-table>
   </div>
 </template>
 

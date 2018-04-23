@@ -25,10 +25,14 @@
 </template>
 
 <script>
-
-
 import MyTableBody from "./table-body.vue"
 import MyTableHeader from "./table-header.vue"
+
+
+import TableStore from './table-store';
+
+// 表id 
+  let tableIdSeed = 1;
 export default {
   name:'MyTable',
 
@@ -47,6 +51,14 @@ export default {
     border: {
       type: Boolean,
       default: true
+    },
+    defaultExpandAll: {
+      type: Boolean,
+      default: false
+    },
+    selectOnIndeterminate: {
+      type: Boolean,
+      default: true
     }
   },
   components: {
@@ -54,9 +66,17 @@ export default {
     MyTableHeader
   },
   data() {
+    const store = new TableStore(this, {
+      // 是否默认打开展开
+      defaultExpandAll: this.defaultExpandAll,
+      // 点击表头多选框，全选。
+      selectOnIndeterminate: this.selectOnIndeterminate
+    });
+    
     return {
       labels:[],
       props:[],
+      store,
       showItems:[],
       defaultSort:[],
     }
@@ -75,7 +95,9 @@ export default {
         this.props.push(prop)
       }
     },
-
+  },
+  created() {
+    this.tableId = 'el-table_' + tableIdSeed++;
   }
 
 }

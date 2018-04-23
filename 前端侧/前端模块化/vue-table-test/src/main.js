@@ -5,8 +5,11 @@ import mytable from '../table'
 import '../table/lib/css/base.css'
 Vue.use(mytable)
 
-import 'element-ui/lib/theme-default/index.css'
+
+
+
 // //引入elementUI组件
+import 'element-ui/lib/theme-chalk/index.css';
 import ElementUI from 'element-ui'
 Vue.use(ElementUI)
 
