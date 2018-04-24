@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="styleSheet" href="./a.css">
+  <script type="text/javascript" src="/lib/js/jquery.js"></script>
+</head>
+<body>
+    <div class="toolBox">
+      <span id="priceBtn">价格&nbsp;</span>
+      <span id="areaBtn">面积&nbsp;</span>
+    </div>
+    <div class="wrap">
+        <div class="flex-container">
+          <li class="flex-item" style="order: 1;">1<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 2;">2<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 3;">3<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 4;">4<img src="/lib/images/advertisement.jpg"></li>
+        </div>
+        <div class="flex-container">
+            <li class="flex-item" style="order: 1;">1<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 2;">2<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 3;">3<img src="/lib/images/advertisement.jpg"></li>
+          <li class="flex-item" style="order: 4;">4<img src="/lib/images/advertisement.jpg"></li>
+          </div>
+          <div class="flex-container">
+            <li class="flex-item" style="order: 1;">1<img src="/lib/images/advertisement.jpg"></li>
+            <li class="flex-item" style="order: 2;">2<img src="/lib/images/advertisement.jpg"></li>
+            <li class="flex-item" style="order: 3;">3<img src="/lib/images/advertisement.jpg"></li>
+            <li class="flex-item" style="order: 4;">4<img src="/lib/images/advertisement.jpg"></li>
+          </div>
+    </div>
+    
+    <script>
+
+      $('#priceBtn').click( function () {
+        $('.flex-container').toggleClass('reverse')
+      })
+      $('#areaBtn').click( function () {
+        
+      })
+      // 初始化一个数组
+      [{
+        price:1001,
+        area:20,
+      },{
+        price:1001,
+        area:20,
+      }]
+    </script>
+</body>
+</html>

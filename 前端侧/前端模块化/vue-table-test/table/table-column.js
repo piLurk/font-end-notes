@@ -1,7 +1,33 @@
 
 import objectAssign from './util/merge';
 
-
+// 生成column组件id
+let columnIdSeed = 1;
+// 默认项配置
+const defaults = {
+  default: {
+    order: ''
+  },
+  selection: {
+    width: 48,
+    minWidth: 48,
+    realWidth: 48,
+    order: '',
+    className: 'el-table-column--selection'
+  },
+  expand: {
+    width: 48,
+    minWidth: 48,
+    realWidth: 48,
+    order: ''
+  },
+  index: {
+    width: 48,
+    minWidth: 48,
+    realWidth: 48,
+    order: ''
+  }
+};
 // 不同类型的header模板
 const forced = {
   selection: {
@@ -57,6 +83,28 @@ const forced = {
   }
 };
 
+const getDefaultColumn = function(type, options) {
+  const column = {};
+
+  objectAssign(column, defaults[type || 'default']);
+
+  for (let name in options) {
+    if (options.hasOwnProperty(name)) {
+      const value = options[name];
+      if (typeof value !== 'undefined') {
+        column[name] = value;
+      }
+    }
+  }
+
+  if (!column.minWidth) {
+    column.minWidth = 80;
+  }
+
+  column.realWidth = column.width === undefined ? column.minWidth : column.width;
+
+  return column;
+};
 
 // 格式化宽度
 const parseWidth = (width) => {
@@ -68,6 +116,7 @@ const parseWidth = (width) => {
   }
   return width;
 };
+
 // 格式化最小宽度
 const parseMinWidth = (minWidth) => {
   if (minWidth !== undefined) {
@@ -79,8 +128,7 @@ const parseMinWidth = (minWidth) => {
   return minWidth;
 };
 
-// 生成column组件id
-let columnIdSeed = 1;
+
 
 export default {
   name: 'MyTableColumn',
@@ -204,13 +252,25 @@ export default {
       filterPlacement: this.filterPlacement || '',
       index: this.index
     });
-    
+    // 调整
     objectAssign(column, forced[type] || {});
-
+    
     this.columnConfig = column;
   },
   mounted() {
+    const owner = this.owner;
+    const parent = this.columnOrTableParent;
+    let columnIndex;
 
+    if (!this.isSubColumn) {
+      // console.log('gaga', parent.$refs)
+      columnIndex = [].indexOf.call(parent.$refs.hiddenColumns.children, this.$el);
+    } else {
+      console.log('wa')
+      columnIndex = [].indexOf.call(parent.$el.children, this.$el);
+    }
+
+    owner.store.commit('insertColumn', this.columnConfig, columnIndex, this.isSubColumn ? parent.columnConfig : null);
   },
   render(h) {
 

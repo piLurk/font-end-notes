@@ -16,8 +16,7 @@
       </my-table-header>
     </template>
       <my-table-body
-        :data="data"
-        :keys="props"
+        :store="store"
       >
       </my-table-body>
     </table>
@@ -88,6 +87,14 @@ export default {
       })
     }
   },
+  watch: {
+    data: {
+      immediate: true,
+      handler(value) {
+        this.store.commit('setData', value)
+      }
+    }
+  },
   methods:{
     addHeader({label, prop}){
       if(this.labels.indexOf(label) === -1) {
@@ -95,9 +102,18 @@ export default {
         this.props.push(prop)
       }
     },
+    updateScrollY() {
+      this.layout.updateScrollY();
+      this.layout.updateColumnsWidth();
+    },
   },
   created() {
     this.tableId = 'el-table_' + tableIdSeed++;
+  },
+  mounted() {
+
+    //更新列
+    this.store.updateColumns();
   }
 
 }

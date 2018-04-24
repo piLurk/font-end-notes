@@ -1,14 +1,11 @@
 <template>
   <div id="tablePage">
-
     <my-table
-      :data="tableList"
-    >
+      :data="tableList">
       <my-table-column
         type="index"
-        prop="name"
-        label="客户姓名"
-      ></my-table-column>
+        label="序号"
+        ></my-table-column>
       <my-table-column
         prop="name"
         label="客户姓名"
@@ -29,8 +26,8 @@
       width="50">
       </el-table-column>
       <el-table-column
-        prop="year"
-        label="年龄"
+        prop="name"
+        label="客户姓名"
       ></el-table-column>
       <el-table-column
         prop="year"
@@ -45,7 +42,7 @@
 export default {
   data() {
     return {
-      tableList:[{name:'tom',year:17}]
+      tableList:[{name:'tom',year:17,like:"women",want:'nobug'},{name:'jim',year:21,like:"sweet",want:'money'}]
     }
   },
 

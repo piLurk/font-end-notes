@@ -1,4 +1,5 @@
 
+import Vue from 'vue';
 import debounce from 'throttle-debounce/debounce';
 
 
@@ -135,6 +136,8 @@ const TableStore = function(table, initialState = {}) {
 
 TableStore.prototype.mutations = {
   setData(states, data) {
+
+    
     const dataInstanceChanged = states._data !== data;
     states._data = data;
 
@@ -149,11 +152,12 @@ TableStore.prototype.mutations = {
       }
     });
 
+    
     states.filteredData = data;
     states.data = sortData((data || []), states);
 
     this.updateCurrentRow();
-
+    
     if (!states.reserveSelection) {
       if (dataInstanceChanged) {
         this.clearSelection();
@@ -573,9 +577,12 @@ TableStore.prototype.updateCurrentRow = function() {
 };
 
 TableStore.prototype.commit = function(name, ...args) {
+  
   const mutations = this.mutations;
   if (mutations[name]) {
+    
     mutations[name].apply(this, [this.states].concat(args));
+    
   } else {
     throw new Error(`Action not found: ${name}`);
   }
