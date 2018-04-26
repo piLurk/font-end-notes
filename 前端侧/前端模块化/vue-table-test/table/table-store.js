@@ -1,6 +1,7 @@
 
 import Vue from 'vue';
 import debounce from 'throttle-debounce/debounce';
+import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 
 const sortData = (data, states) => {
@@ -190,7 +191,7 @@ TableStore.prototype.mutations = {
       this.states.expandRows = (states.data || []).slice(0);
     }
 
-    Vue.nextTick(() => this.table.updateScrollY());
+    // Vue.nextTick(() => this.table.updateScrollY());
   },
 
   changeSortCondition(states, options) {
@@ -204,7 +205,7 @@ TableStore.prototype.mutations = {
       });
     }
 
-    Vue.nextTick(() => this.table.updateScrollY());
+    // Vue.nextTick(() => this.table.updateScrollY());
   },
 
   filterChange(states, options) {
@@ -241,47 +242,52 @@ TableStore.prototype.mutations = {
       this.table.$emit('filter-change', filters);
     }
 
-    Vue.nextTick(() => this.table.updateScrollY());
+    // Vue.nextTick(() => this.table.updateScrollY());
   },
 
-  insertColumn(states, column, index, parent) {
-    let array = states._columns;
-    if (parent) {
-      array = parent.children;
-      if (!array) array = parent.children = [];
-    }
+  insertColumn(states, column, index ) {
+
+    
+    let array = states.columns;
+    // if (parent) {
+    //   array = parent.children;
+    //   if (!array) array = parent.children = [];
+    // }
 
     if (typeof index !== 'undefined') {
       array.splice(index, 0, column);
     } else {
       array.push(column);
     }
+    
 
     if (column.type === 'selection') {
       states.selectable = column.selectable;
       states.reserveSelection = column.reserveSelection;
     }
-
-    if (this.table.$ready) {
-      this.updateColumns(); // hack for dynamics insert column
-      this.scheduleLayout();
-    }
+    
+ 
+    
+    // if (this.table.$ready) {
+    //   this.updateColumns(); // hack for dynamics insert column
+    //   this.scheduleLayout();
+    // }
   },
 
-  removeColumn(states, column, parent) {
-    let array = states._columns;
-    if (parent) {
-      array = parent.children;
-      if (!array) array = parent.children = [];
-    }
+  removeColumn(states, column) {
+    let array = states.columns;
+    // if (parent) {
+    //   array = parent.children;
+    //   if (!array) array = parent.children = [];
+    // }
     if (array) {
       array.splice(array.indexOf(column), 1);
     }
 
-    if (this.table.$ready) {
-      this.updateColumns(); // hack for dynamics remove column
-      this.scheduleLayout();
-    }
+    // if (this.table.$ready) {
+    //   this.updateColumns(); // hack for dynamics remove column
+    //   this.scheduleLayout();
+    // }
   },
 
   setHoverRow(states, row) {
@@ -355,6 +361,7 @@ const doFlattenColumns = (columns) => {
 };
 
 TableStore.prototype.updateColumns = function() {
+  console.log("guaaaa")
   const states = this.states;
   const _columns = states._columns || [];
   states.fixedColumns = _columns.filter((column) => column.fixed === true || column.fixed === 'left');
@@ -367,7 +374,7 @@ TableStore.prototype.updateColumns = function() {
 
   const notFixedColumns = _columns.filter(column => !column.fixed);
   states.originColumns = [].concat(states.fixedColumns).concat(notFixedColumns).concat(states.rightFixedColumns);
-  console.log('states.originColumns', JSON.stringify(states.originColumns));
+
   const leafColumns = doFlattenColumns(notFixedColumns);
   const fixedLeafColumns = doFlattenColumns(states.fixedColumns);
   const rightFixedLeafColumns = doFlattenColumns(states.rightFixedColumns);

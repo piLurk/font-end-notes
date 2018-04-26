@@ -1,6 +1,7 @@
 
 <template>
   <div class="tableBox">
+     {{store.states.columns}}
     <slot></slot>
     <table class="modtable">
       <template
@@ -9,6 +10,7 @@
       ref="headerWrapper">
       <my-table-header
         ref="tableHeader"
+        :store="store"
         :labels="labels"
         :border="border"
         :default-sort="defaultSort"
@@ -24,8 +26,8 @@
 </template>
 
 <script>
-import MyTableBody from "./table-body.vue"
-import MyTableHeader from "./table-header.vue"
+import MyTableBody from "./table-body.js"
+import MyTableHeader from "./table-header"
 
 
 import TableStore from './table-store';
@@ -113,7 +115,7 @@ export default {
   mounted() {
 
     //更新列
-    this.store.updateColumns();
+    // this.store.updateColumns();
   }
 
 }

@@ -260,17 +260,10 @@ export default {
   mounted() {
     const owner = this.owner;
     const parent = this.columnOrTableParent;
-    let columnIndex;
+    var columnIndex;
+    // columnIndex = [].indexOf.call(parent.$el.children, this.$el);
 
-    if (!this.isSubColumn) {
-      // console.log('gaga', parent.$refs)
-      columnIndex = [].indexOf.call(parent.$refs.hiddenColumns.children, this.$el);
-    } else {
-      console.log('wa')
-      columnIndex = [].indexOf.call(parent.$el.children, this.$el);
-    }
-
-    owner.store.commit('insertColumn', this.columnConfig, columnIndex, this.isSubColumn ? parent.columnConfig : null);
+    owner.store.commit('insertColumn', this.columnConfig, columnIndex );
   },
   render(h) {
 

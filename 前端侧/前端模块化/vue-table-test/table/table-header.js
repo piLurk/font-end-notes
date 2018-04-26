@@ -3,6 +3,9 @@
 export default {
   name:'MyTableHead',
   props: {
+    store:{
+      require:true
+    },
     labels:{
       type: Array,
       default: function() {
@@ -10,13 +13,20 @@ export default {
       }
     }
   },
+  computed:{
+    columns(){
+      return this.store.states.columns
+    }
+  },
   render(h) {
     return (
-      '<thead>\
-        <tr>\
-          <td v-for="(item, key) in labels" v-text="item"></td>\
-        </tr>\
-      </thead>'
+      <thead>
+        <tr>
+          {
+            this._l(this.columns, column => <th>{ column.label }</th>)
+          }
+        </tr>
+      </thead>
     )
   }
 }
