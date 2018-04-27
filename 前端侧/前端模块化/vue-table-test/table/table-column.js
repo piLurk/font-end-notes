@@ -196,13 +196,12 @@ export default {
       while (parent && !parent.tableId && !parent.columnId) {
         parent = parent.$parent;
       }
-      return parent;
+      return parent;                              `                                                                                                                                                                                       `
     }
   },
   created() {
     let owner = this.owner;
 
-    owner.addHeader({label:this.label, prop: this.prop})
 
     let parent = this.columnOrTableParent;
     this.isSubColumn = owner !== parent;
@@ -211,6 +210,7 @@ export default {
 
 
     let type = this.type;
+
 
     const width = parseWidth(this.width);
     const minWidth = parseMinWidth(this.minWidth);
@@ -252,10 +252,28 @@ export default {
       filterPlacement: this.filterPlacement || '',
       index: this.index
     });
+
+
     // 调整
     objectAssign(column, forced[type] || {});
     
     this.columnConfig = column;
+
+    var _self = this;
+    if(type === 'expand') {
+      // scopedSlots可以通过$scopedSlots.default(data)直接传递数据。
+      owner.renderExpanded = function(h, data) {
+        return _self.$scopedSlots.default
+          ? _self.$scopedSlots.default(data)
+          : _self.$slots.default;
+      }
+      owner.store.commit('setRowExpanded', true)
+    }
+
+    // 如果是section ,在原始数据上内部添加_selected字段
+    if(type === 'section') {
+      owner.store.commit('setRowSelection', true)
+    } 
   },
   mounted() {
     const owner = this.owner;
@@ -264,9 +282,11 @@ export default {
     // columnIndex = [].indexOf.call(parent.$el.children, this.$el);
 
     owner.store.commit('insertColumn', this.columnConfig, columnIndex );
+
+    
   },
   render(h) {
-
+    
   }
 
 

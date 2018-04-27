@@ -1,7 +1,6 @@
 
 <template>
   <div class="tableBox">
-     {{store.states.columns}}
     <slot></slot>
     <table class="modtable">
       <template
@@ -98,12 +97,6 @@ export default {
     }
   },
   methods:{
-    addHeader({label, prop}){
-      if(this.labels.indexOf(label) === -1) {
-        this.labels.push(label)
-        this.props.push(prop)
-      }
-    },
     updateScrollY() {
       this.layout.updateScrollY();
       this.layout.updateColumnsWidth();
@@ -120,3 +113,34 @@ export default {
 
 }
 </script>
+
+<style>
+  .section-td{
+    width:40px;
+  }
+  .section-td .section-checkbox{
+    position:relative;
+    display:inline-block;
+    width:14px;
+    height:14px;
+    border:1px solid #efefef;
+    cursor:pointer;
+    background-color:#409EFF;
+  }
+  .section-td .section-checkbox::after{
+    box-sizing: content-box;
+    content: "";
+    border: 1px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    height: 8px;
+    left: 5px;
+    position: absolute;
+    top: 1px;
+    transform: rotate(45deg);
+    width: 3px;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+  }
+  
+</style>

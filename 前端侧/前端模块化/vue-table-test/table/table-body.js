@@ -14,17 +14,49 @@ export default {
     },
   },
   methods:{
-    getCells(item, index){
-      console.log('ggga')
-      return this._l(this.columns, column => <td> { item['type'] === 'index' ? index + 1 : item[ column['property'] ] } </td>)
-    }
+    getCells(row, index){
+       return this._l(this.columns, column =>  this.getTdAppend(row, column, index) )
+    },
+    getTdAppend(row, column, index){
+      if(column['type'] === 'index') {
+        return <td> { index + 1 } </td> 
+      }
+      
+      if(column['type'] === 'expand') {
+        return (<td class = "arrowTd">
+                  <i 
+                    class="arrow"
+                  ></i>
+                </td>) 
+      }
+
+      if(column['type'] === 'section') {
+        return (<td class = "section-td">
+                  <i 
+                    class="section-checkbox"
+                    on-click={ ($event) => this.simpleSelectClick($event, row) }
+                  ></i>
+                </td>) 
+      }
+      
+      return <td> { row[ column['property'] ] } </td>
+    },
+    simpleSelectClick(event, row) {
+      this.store.commit('rowSelectedChanged', row)
+    },
   },
   computed:{
+    table() {
+      return this.$parent;
+    },
     columns(){
       return this.store.states.columns
     },
     data(){
       return this.store.states.data
+    },
+    isRowExpanded(){
+      return this.store.states.isRowExpanded;
     }
   },
   render(h) {
@@ -32,11 +64,22 @@ export default {
     return (
       <tbody>
         {
-          this._l(this.data, (item, index) => <tr>
-            {
-              this.getCells(item, index)
-            }
-          </tr> )
+          this._l(this.data, (row, index) => 
+            [
+              <tr>
+                {
+                  this.getCells(row, index)
+                }
+              </tr>,
+              this.isRowExpanded
+                ? (<tr>
+                  <td colspan={ this.columns.length }>
+                    { this.table.renderExpanded ? this.table.renderExpanded(h, {row, index}) : '' }
+                  </td>
+                </tr>)
+                : ''
+            ]
+           )
         }
       </tbody>
     )
