@@ -27,7 +27,7 @@ export default {
   methods: {
     allSelectClick(event, data) {
       // 选择或取消所有
-      
+      this.store.commit('allRowSelectedChanged')
     }
   },
   render(h) {
@@ -41,7 +41,7 @@ export default {
                     <th class = "section-td">
                       <i 
                         class="section-checkbox"
-                        on-click={ ($event) => this.allSelectClick($event, row) }
+                        on-click={ ($event) => this.allSelectClick($event) }
                       ></i>
                     </th>
                   :

@@ -45,7 +45,12 @@ const toggleRowSelection = function(states, row, selected) {
 
   return changed;
 };
-
+const getRowSelection = function(states) {
+  let data = states.data;
+  return data.filter( (item, index) => {
+    return item['selected']
+  })
+}
 const toggleRowExpansion = function(states, row, expanded) {
   let changed = false;
   const expandRows = states.expandRows;
@@ -139,7 +144,13 @@ const TableStore = function(table, initialState = {}) {
     }
   }
 };
-
+TableStore.prototype.setSelections = function(){
+  let states = this.states;
+  states.selection =  getRowSelection(states);
+  const table = this.table;
+  let selection = states.selection;
+  table.$emit('selection-change', selection ? selection.slice() : []);
+}
 TableStore.prototype.mutations = {
   setData(states, data) {
 
@@ -147,17 +158,6 @@ TableStore.prototype.mutations = {
     const dataInstanceChanged = states._data !== data;
     states._data = data;
 
-    // Object.keys(states.filters).forEach((columnId) => {
-    //   const values = states.filters[columnId];
-    //   if (!values || values.length === 0) return;
-    //   const column = getColumnById(this.states, columnId);
-    //   if (column && column.filterMethod) {
-    //     data = data.filter((row) => {
-    //       return values.some(value => column.filterMethod.call(null, value, row, column));
-    //     });
-    //   }
-    // });
-    // states.filteredData = data;
     states.data = sortData((data || []), states);
 
     // this.updateCurrentRow();
@@ -184,17 +184,27 @@ TableStore.prototype.mutations = {
   setRowSelection(states, rowSelection) {
     states.isRowSelection = rowSelection;
   },
+  toggleSelectPorp(states, hasSelectPorp){
+    let data = states.data;
+    data.forEach( ( item, index, arr ) => {
+      if(hasSelectPorp){
+        item['selected'] = item['selected'] || false;
+      }else{
+        delete item['selected']
+      }
+    })
+  },
   rowSelectedChanged(states, row) {
-    const changed = toggleRowSelection(states, row);
-    const selection = states.selection;
-
-    if (changed) {
-      const table = this.table;
-      table.$emit('selection-change', selection ? selection.slice() : []);
-      table.$emit('select', selection, row);
-    }
-    console.log('gua', selection)
-    this.updateAllSelected();
+   // const changed = toggleRowSelection(states, row);
+    row['selected'] = !row['selected'];
+    this.setSelections()
+  },
+  allRowSelectedChanged(states) {
+    let data = states.data;
+    data.forEach( (row) => {
+      row['selected'] = !row['selected']
+    });
+    this.setSelections()
   },
   changeSortCondition(states, options) {
     states.data = sortData((states.filteredData || states._data || []), states);

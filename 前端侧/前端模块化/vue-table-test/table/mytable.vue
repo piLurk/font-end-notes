@@ -10,7 +10,6 @@
       <my-table-header
         ref="tableHeader"
         :store="store"
-        :labels="labels"
         :border="border"
         :default-sort="defaultSort"
       >
@@ -25,7 +24,7 @@
 </template>
 
 <script>
-import MyTableBody from "./table-body.js"
+import MyTableBody from "./table-body"
 import MyTableHeader from "./table-header"
 
 
@@ -74,27 +73,28 @@ export default {
     });
     
     return {
-      labels:[],
       props:[],
       store,
       showItems:[],
       defaultSort:[],
     }
   },
-  computed:{
-    dataList() {
-      return this.data.filters((item) => {
-        labels.indexOf()
-      })
-    }
-  },
+  
   watch: {
     data: {
       immediate: true,
       handler(value) {
+        console.log('data set')
         this.store.commit('setData', value)
       }
+    },
+    'store.states.isRowSelection': {
+      immediate: true,
+      handler(value) {
+        this.store.commit('toggleSelectPorp', value)
+      }
     }
+
   },
   methods:{
     updateScrollY() {
@@ -102,11 +102,14 @@ export default {
       this.layout.updateColumnsWidth();
     },
   },
+  computed:{
+
+  },
   created() {
     this.tableId = 'el-table_' + tableIdSeed++;
   },
   mounted() {
-
+    // 最后父组件mounted触发
     //更新列
     // this.store.updateColumns();
   }
@@ -118,16 +121,19 @@ export default {
   .section-td{
     width:40px;
   }
-  .section-td .section-checkbox{
+  .sectionTd .section-checkbox{
     position:relative;
     display:inline-block;
     width:14px;
     height:14px;
     border:1px solid #efefef;
     cursor:pointer;
+    
+  }
+  .sectionTd .section-checkbox.isSelected{
     background-color:#409EFF;
   }
-  .section-td .section-checkbox::after{
+  .sectionTd .section-checkbox::after{
     box-sizing: content-box;
     content: "";
     border: 1px solid #fff;

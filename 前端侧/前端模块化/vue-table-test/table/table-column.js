@@ -200,6 +200,7 @@ export default {
     }
   },
   created() {
+    console.log('table-column created')
     let owner = this.owner;
 
 
@@ -262,6 +263,7 @@ export default {
     var _self = this;
     if(type === 'expand') {
       // scopedSlots可以通过$scopedSlots.default(data)直接传递数据。
+      // 这里有一个闭包，可以在owner中访问 this
       owner.renderExpanded = function(h, data) {
         return _self.$scopedSlots.default
           ? _self.$scopedSlots.default(data)
@@ -276,6 +278,7 @@ export default {
     } 
   },
   mounted() {
+    console.log('table-column mounted')
     const owner = this.owner;
     const parent = this.columnOrTableParent;
     var columnIndex;

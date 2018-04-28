@@ -33,13 +33,17 @@ export default {
       if(column['type'] === 'section') {
         return (<td class = "section-td">
                   <i 
-                    class="section-checkbox"
-                    on-click={ ($event) => this.simpleSelectClick($event, row) }
+                    class={ [{'section-checkbox':true, isSelected: this.isSelected(row)}] } 
+                    on-click={ ($event) => this. B($event, row) }
                   ></i>
                 </td>) 
       }
       
       return <td> { row[ column['property'] ] } </td>
+    },
+    isSelected(row){
+      console.log('adfafljalfja')
+      return row['selected']
     },
     simpleSelectClick(event, row) {
       this.store.commit('rowSelectedChanged', row)
@@ -53,6 +57,7 @@ export default {
       return this.store.states.columns
     },
     data(){
+      
       return this.store.states.data
     },
     isRowExpanded(){
