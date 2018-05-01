@@ -264,7 +264,7 @@ export default {
     if(type === 'expand') {
       // scopedSlots可以通过$scopedSlots.default(data)直接传递数据。
       // 这里有一个闭包，可以在owner中访问 this
-      owner.renderExpanded = function(h, data) {
+      owner.renderExpanded = function(data) {
         return _self.$scopedSlots.default
           ? _self.$scopedSlots.default(data)
           : _self.$slots.default;

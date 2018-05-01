@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import MyTableBody from "./table-body"
+import MyTableBody from "./table-body.vue"
 import MyTableHeader from "./table-header"
 
 
@@ -121,7 +121,7 @@ export default {
   .section-td{
     width:40px;
   }
-  .sectionTd .section-checkbox{
+  .section-td .section-checkbox{
     position:relative;
     display:inline-block;
     width:14px;
@@ -130,10 +130,10 @@ export default {
     cursor:pointer;
     
   }
-  .sectionTd .section-checkbox.isSelected{
+  .section-td .section-checkbox.isSelected{
     background-color:#409EFF;
   }
-  .sectionTd .section-checkbox::after{
+  .section-td .section-checkbox::after{
     box-sizing: content-box;
     content: "";
     border: 1px solid #fff;

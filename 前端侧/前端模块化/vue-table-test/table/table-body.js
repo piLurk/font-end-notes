@@ -14,6 +14,10 @@ export default {
     },
   },
   methods:{
+    updataData(){
+      var data = this.data;
+      this.data = [...this.store.states.data]
+    },
     getCells(row, index){
        return this._l(this.columns, column =>  this.getTdAppend(row, column, index) )
     },
@@ -34,7 +38,7 @@ export default {
         return (<td class = "section-td">
                   <i 
                     class={ [{'section-checkbox':true, isSelected: this.isSelected(row)}] } 
-                    on-click={ ($event) => this. B($event, row) }
+                    on-click={ ($event) => this.simpleSelectClick($event, row) }
                   ></i>
                 </td>) 
       }
@@ -42,12 +46,15 @@ export default {
       return <td> { row[ column['property'] ] } </td>
     },
     isSelected(row){
-      console.log('adfafljalfja')
       return row['selected']
     },
     simpleSelectClick(event, row) {
       this.store.commit('rowSelectedChanged', row)
+      this.updataData();
     },
+  },
+  created(){
+    this.data = this.store.states.data;
   },
   computed:{
     table() {
@@ -55,10 +62,6 @@ export default {
     },
     columns(){
       return this.store.states.columns
-    },
-    data(){
-      
-      return this.store.states.data
     },
     isRowExpanded(){
       return this.store.states.isRowExpanded;
