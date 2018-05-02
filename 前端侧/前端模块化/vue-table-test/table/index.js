@@ -1,9 +1,9 @@
 
-import MyTable from './mytable.vue'
-import MyTableColumn from './table-column'
+import JrTable from './jrtable.vue'
+import JrTableColumn from './table-column'
 export default {
   install(Vue, options) {
-    Vue.component(MyTable.name, MyTable)
-    Vue.component(MyTableColumn.name, MyTableColumn)
+    Vue.component(JrTable.name, JrTable)
+    Vue.component(JrTableColumn.name, JrTableColumn)
   }
 }

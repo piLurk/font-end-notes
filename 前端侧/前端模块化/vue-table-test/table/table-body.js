@@ -1,7 +1,7 @@
 
 
 export default {
-  name:'MyTableBody',
+  name:'JrTableBody',
   props: {
     store:{
       require:true
@@ -13,9 +13,14 @@ export default {
       }
     },
   },
+  data(){
+    return {
+      data:[]
+    }
+  },
   methods:{
     updataData(){
-      var data = this.data;
+      // hack 
       this.data = [...this.store.states.data]
     },
     getCells(row, index){
@@ -29,7 +34,9 @@ export default {
       if(column['type'] === 'expand') {
         return (<td class = "arrowTd">
                   <i 
-                    class="arrow"
+                    class="arrow down"
+                    class={ [{'arrow':true, down: this.isDown(row)}] }
+                    on-click={ ($event) => this.expandClick($event, row) }
                   ></i>
                 </td>) 
       }
@@ -48,10 +55,17 @@ export default {
     isSelected(row){
       return row['selected']
     },
+    isDown(row) {
+      return row['isExpand'] 
+    },
     simpleSelectClick(event, row) {
       this.store.commit('rowSelectedChanged', row)
       this.updataData();
     },
+    expandClick(event, row) {
+      this.store.commit('rowExpandChanged', row)
+      this.updataData();
+    }
   },
   created(){
     this.data = this.store.states.data;
@@ -74,15 +88,16 @@ export default {
         {
           this._l(this.data, (row, index) => 
             [
-              <tr>
+              <tr 
+                class={ [{active: this.isDown(row)}] }>
                 {
                   this.getCells(row, index)
                 }
               </tr>,
               this.isRowExpanded
-                ? (<tr>
+                ? (<tr class="children" v-show={ row.isExpand }>
                   <td colspan={ this.columns.length }>
-                    { this.table.renderExpanded ? this.table.renderExpanded(h, {row, index}) : '' }
+                    { this.table.renderExpanded ? this.table.renderExpanded( {row, index}) : '' }
                   </td>
                 </tr>)
                 : ''

@@ -5,27 +5,28 @@
     <table class="modtable">
       <template
       v-if="showHeader"
-      class="el-table__header-wrapper"
+      class="jr-table__header-wrapper"
       ref="headerWrapper">
-      <my-table-header
-        ref="tableHeader"
+      <jr-table-header
+        ref="jrTableHeader"
         :store="store"
         :border="border"
         :default-sort="defaultSort"
       >
-      </my-table-header>
+      </jr-table-header>
     </template>
-      <my-table-body
+      <jr-table-body
         :store="store"
+        ref="jrTableBody"
       >
-      </my-table-body>
+      </jr-table-body>
     </table>
   </div>
 </template>
 
 <script>
-import MyTableBody from "./table-body.vue"
-import MyTableHeader from "./table-header"
+import JrTableBody from "./table-body"
+import JrTableHeader from "./table-header"
 
 
 import TableStore from './table-store';
@@ -33,7 +34,7 @@ import TableStore from './table-store';
 // 表id 
   let tableIdSeed = 1;
 export default {
-  name:'MyTable',
+  name:'JrTable',
 
   props:{
     data:{
@@ -61,21 +62,18 @@ export default {
     }
   },
   components: {
-    MyTableBody,
-    MyTableHeader
+    JrTableBody,
+    JrTableHeader
   },
   data() {
     const store = new TableStore(this, {
       // 是否默认打开展开
-      defaultExpandAll: this.defaultExpandAll,
-      // 点击表头多选框，全选。
-      selectOnIndeterminate: this.selectOnIndeterminate
+      defaultExpandAll: this.defaultExpandAll
     });
     
     return {
       props:[],
       store,
-      showItems:[],
       defaultSort:[],
     }
   },
@@ -84,7 +82,6 @@ export default {
     data: {
       immediate: true,
       handler(value) {
-        console.log('data set')
         this.store.commit('setData', value)
       }
     },
@@ -93,25 +90,17 @@ export default {
       handler(value) {
         this.store.commit('toggleSelectPorp', value)
       }
+    },
+    'store.states.isRowExpanded': {
+      immediate: true,
+      handler(value) {
+        this.store.commit('toggleExpandPorp', value)
+      }
     }
 
   },
-  methods:{
-    updateScrollY() {
-      this.layout.updateScrollY();
-      this.layout.updateColumnsWidth();
-    },
-  },
-  computed:{
-
-  },
   created() {
-    this.tableId = 'el-table_' + tableIdSeed++;
-  },
-  mounted() {
-    // 最后父组件mounted触发
-    //更新列
-    // this.store.updateColumns();
+    this.tableId = 'jr-table_' + tableIdSeed++;
   }
 
 }
@@ -128,25 +117,57 @@ export default {
     height:14px;
     border:1px solid #efefef;
     cursor:pointer;
-    
+    background-color:#fff;
   }
   .section-td .section-checkbox.isSelected{
-    background-color:#409EFF;
+    border-color:#3ba0ff;
   }
-  .section-td .section-checkbox::after{
-    box-sizing: content-box;
-    content: "";
-    border: 1px solid #fff;
+  .section-td .section-checkbox.isSelected::after{
+    border-color:#3ba0ff;
     border-left: 0;
     border-top: 0;
     height: 8px;
     left: 5px;
-    position: absolute;
     top: 1px;
     transform: rotate(45deg);
     width: 3px;
     -webkit-transform-origin: center;
     transform-origin: center;
+  }
+  .section-td .section-checkbox::after{
+    box-sizing: content-box;
+    content: "";
+    position: absolute;
+    border: 2px solid transparent;
+  }
+
+  .section-td .section-checkbox.isHalfSelected::after{
+    border-color:#3ba0ff;
+    border-width:1px;
+    width:6px;
+    top:6px;
+    left:3px;
+    
+  }
+  .arrowTd{
+    cursor: pointer;
+    width: 40px;
+    box-sizing: border-box;
+  }
+  .arrowTd .arrow{
+    background-image: url(./lib/images/uptable.png);
+    background-repeat: no-repeat;
+    display:inline-block;
+    width:19px;
+    height:19px;
+  }
+  .arrowTd .arrow.down{
+    background-image: url(./lib/images/downtable.png)
+  }
+
+  .tableBox .modtable tr.active td {
+    background-color: #3ba0ff;
+    color: #fff;
   }
   
 </style>

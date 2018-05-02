@@ -50,6 +50,46 @@ module.exports = {
         options: {
           name: 'static/images/icon/[name].[ext]'
         }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'static/images/[name]-[hash:5].[ext]'
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                // progressive:渐进式图片
+                progressive: true,
+                quality: 85
+              },
+              gifsicle: {
+                interlaced: true,
+              },
+              // pngquant:{
+              //   quality: "65-90",
+              //   speed: 4
+              // },
+              optipng: {
+                optimizationLevel: 7,
+              },
+              svgo: {
+                plugins: [
+                  {
+                    removeViewBox: false
+                  },
+                  {
+                    removeEmptyAttrs: false
+                  }
+                ]
+              }
+            }
+          }]
       }
   
     ]

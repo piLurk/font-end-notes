@@ -1,7 +1,7 @@
 {
-  "name": "vue-virtual-test",
+  "name": "jr-table",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./table/index.js",
   "author": "wudongyue",
   "license": "MIT",
   "scripts": {
@@ -21,6 +21,7 @@
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.2.0",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "sass-loader": "^7.0.1",
@@ -33,7 +34,6 @@
     "webpack-merge": "^4.1.2"
   },
   "dependencies": {
-    "element-ui": "^2.3.6",
     "throttle-debounce": "^1.0.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",

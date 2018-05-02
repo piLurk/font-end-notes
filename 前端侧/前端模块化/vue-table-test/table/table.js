@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import Mytable from './mytable.vue'
-import MyTableColumn from './table-column'
+import Jrtable from './jrtable.vue'
+import JrTableColumn from './table-column'
 
 const plugin = {
   install(Vue, options) {
-    Vue.component(MyTable.name, MyTable)
-    Vue.component(MyTableColumn.name, MyTableColumn)
+    Vue.component(JrTable.name, JrTable)
+    Vue.component(JrTableColumn.name, JrTableColumn)
   }
 }
