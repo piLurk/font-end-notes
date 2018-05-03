@@ -51,7 +51,7 @@ export default {
   
   },
   methods: {
-    updataData(){
+    updateData(){
       // hack 
       this.data = [...this.store.states.data]
     },
@@ -59,7 +59,7 @@ export default {
       // 选择或取消所有
       this.store.commit('allRowSelectedChanged');
       // 更新 data
-      this.updataData();
+      this.updateData();
     },
     isSelected(){
       return this.allCheck;

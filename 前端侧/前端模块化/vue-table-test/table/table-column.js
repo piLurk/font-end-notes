@@ -172,10 +172,6 @@ export default {
       filterPlacement: this.filterPlacement || '',
       index: this.index
     });
-
-
-
-    
     this.columnConfig = column;
 
     var _self = this;
@@ -196,15 +192,10 @@ export default {
     } 
   },
   mounted() {
-    console.log('table-column mounted')
     const owner = this.owner;
     const parent = this.columnOrTableParent;
     var columnIndex;
-    // columnIndex = [].indexOf.call(parent.$el.children, this.$el);
-
     owner.store.commit('insertColumn', this.columnConfig, columnIndex );
-
-    
   },
   render(h) {
     

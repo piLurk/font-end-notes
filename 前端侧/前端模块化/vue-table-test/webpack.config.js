@@ -1,17 +1,27 @@
-
-
 var path = require('path');
+var webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
+const _entry = (() => {
+  var NODE_ENV =  process.env.NODE_ENV;
+  if(NODE_ENV === 'production'){
+    return path.resolve(__dirname, 'table/index.js')
+  }else {
+    return path.resolve(__dirname, 'src/main.js')
+  }
+})()
+ 
 module.exports = {
+  mode:process.env.NODE_ENV,
   entry:{
-    main:'./src/main.js'
+    main:_entry
   },
   output: {
+    libraryTarget: 'umd',
     path:path.resolve(__dirname, './dist'),
     publicPath:'/',
-    filename:'./static/js/[name].[hash:8].js'
+    filename:'jr-table.min.js'
   },
   externals:{
 
@@ -48,7 +58,7 @@ module.exports = {
         test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
         loader: 'file-loader',
         options: {
-          name: 'static/images/icon/[name].[ext]'
+          name: 'images/icon/[name].[ext]'
         }
       },
       {
@@ -57,7 +67,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              name: 'static/images/[name]-[hash:5].[ext]'
+              name: 'images/[name]-[hash:5].[ext]'
             }
           },
           {
@@ -95,14 +105,20 @@ module.exports = {
     ]
   },
   plugins:[
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
-    }),
-    // copy custom static assets
+
     
   ]
-  
 
+}
+if(process.env.NODE_ENV === 'development'){
+  module.exports.plugins = (module.exports.plugins || []).concat([new webpack.DefinePlugin({
+    'process.env': {
+      NODE_ENV: '"development"'
+    }
+  })],
+  new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: 'index.html',
+    inject: true
+  }))
 }

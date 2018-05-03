@@ -47,12 +47,7 @@
 export default {
   data() {
     return {
-      tableList:[
-            {name:'tom',year:17,like:"women",want:'nobug', 
-                items:[{id:"wch10254522", product:'水果1', desc:'这是水果'},{id:"wch10254522", product:'水果', desc:'这是水果'}] },
-            {name:'jim',year:21,like:"sweet",want:'money', 
-                items:[{id:"wch10254522", product:'水果2', desc:'这是水果'},{id:"wch10254522", product:'水果', desc:'这是水果'}]}
-      ]
+      tableList:[]
     }
   },
   methods: {
@@ -71,6 +66,22 @@ export default {
     handleSelectionChange(val) {
       this.multipleSelection = val;
     }
+  },
+  mounted(){
+    var arr = [
+      {name:'tom',year:17,like:"women",want:'nobug', 
+                items:[{id:"wch10254522", product:'水果1', desc:'这是水果'},{id:"wch10254522", product:'水果', desc:'这是水果'}] },
+            {name:'jim',year:21,like:"sweet",want:'money', 
+                items:[{id:"wch10254522", product:'水果2', desc:'这是水果'},{id:"wch10254522", product:'水果', desc:'这是水果'}]}
+    ];
+    setTimeout(() => {
+      
+      arr.map((item) => {
+        this.tableList.push(item)
+      })
+
+      // this.tableList = arr;
+    }, 3000)
   }
 }
 

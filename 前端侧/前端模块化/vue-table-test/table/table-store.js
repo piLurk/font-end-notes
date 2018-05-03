@@ -1,5 +1,4 @@
 
-import Vue from 'vue';
 import debounce from 'throttle-debounce/debounce';
 import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
@@ -144,15 +143,26 @@ const TableStore = function(table, initialState = {}) {
     }
   }
 };
-TableStore.prototype.setSelections = function(){
-  let states = this.states;
-  states.selection =  getRowSelection(states);
+TableStore.prototype.updateData = function(){
   const table = this.table;
+  //table中各个子组件 更新data
+  
+  //第一次data变更，$refs不存在，且不需要更新数据
+  var $refs = table.$refs;
+  if('jrTableBody' in $refs && 'jrTableHeader' in $refs) {
+    table.$refs['jrTableBody'].updateData();
+    table.$refs['jrTableHeader'].updateData();
+  }
+  
+}
+TableStore.prototype.setSelections = function(){
+  const table = this.table;
+  let states = this.states;
+
+  states.selection =  getRowSelection(states);
   let selection = states.selection;
   table.$emit('selection-change', selection ? selection.slice() : []);
-  //table中各个子组件 更新data
-  table.$refs['jrTableBody'].updataData();
-  table.$refs['jrTableHeader'].updataData();
+  this.updateData()
 }
 TableStore.prototype.toggleDataPorp = function(prop, hasProp, defaultProp) {
   let data = this.states.data;
@@ -167,18 +177,24 @@ TableStore.prototype.toggleDataPorp = function(prop, hasProp, defaultProp) {
 TableStore.prototype.mutations = {
   setData(states, data) {
 
-    
+    // 数据引用发生变化，清空se
     const dataInstanceChanged = states._data !== data;
     states._data = data;
 
     states.data = sortData((data || []), states);
 
+
     // this.updateCurrentRow();
     
     if (!states.reserveSelection) {
       if (dataInstanceChanged) {
+        // 数组引用发生变化，清空section.并且更新子组件data
+        
         this.clearSelection();
+        
+        this.updateData()
       } else {
+        // 数组引用未变化，清除内部变更（section）
         this.cleanSelection();
       }
     } 
@@ -188,7 +204,7 @@ TableStore.prototype.mutations = {
       this.states.expandRows = (states.data || []).slice(0);
     }
 
-    // Vue.nextTick(() => this.table.updateScrollY());
+
   },
   setRowExpanded(states, rowExpanded){
     states.isRowExpanded = rowExpanded;
@@ -265,7 +281,22 @@ TableStore.prototype.clearSelection = function() {
     this.table.$emit('selection-change', states.selection ? states.selection.slice() : []);
   }
 };
+TableStore.prototype.cleanSelection = function() {
+  const selection = this.states.selection || [];
+  const data = this.states.data;
+  let deleted;
+  deleted = selection.filter((item) => {
+    return data.indexOf(item) === -1;
+  });
+  
+  deleted.forEach((deletedItem) => {
+    selection.splice(selection.indexOf(deletedItem), 1);
+  });
 
+  if (deleted.length) {
+    this.table.$emit('selection-change', selection ? selection.slice() : []);
+  }
+};
 
 TableStore.prototype.commit = function(name, ...args) {
   

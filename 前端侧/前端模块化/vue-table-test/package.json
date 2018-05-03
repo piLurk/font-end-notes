@@ -1,7 +1,7 @@
 {
   "name": "jr-table",
-  "version": "1.0.0",
-  "main": "./table/index.js",
+  "version": "1.0.4",
+  "main": "./dist/jr-table.min.js",
   "author": "wudongyue",
   "license": "MIT",
   "scripts": {

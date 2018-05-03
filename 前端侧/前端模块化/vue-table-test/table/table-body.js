@@ -19,7 +19,7 @@ export default {
     }
   },
   methods:{
-    updataData(){
+    updateData(){
       // hack 
       this.data = [...this.store.states.data]
     },
@@ -60,11 +60,11 @@ export default {
     },
     simpleSelectClick(event, row) {
       this.store.commit('rowSelectedChanged', row)
-      this.updataData();
+      this.updateData();
     },
     expandClick(event, row) {
       this.store.commit('rowExpandChanged', row)
-      this.updataData();
+      this.updateData();
     }
   },
   created(){
@@ -79,7 +79,7 @@ export default {
     },
     isRowExpanded(){
       return this.store.states.isRowExpanded;
-    }
+    },
   },
   render(h) {
 
