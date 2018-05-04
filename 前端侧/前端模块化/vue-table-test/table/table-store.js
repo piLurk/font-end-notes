@@ -11,13 +11,6 @@ const sortData = (data, states) => {
   return orderBy(data, states.sortProp, states.sortOrder, sortingColumn.sortMethod, sortingColumn.sortBy);
 };
 
-const getKeysMap = function(array, rowKey) {
-  const arrayMap = {};
-  (array || []).forEach((row, index) => {
-    arrayMap[getRowIdentity(row, rowKey)] = { row, index };
-  });
-  return arrayMap;
-};
 
 // 切换行的选中状态
 const toggleRowSelection = function(states, row, selected) {
@@ -184,8 +177,7 @@ TableStore.prototype.mutations = {
     states.data = sortData((data || []), states);
 
 
-    // this.updateCurrentRow();
-    
+
     if (!states.reserveSelection) {
       if (dataInstanceChanged) {
         // 数组引用发生变化，清空section.并且更新子组件data
@@ -195,7 +187,9 @@ TableStore.prototype.mutations = {
         this.updateData()
       } else {
         // 数组引用未变化，清除内部变更（section）
+        
         this.cleanSelection();
+        this.updateData()
       }
     } 
 

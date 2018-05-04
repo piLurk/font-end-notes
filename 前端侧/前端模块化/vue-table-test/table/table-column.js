@@ -184,12 +184,22 @@ export default {
           : _self.$slots.default;
       }
       owner.store.commit('setRowExpanded', true)
-    }
+    } 
 
     // 如果是section ,在原始数据上内部添加_selected字段， 如果是expand，添加 isExpand
     if(type === 'section') {
       owner.store.commit('setRowSelection', true)
     } 
+
+    // 默认，没有传prop， 可能是操作项
+    if(type === 'default' && !column.property) {
+      var _key = 'renderDefault' + column.id; 
+      owner[_key] = function(data) {
+        return _self.$scopedSlots.default
+          ? _self.$scopedSlots.default(data)
+          : _self.$slots.default;
+      }
+    }
   },
   mounted() {
     const owner = this.owner;

@@ -1,6 +1,6 @@
 {
   "name": "jr-table",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "./dist/jr-table.min.js",
   "author": "wudongyue",
   "license": "MIT",

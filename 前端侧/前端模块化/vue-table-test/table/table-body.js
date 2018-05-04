@@ -50,7 +50,13 @@ export default {
                 </td>) 
       }
       
-      return <td> { row[ column['property'] ] } </td>
+      return <td> { 
+        column['property']? 
+          (row[ column['property'] ] )
+          :
+          (this.table['renderDefault' + column.id] ? this.table['renderDefault' + column.id]({row, index}):'')
+        } 
+        </td>
     },
     isSelected(row){
       return row['selected']
@@ -82,7 +88,6 @@ export default {
     },
   },
   render(h) {
-
     return (
       <tbody>
         {

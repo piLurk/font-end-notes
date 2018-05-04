@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './index.vue';
 
-import jrtable from '../table'
+import jrtable from '../dist/jr-table.min.js'
 Vue.use(jrtable)
 
 
