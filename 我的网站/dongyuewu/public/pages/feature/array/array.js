@@ -13,7 +13,7 @@
   }, {name:'tom'} )
   
   
-  // reduce
+  // reduce  数组聚合
       // map + reduce
       const numbers = [10,20,30,40]
       const doubleOver50 = numbers.reduce( (finalList, num) => {
@@ -94,6 +94,9 @@
   // fill
   var arr = [1,2,3,4];
   arr.fill('test',2,5);
+
+  // splice
+
   
   // 数组与set集合
       // 去重的一种实现

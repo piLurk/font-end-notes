@@ -70,7 +70,7 @@ export default {
       // 是否默认打开展开
       defaultExpandAll: this.defaultExpandAll
     });
-    
+    {{}}
     return {
       props:[],
       store,
