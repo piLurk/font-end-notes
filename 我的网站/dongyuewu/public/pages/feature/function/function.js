@@ -26,7 +26,6 @@ function throttle(fn, wait) {
 }
 
 // 分段处理
-
 function timeChunk(data, fn, count = 1, wait) {
   let obj, timer;
   function start() {
@@ -46,4 +45,11 @@ function timeChunk(data, fn, count = 1, wait) {
     }, wait)
   }
 }
+
+// 箭头函数
+
+var arr = [{year:11}, {year:12}, {year:13}];
+
+var a = arr.map( (item) => ( { myYear: item.year }))
+console.log(a)
   

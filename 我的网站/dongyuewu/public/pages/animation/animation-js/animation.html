@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js 动画</title>
+  <link rel="stylesheet" href="./animation.css">
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+ 
+</head>
+<body>
+  <div class="layout">
+    <div id="menu" class="app-menu">
+      <a>aaa</a>
+    </div>
+    <div class="header">
+      <span id="menuTap" class="menu-tap"></span>
+    </div>
+</div>
+
+<script>
+  var $tap = $('#menuTap');
+  var $menu = $('#menu');
+  $tap.click(function(e) {
+   e.stopPropagation();
+    $menu.addClass('out')
+  });
+  $menu.click(function(e) {
+    e.stopPropagation();
+  })
+  $('.layout').click(function(e) {
+    $menu.removeClass('out')
+  })
+
+</script>
+</body>
+</html>

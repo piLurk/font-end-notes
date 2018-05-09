@@ -1,0 +1,31 @@
+html,body{
+  margin:0;
+  padding: 0;
+  height: 100%;
+}
+
+.layout{
+  position: relative;
+  height: 100%;
+}
+
+.layout .header{
+  height: 36px;
+}
+.layout .header .menu-tap{
+  display: inline-block;
+  height: 100%;
+  width: 50px;
+  background: #3aeaea;
+}
+.layout .app-menu{
+  position: absolute;
+  width: 200px;
+  background-color: #333;
+  left: -200px;
+  height: 100%;
+  transition: left 300ms linear;
+}
+.layout .app-menu.out{
+  left: 0px;
+}
