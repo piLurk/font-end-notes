@@ -315,22 +315,39 @@
       </div>
     </div>
 </section>
-  <script>
-      function escape(s) {
-          var _map ={
-            "<":"&lt;",
-            ">":"&gt;"
-          }
-          return s.replace(/[<>]/g, function(match){
-            return _map[match]
-          })
-      };
-      var str ='[0xc0]\u003cimg src=1 onerror=alert(/xss/) [0xc0]\u003e';
-      var xss= document.getElementById('xss');
-      console.log(escape(str))
-      $(xss).append(escape(str));
-  
-    </script>
+<section class="sec_part">
+    <h1>算法与数据结构</h1>
+    <div class="item_wrap">
+      <div class="doc_item item_t1">
+        <h3>文档</h3>
+        <ul>
+          <li></li>
+        </ul>
+      </div>
+      <div class="code_item item_t1">
+          <h3>源码</h3>
+          <ul>
+            <li></li>
+          </ul>
+      </div>
+      <div class="resource_item item_t1">
+          <h3>相关资源</h3>
+          <ul>
+            <li></li>
+          </ul>
+      </div>
+      <div class="content_item item_t1">
+          <ul class="content_ul">
+            <li>
+              <h3>animation</h3>
+              <ul>
+                <li><a target="blank" href="/pages/algorithm/algorithm.html">算法与数据结构</a></li>
+              </ul>
+            </li>
+          </ul>
+      </div>
+    </div>
+</section>
     
 </body>
 </html>
