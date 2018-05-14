@@ -1,0 +1,15 @@
+{
+  
+  "web": {
+    
+    "hosts":"dev.jiangroom.com"
+  },
+  "dev":{
+    "port":8071,
+    "autoOpenBrowser":true,
+    "proxyTalbe":{},
+    "assetsPublicPath": "./",
+    "assetsSubDirectory": "dist"
+  }
+  
+}

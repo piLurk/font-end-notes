@@ -1,6 +1,6 @@
 
 // 二分查找，(有序数组中搜索数字，前提是数组为有序数组)
-  // O(n)
+  // O(logn)
 function binarySearch(arr, target) {
   let start = 0;
   let end = arr.length - 1;
