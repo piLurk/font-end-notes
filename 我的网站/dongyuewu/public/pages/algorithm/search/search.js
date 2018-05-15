@@ -15,7 +15,7 @@ function binarySearch(arr, target) {
       end = mid - 1;
     }
   }
-  return false
+  return -1
 }
 
 // 无序数组
