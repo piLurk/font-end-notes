@@ -4,6 +4,7 @@ require('./check-versions')()
 
 const config = require('config-lite')(__dirname);
 
+console.log(config)
 //在浏览器中打开
 var opn = require('opn');
 var path = require('path');
