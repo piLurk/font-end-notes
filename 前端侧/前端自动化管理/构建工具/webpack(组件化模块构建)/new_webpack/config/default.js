@@ -13,7 +13,7 @@ module.exports = {
   dev:{
     port:8071,
     autoOpenBrowser:true,
-    proxyTalbe:{},
+    proxyTable:{},
     assetsPublicPath: "./",
     assetsSubDirectory: "dist"
   }

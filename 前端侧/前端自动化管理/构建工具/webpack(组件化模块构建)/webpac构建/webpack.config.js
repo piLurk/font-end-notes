@@ -9,7 +9,6 @@ module.exports = {
     crm:'./src/crm/index.js',
     oa:'./src/oa/index.js'
   },
-
   output:{
     path:path.resolve(__dirname,'dist'),
     filename:'[name]/static/js/[name].[hash:8].js',

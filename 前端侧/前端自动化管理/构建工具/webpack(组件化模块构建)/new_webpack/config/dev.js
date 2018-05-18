@@ -9,8 +9,9 @@ module.exports = {
   },
   dev:{
     port:8072,
+    proxyTable:{},
     autoOpenBrowser:true,
-    proxyTalbe:{},
+    cssSourceMap:true, // 必填项
     assetsPublicPath: "./",
     assetsSubDirectory: "dist"
   }

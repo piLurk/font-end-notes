@@ -4,7 +4,6 @@ require('./check-versions')()
 
 const config = require('config-lite')(__dirname);
 
-console.log(config)
 //在浏览器中打开
 var opn = require('opn');
 var path = require('path');
@@ -13,6 +12,8 @@ var webpack = require('webpack');
 var proxyMiddleware = require('http-proxy-middleware');
 var webpackConfig = require('./webpack.dev.conf');
 
+console.log('gaga');
+console.log(webpackConfig.module)
 
 //默认端口
 var port = process.env.PORT || config.dev.port || 8080 ;
@@ -48,6 +49,7 @@ compiler.plugin('compilation', function(compilation) {
   })
 })
 
+console.log(config.dev)
 Object.keys(proxyTable).forEach( function(context) {
   var options = proxyTable[content];
   if(typeof optoins === 'string') {
@@ -61,7 +63,7 @@ Object.keys(proxyTable).forEach( function(context) {
 app.use(require('connect-history-api-fallback')());
 
 // serve webpack bundle output
-app.use(devMiddleware);
+app.use(devMilddleware);
 
 // enable hot-reload and state-preserving
 // compilation error display
