@@ -15,10 +15,6 @@ var styleGenerate = require('./style-loader');
 
 
 var rules = styleGenerate({ sourceMap: config.dev.cssSourceMap });
-
-console.log('wa')
-console.log(rules);
-
 module.exports = merge(baseWebpackConfig, {
     mode:'development',
 
@@ -27,6 +23,12 @@ module.exports = merge(baseWebpackConfig, {
     },
     // 生成只有行信息的sourcemap ，更快。
     devtool: '#cheap-module-eval-source-map',
+
+    performance: {
+      hints:'error',
+      maxEntrypointSize:3000000, // 最大html + js体积
+      maxAssetSize:2000000    // 最大单个文件体积
+    }
   }
   
 )

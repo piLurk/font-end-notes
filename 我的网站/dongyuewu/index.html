@@ -349,5 +349,27 @@
     </div>
 </section>
     
+
+<script type="text/javascript" src="/lib/js/jquery.js"></script>
+<script>
+  function escape(s) {
+    var _map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&apos;'
+    };
+    return s.replace(/[<>"'&]/g, function (match) {
+      return _map[match]
+    })
+  };
+
+  var $d = '<div onlick="alert(location.hash)">这时xss</div>';
+
+  var $script = '<script type="text/javascript" src="/">\</script>';
+  $("#xss").append($d);
+
+</script>
 </body>
 </html>

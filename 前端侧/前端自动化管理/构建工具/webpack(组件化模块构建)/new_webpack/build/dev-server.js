@@ -12,8 +12,6 @@ var webpack = require('webpack');
 var proxyMiddleware = require('http-proxy-middleware');
 var webpackConfig = require('./webpack.dev.conf');
 
-console.log('gaga');
-console.log(webpackConfig.module)
 
 //默认端口
 var port = process.env.PORT || config.dev.port || 8080 ;
@@ -49,7 +47,6 @@ compiler.plugin('compilation', function(compilation) {
   })
 })
 
-console.log(config.dev)
 Object.keys(proxyTable).forEach( function(context) {
   var options = proxyTable[content];
   if(typeof optoins === 'string') {
@@ -78,6 +75,11 @@ var _resolve;
 var readyPromise = new Promise(resolve => {
   _resolve = resolve
 });
+
+// mock服务
+var mock = require('../mock');
+config.dev.mocking && mock(app);
+
 
 devMilddleware.waitUntilValid( () => {
   console.log('> 开发服务器运行在： ' + uri + '\n');

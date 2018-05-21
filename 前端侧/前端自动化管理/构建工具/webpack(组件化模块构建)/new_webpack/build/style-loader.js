@@ -7,7 +7,7 @@ function cssLoaders( options ) {
   var options =  options || {};
   
   var cssLoader = {
-    loaders:'css-loader',
+    loader:'css-loader',
     options: {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
@@ -61,6 +61,7 @@ module.exports = function( options ) {
       use: loader
     })
   }
-  return [];
+  
+  return output;
 
 }

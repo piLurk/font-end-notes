@@ -8,11 +8,12 @@ module.exports = {
     distPath: path.resolve(__dirname, '../dist')
   },
   dev:{
-    port:8072,
+    port:8072, // 必填项
     proxyTable:{},
-    autoOpenBrowser:true,
+    autoOpenBrowser:true, // 必填项
     cssSourceMap:true, // 必填项
-    assetsPublicPath: "./",
-    assetsSubDirectory: "dist"
+    assetsPublicPath: "./",// 必填项
+    assetsSubDirectory: "dist",// 必填项
+    mocking: true, // 是否开启mock
   }
 }

@@ -1,5 +1,9 @@
-
+var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
-  mode:'production'
+  mode:'production',
+
+  plugins: [
+    new FriendlyErrorsPlugin()
+  ]
 }
