@@ -15,6 +15,6 @@ module.exports = {
     autoOpenBrowser:true,
     proxyTable:{},
     assetsPublicPath: "./",
-    assetsSubDirectory: "dist"
+    assetsSubDirectory: "dist",
   }
 }

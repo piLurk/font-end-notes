@@ -1,4 +1,4 @@
-const config = require('config-lite')(__dirname)
+const config = require('jr-config')(__dirname)
 
 //合并配置
 var merge = require('webpack-merge');

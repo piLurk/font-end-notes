@@ -14,6 +14,10 @@ var points ={
   var name = i;
   var data = points[name];
   var color = colorList[j];
+  var data = data.map( (item, index) => {
+    return [item[0] - 6.32402, item[1] - 0.738151 ]
+  });
+  console.log(data)
   return {
       name: name,
       type: 'effectScatter',
@@ -32,11 +36,9 @@ var points ={
 })
 
 
-
 var option = {
-
   bmap: {
-      center: [120.631007, 31.308762],
+      center: [114.306987,30.570611],
       zoom: 12,
       roam: true,
       enableMapClick: false,
@@ -98,6 +100,9 @@ var myChart = echarts.init(document.getElementById('main'))
 myChart.setOption(option);
 setTimeout(init, 0)
 
+window.onresize = function() {
+    myChart.resize();
+}
 
 function init() {
   initMap();

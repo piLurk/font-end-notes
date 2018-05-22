@@ -2,7 +2,7 @@
 //验证依赖包版本是否符合
 require('./check-versions')()
 
-const config = require('config-lite')(__dirname);
+const config = require('jr-config')(__dirname);
 
 //在浏览器中打开
 var opn = require('opn');
@@ -78,6 +78,7 @@ var readyPromise = new Promise(resolve => {
 
 // mock服务
 var mock = require('../mock');
+
 config.dev.mocking && mock(app);
 
 

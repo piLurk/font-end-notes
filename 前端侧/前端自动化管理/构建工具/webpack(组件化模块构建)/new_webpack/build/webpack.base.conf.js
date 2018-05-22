@@ -1,6 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var config = require('config-lite')(__dirname);
+var config = require('jr-config')(__dirname);
 
 
 function resolve(dir) {
