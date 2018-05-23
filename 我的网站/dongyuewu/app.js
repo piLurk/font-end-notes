@@ -4,7 +4,7 @@ var path = require('path')
 var proxy = require('http-proxy-middleware')
 var cookieParser = require('cookie-parser')
 var serveStatic=require('serve-static');
-const port = 8088
+const port = 80
 
 var __dirname = path.resolve()
 app.use(cookieParser())
