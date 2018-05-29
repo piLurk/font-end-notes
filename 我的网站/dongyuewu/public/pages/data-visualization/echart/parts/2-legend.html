@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>legend组件</title>
+  <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.0.4/echarts.min.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
+
+  <script src="http://www.echartsjs.com/gallery/vendors/echarts/map/js/china.js?_v_=1519819816100"></script>
+  <script src="http://www.echartsjs.com/gallery/vendors/echarts/map/js/world.js?_v_=1519819816100"></script>
+</head>
+<body>
+  <div id="e1"></div>
+
+  <script type="text/javascript">
+    var myChart1 = echarts.init(document.getElementById('e1'),
+      null,
+      {
+      //   renderer:'svg',
+        width:'1200px',
+        height:'706px'
+      }
+    );
+
+    var option1 = {
+      backgroundColor: '#404a59',
+      series : []
+    };
+
+
+
+    myChart1.setOption(option1)
+    
+
+
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>title组件</title>
+  <script type="text/javascript" src="https://cdn.bootcss.com/echarts/4.0.4/echarts.min.js"></script>
+  <script src="http://api.map.baidu.com/api?v=2.0&ak=53oVIOgmSIejwV7EfphPgTynOZbIiVYu"></script>
+
+  <script src="http://www.echartsjs.com/gallery/vendors/echarts/map/js/china.js?_v_=1519819816100"></script>
+  <script src="http://www.echartsjs.com/gallery/vendors/echarts/map/js/world.js?_v_=1519819816100"></script>
+</head>
+<body>
+  <div id="e1"></div>
+
+  <script type="text/javascript">
+    var myChart1 = echarts.init(document.getElementById('e1'),
+      null,
+      {
+      //   renderer:'svg',
+        width:'1200px',
+        height:'706px'
+      }
+    );
+
+    var option1 = {
+      backgroundColor: '#404a59',
+      title: [
+        {
+          id:'title_origin', // 共this.setOption()时取用
+          show:true, //是否显示
+          text: '0-全国主要城市 PM 2.5',
+          link:'http://www.pm25.in',
+          target:'blank',
+          left: 'center', //left绝对定位
+          top:10,  // bottom , right
+          padding:[5,10,10,10], //整个标题的内部间距
+          itemGap: 15, //正负标题间隔
+          zlevel:0, // 用于canvas分层（对于一些变化频繁的组件设置为单独的zlevel, 比较常见的优化）
+          z:2,  // 相当于z-index
+          backgroundColor: 'yellow',
+          borderColor:'#fff',
+          borderWidth:2,
+          borderRadius:2,
+          shadowColor:'#fff',
+          shadowBlur:2,
+          ShadowOffsetX:1,
+          ShadowOffsetY:2,
+          textStyle: {
+            color: '#fff',
+            fontStyle:'normal', // 字体样式 斜体...
+            fontFamily:'黑体',
+            fontSize: 20,
+            align:'center',
+            verticalAlign: 'middle',
+            lineHeight: 40, // 
+            width:200 , // 不定义rich不能指定width 和 height  ,lineHeight , 为内容宽度（不包含padding)
+            height:200,
+            textBorderColor: 'red',
+            textBorderWidth:2,
+            textShadowColor: '#000',
+            textShadowBlur: 2, // 文字阴影长度
+            textShadowOffsetX: 1,
+            textShadowOffsetY: 2,
+
+            rich:{ //自定义富文本样式
+              a: {
+                color: 'red',
+                
+              },
+              b: {
+                backgroundColor:{
+                  image:'/lib/images/advertisement.jpg'
+                },
+                height: 40
+              },
+              x: {
+
+              }
+            }
+          },
+          
+          
+
+          subtext: 'data from PM25.in',//副标题
+          sublink: 'http://www.pm25.in/wuhan',//副标题连接
+          subtarget:'blank',
+          subtextStyle: {
+
+          },
+
+          
+        },
+        {
+          id: 'dynamicColor',
+          text:'另一个标题',
+          subtext:'副标题',
+          right: 120,
+          top: 40,
+          width: 100,
+          textStyle: {
+            color: '#fff',
+            fontSize: 16,
+            textAlign:"center"
+          }
+        }
+      ],
+      grid: {
+        right: 40,
+        top: 100,
+        bottom: 40,
+        width: '30%'
+      },
+      series : []
+    };
+
+
+
+    myChart1.setOption(option1)
+
+    ( () => {
+      var colorCode = '0123456789abcdef';
+      var maxCicle = 16*16,
+          flagNum = 0,
+          colorO = 15,
+          colorT = 15,
+          colorTh = 15;
+      var colorStr = '';
+
+      function getRandomColor() {
+        return Math.floor(Math.random()*15).toString(16)
+      }
+
+
+    var timeId = setInterval(() => {
+      if(flagNum > maxCicle - 2) {
+        clearInterval(timeId)
+      }
+      var strArr =  myChart1.getOption().title[0].text.split('-'),
+          num = ++strArr[0],
+          origin = strArr[1];
+
+      colorStr ='#' + getRandomColor() + getRandomColor() + getRandomColor();
+
+      
+
+      
+      myChart1.setOption({
+        title:[
+          {
+            id:'title_origin',
+            text: num + '-' + origin
+          },
+          {
+            id:'dynamicColor',
+            textStyle:{
+              color: colorStr
+            }
+          }
+
+        ]
+      });
+      flagNum++;
+
+    },30)
+  })()
+    
+
+
+  
+  </script>
+</body>
+</html>
