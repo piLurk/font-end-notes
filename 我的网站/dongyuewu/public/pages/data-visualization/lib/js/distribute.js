@@ -1,4 +1,35 @@
 // 依赖 echarts  bmap
+var windowHeight;
+var getHeight;
+if(window.innerHeight){
+  getHeight = function() {
+    return window.innerHeight;
+  }
+}else if( document.body && document.body.clientHeight){
+  getHeight = function() {
+    return document.body.clientHeight;
+  }
+}else if(
+  document.documentElement  && 
+  document.documentElement.clientHeight && 
+  document.documentElement.clientWidth
+){
+  getHeight = function() {
+    return document.documentElement.clientHeight;
+  }
+}
+
+var body = document.getElementsByTagName('body')[0];
+function setBodyHeight() {
+  windowHeight = getHeight();
+  body.style.height = windowHeight;
+}
+setBodyHeight();
+
+
+
+
+
 
 var colorList = [
   '#5AB1EF', '#2EC7C9', '#B6A2DE', "#FFB980", '#ED868C',"#FF0000","#C23531"
@@ -17,7 +48,6 @@ var points ={
   var data = data.map( (item, index) => {
     return [item[0] - 6.32402, item[1] - 0.738151 ]
   });
-  console.log(data)
   return {
       name: name,
       type: 'effectScatter',
@@ -96,12 +126,18 @@ var option = {
 
 }
 
-var myChart = echarts.init(document.getElementById('main'))
+var myChart = echarts.init(document.getElementById('main'),
+null,
+{
+  renderer:'svg'
+}
+)
 myChart.setOption(option);
 setTimeout(init, 0)
 
 window.onresize = function() {
     myChart.resize();
+    setBodyHeight()
 }
 
 function init() {

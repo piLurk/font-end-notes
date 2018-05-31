@@ -14,8 +14,9 @@ app.use(serveStatic('public'))
 
 //设置一个默认cookie
 app.use('/',function(req, res, next){
-	res.cookie('islogin', 'value-from-dongyuewu.me', { maxAge: 600000 })
-	next()
+	res.redirect('/pages/data-visualization/bmap/index.html')
+	// res.cookie('islogin', 'value-from-dongyuewu.me', { maxAge: 600000 })
+	// next()
 })
 
 
