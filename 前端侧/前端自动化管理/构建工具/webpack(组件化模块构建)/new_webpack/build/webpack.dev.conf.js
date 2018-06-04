@@ -26,8 +26,8 @@ module.exports = merge(baseWebpackConfig, {
 
     performance: {
       hints:'error',
-      maxEntrypointSize:3000000, // 最大html + js体积
-      maxAssetSize:2000000    // 最大单个文件体积
+      maxEntrypointSize:30000000, // 最大html + js体积
+      maxAssetSize:20000000    // 最大单个文件体积
     }
   }
   

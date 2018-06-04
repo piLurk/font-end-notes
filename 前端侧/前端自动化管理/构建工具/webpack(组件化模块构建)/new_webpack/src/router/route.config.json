@@ -1,0 +1,59 @@
+[
+  {
+    "title": "公告设置",
+    "icon": "i-workBench",
+    "children": [
+      {
+        "name": "noticeAdd",
+        "title": "添加公告",
+        "path": "/noticeAdd",
+        "filePath": "@/views/noticemgmt/noticeAdd.vue",
+        "meta": {
+          "roles": []
+        }
+      },
+      {
+        "name": "noticeList",
+        "title": "公告列表",
+        "path": "/noticeList",
+        "filePath": "@/views/noticemgmt/noticeList.vue",
+        "meta": {
+          "roles": []
+        }
+      }
+    ]
+  },
+  {
+    "title": "答疑中心",
+    "icon": "i-workBench",
+    "children": [
+      {
+        "name": "questionAdd",
+        "title": "新建问题",
+        "path": "/questionAdd",
+        "filePath": "@/views/questioncenter/questionAdd.vue",
+        "meta": {
+          "roles": []
+        }
+      },
+      {
+        "name": "qatypesmgmt",
+        "title": "问题分类管理",
+        "path": "/qatypesmgmt",
+        "filePath": "@/views/questioncenter/qatypesmgmt.vue",
+        "meta": {
+          "roles": []
+        }
+      },
+      {
+        "name": "noticeList",
+        "title": "问题列表",
+        "path": "/noticeList",
+        "filePath": "@/views/noticemgmt/noticeAdd.vue",
+        "meta": {
+          "roles": []
+        }
+      }
+    ]
+  }
+]

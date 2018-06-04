@@ -47,7 +47,6 @@ module.exports = {
         },
         use: 'vue-loader' // 是loaders的别名
       },
-      
       {
         resource: {
           test: /\.js$/,
@@ -91,6 +90,20 @@ module.exports = {
                 quality: 75
               },
             },
+          }
+        ]
+      },
+      {
+        resource: {
+          test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/
+        },
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 10000,
+              name: 'fonts/[name].[hash:7].[ext]'
+            }
           }
         ]
       }
