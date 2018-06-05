@@ -1,4 +1,6 @@
 const config = require('jr-config')(__dirname)
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
 
 //合并配置
 var merge = require('webpack-merge');
@@ -13,13 +15,47 @@ var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 var styleGenerate = require('./style-loader');
 
 
+let isCssExtract = !!config.dev.cssExtract;
+var rules = styleGenerate({ sourceMap: config.dev.cssSourceMap, cssExtract: isCssExtract });
 
-var rules = styleGenerate({ sourceMap: config.dev.cssSourceMap });
-module.exports = merge(baseWebpackConfig, {
+
+
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
+let plugins = ( () => {
+  let plugins =[];
+
+  
+
+  if(isCssExtract) {
+    plugins.push(
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: "[name].[hash:8].css",
+        chunkFilename: "[id].[hash:8].css"
+      })
+    )
+  }
+  return plugins;
+})()
+
+const devWebpackConfig = merge(baseWebpackConfig, {
     mode:'development',
 
     module: {
-      rules
+      rules: [
+        {
+          test: /\.s?[ac]ss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { sourceMap: true }},
+            // { loader: 'postcss-loader', options: { sourceMap: true }},
+            { loader: 'sass-loader', options: { sourceMap: true }},
+          ]
+        }
+      ]
     },
     // 生成只有行信息的sourcemap ，更快。
     devtool: '#cheap-module-eval-source-map',
@@ -28,8 +64,13 @@ module.exports = merge(baseWebpackConfig, {
       hints:'error',
       maxEntrypointSize:30000000, // 最大html + js体积
       maxAssetSize:20000000    // 最大单个文件体积
-    }
+    },
+    plugins: plugins.concat([
+
+    ])
   }
   
 )
+
+module.exports = devWebpackConfig;
   

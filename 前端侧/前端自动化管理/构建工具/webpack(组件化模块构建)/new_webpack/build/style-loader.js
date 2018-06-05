@@ -1,8 +1,9 @@
 
 
-// 分离文件
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+// 分离文件 use  mini-css-extract-plugin instead of extract-text-webpack-plugin in webpack4
+//var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 function cssLoaders( options ) {
   var options =  options || {};
   
@@ -25,11 +26,12 @@ function cssLoaders( options ) {
       })
     }
     // 是否分离css文件
-    if( options.extract ) {
-      return ExtractTextPlugin.extract( {
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
+    if( options.cssExtract ) {
+      // return ExtractTextPlugin.extract( {
+      //   use: loaders,
+      //   fallback: 'vue-style-loader'
+      // })
+      return MiniCssExtractPlugin.loader.concat( ['vue-style-loader'].concat(loaders))
     } else {
       return ['vue-style-loader'].concat(loaders);
     }

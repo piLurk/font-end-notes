@@ -1,6 +1,8 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var config = require('jr-config')(__dirname);
+// 15+版本vue-loader需要这个插件
+const { VueLoaderPlugin } = require('vue-loader');
 
 
 function resolve(dir) {
@@ -39,13 +41,18 @@ module.exports = {
       // }, // 一个 object 即一条规则
 
       {
-        resource: {
-          test: /\.vue$/,
-          include: [
-            resolve('src')
-          ]
-        },
-        use: 'vue-loader' // 是loaders的别名
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        include:[
+          resolve('src')
+        ]
+        // resource: {
+        //   test: /\.vue$/,
+        //   include: [
+        //     resolve('src')
+        //   ]
+        // },
+        // use: 'vue-loader' // 是loaders的别名
       },
       {
         resource: {
@@ -134,7 +141,8 @@ module.exports = {
       template: 'index.html',
       favicon: path.resolve('favicon.ico'),
       inject: true
-    })
+    }),
+    new VueLoaderPlugin()
   ]
 
   

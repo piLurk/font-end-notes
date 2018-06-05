@@ -15,5 +15,6 @@ module.exports = {
     assetsPublicPath: "./",// 必填项
     assetsSubDirectory: "dist",// 必填项
     mocking: true, // 是否开启mock
+    cssExtract: true, // 是否分割css文件
   }
 }

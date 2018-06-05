@@ -2,10 +2,6 @@
 import navConfig from './route.config.json';
 
 
-
-
-
-
 const registerRoute = (navConfig) => {
   let route = [];
   let navs = navConfig;
@@ -23,22 +19,30 @@ const registerRoute = (navConfig) => {
     }
   });
   function getComponent(page) {
-    return r => require.ensure([], () => {
-      r(require(page.filePath))
-    }, page.name)
+
+    // require.ensure已被import取代
+    // return r => require.ensure([], () => 
+    //   r(require(path.filePaht))
+    // , page.name)
+    let filePath = page.filePath;
+    return () => import('@/views/noticemgmt/noticeAdd.vue');
+
   }
+
+  
+  return route
 }
 
 let defaultPath = '/noticeAdd';
 
-route = route.concat[{
+
+
+let route = registerRoute(navConfig);
+route = route.concat([{
   path: '/',
   redirect: defaultPath
 }, {
   path: '*',
   redirect: defaultPath
-}]
-
-let route = registerRoute(navConfig);
-
+}])
 export default route

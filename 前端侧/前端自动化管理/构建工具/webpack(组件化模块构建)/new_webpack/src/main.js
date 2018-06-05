@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+// var fs = require('fs');
+//var path = require('path');
 
 
 
-// github.com/necolas/normalize.css   CSS resets
-import 'normalize.css/normalize.css'
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -15,6 +15,10 @@ import '@/styles/index.scss' // global css
 import App from './App.vue'
 import routes from './router'
 // import store from './store'
+
+
+// 或去路由
+// var routeFilePath = path.resolve('./views');
 
 
 Vue.use(Element);

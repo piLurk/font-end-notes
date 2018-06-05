@@ -46,10 +46,10 @@
         }
       },
       {
-        "name": "noticeList",
+        "name": "qaList",
         "title": "问题列表",
-        "path": "/noticeList",
-        "filePath": "@/views/noticemgmt/noticeAdd.vue",
+        "path": "/qaList",
+        "filePath": "@/views/noticemgmt/qaList.vue",
         "meta": {
           "roles": []
         }
