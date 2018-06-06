@@ -55,12 +55,16 @@
     }  
 
     get({
-      method:'get',
-      url:'http://dongyuewu.me/getJson/test1',
+      method:'post',
+      url:'http://192.168.1.160:8095/cmsQuestion/listCmsQuestionByPageAndCondition',
       async:false,
       withCredentials:true,
       responseType:"text/json",
       timeout:1000,
+      data:{
+        pageSize:5,
+        pageIndex:1
+      },
       onerror(e){
         console.log('错误！')
       },

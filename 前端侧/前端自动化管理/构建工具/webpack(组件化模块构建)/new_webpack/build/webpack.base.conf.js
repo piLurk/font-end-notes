@@ -12,7 +12,7 @@ function resolve(dir) {
 module.exports = {
   entry: {
     // vendor:['vue', 'vue-router', 'lodash', 'vuex'], //第三方库，提出来会放在vendorjs中，方便做缓存。
-    app:'./src/main.js'
+    app:['babel-polyfill', './src/main.js']
   },
   output: {
     path: config.build.distPath,

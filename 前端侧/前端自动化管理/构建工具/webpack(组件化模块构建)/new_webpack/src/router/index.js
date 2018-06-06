@@ -11,25 +11,14 @@ const registerRoute = (navConfig) => {
       nav.children.forEach( page => {
         route.push({
           name: page.name,
-          component: getComponent(page),
+          component: () => import(`@/views/${page.filePath}`),
           path: page.path,
           meta: page.meta
         })
       })
     }
   });
-  function getComponent(page) {
 
-    // require.ensure已被import取代
-    // return r => require.ensure([], () => 
-    //   r(require(path.filePaht))
-    // , page.name)
-    let filePath = page.filePath;
-    return () => import('@/views/noticemgmt/noticeAdd.vue');
-
-  }
-
-  
   return route
 }
 

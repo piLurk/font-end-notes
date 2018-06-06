@@ -7,7 +7,7 @@
         "name": "noticeAdd",
         "title": "添加公告",
         "path": "/noticeAdd",
-        "filePath": "@/views/noticemgmt/noticeAdd.vue",
+        "filePath": "noticemgmt/noticeAdd.vue",
         "meta": {
           "roles": []
         }
@@ -16,7 +16,7 @@
         "name": "noticeList",
         "title": "公告列表",
         "path": "/noticeList",
-        "filePath": "@/views/noticemgmt/noticeList.vue",
+        "filePath": "noticemgmt/noticeList.vue",
         "meta": {
           "roles": []
         }
@@ -31,7 +31,7 @@
         "name": "questionAdd",
         "title": "新建问题",
         "path": "/questionAdd",
-        "filePath": "@/views/questioncenter/questionAdd.vue",
+        "filePath": "questioncenter/questionAdd.vue",
         "meta": {
           "roles": []
         }
@@ -40,7 +40,7 @@
         "name": "qatypesmgmt",
         "title": "问题分类管理",
         "path": "/qatypesmgmt",
-        "filePath": "@/views/questioncenter/qatypesmgmt.vue",
+        "filePath": "questioncenter/qatypesmgmt.vue",
         "meta": {
           "roles": []
         }
@@ -49,7 +49,7 @@
         "name": "qaList",
         "title": "问题列表",
         "path": "/qaList",
-        "filePath": "@/views/noticemgmt/qaList.vue",
+        "filePath": "noticemgmt/qaList.vue",
         "meta": {
           "roles": []
         }
