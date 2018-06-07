@@ -1,18 +1,21 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
-var config = require('jr-config')(__dirname);
+
 
 // create an axios instance
-const service = axios.create({
-  baseURL: config.backEnd.BASE_API, // api的base_url
-  timeout: 5000 // request timeout
+console.log();
+const _request = axios.create({
+  baseURL: BROWSER_CONFIG.BASE_API, // api的base_url
+  timeout: 5000, // request timeout
+  responseType: 'json'
+
 })
 
 // request interceptor
-service.interceptors.request.use(config => {
+_request.interceptors.request.use(config => {
   // Do something before request is sent
   if (store.getters.token) {
     config.headers['token'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
@@ -25,11 +28,23 @@ service.interceptors.request.use(config => {
 })
 
 // respone interceptor
-service.interceptors.response.use(
-  response => response,
+_request.interceptors.response.use(
+  response => {
+    // 拦截过期请求
+    let res = response.data;
+    if (res.code === 10001) {
+      removeToken();
+      location.href = config.logOut + '/logout';
+      return Promise.reject('error')
+    } else if (res.code !== 200) {
+      return Promise.reject(res.message || error)
+    } else {
+      return res
+    }
+  },
   /**
   * 下面的注释为通过response自定义code来标示请求状态，当code返回如下情况为权限有问题，登出并返回到登录页
-  * 如通过xmlhttprequest 状态码标识 逻辑可写在下面error中
+  * 如通过xmlrequestrequest 状态码标识 逻辑可写在下面error中
   */
   //  const res = response.data;
   //     if (res.code !== 20000) {
@@ -58,12 +73,42 @@ service.interceptors.response.use(
     console.log('err' + error)// for debug
 
     // token无权限，前端登出
-    if(error && error.response && error.response.status === 401) {
+    if (error && error.response && error.response.status === 401) {
       removeToken()
       location.href = config.logOut + '/logout'
     }
-  
+
     return Promise.reject(error)
   })
 
-export default service
+function sendErrorMessage(errorMsg) {
+  Message({
+    message: errorMsg,
+    type: 'warning',
+    duration: 4 * 1000
+  })
+}
+const request = function ({ method, data, cb, errorCb }) {
+  // if(!this instanceof request) {
+  //   return new request(arguments);
+  // }
+  _request({
+    method,
+    data,
+    url
+  }).then((res) => {
+    if (res.code === 200) {
+      cb(res.data)
+    } else {
+      console.log('[error] ' + res.message)
+      errorCb(res.message)
+    }
+  }).catch(error => {
+    if (typeof error === 'string' && error.indexOf('@') === 0) {
+      sendErrorMessage(error.slice(1));
+    } else {
+      errorCb(error)
+    }
+  })
+}
+export default request

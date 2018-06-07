@@ -19,7 +19,8 @@ module.exports = {
     mocking: true, // 是否开启mock
     cssExtract: true, // 是否分割css文件
   },
-  backEnd:{
-    BASE_API: 'http://192.168.1.91:8087' // 选填项 - 后端地址
+  BROWSER_CONFIG:{    
+    BASE_API: 'http://192.168.1.91:8087', // 必填项 - 后端地址
+    COOKIE:'aaabbbccc' // 开发环境的cookie
   }
 }

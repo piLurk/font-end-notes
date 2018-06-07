@@ -1,12 +1,14 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'access-token'
+export const TokenKey = 'access-token'
+
 
 export function getToken() {
   return Cookies.get(TokenKey)
 }
 
 export function setToken(token) {
+  console.log(token,'guagua')
   return Cookies.set(TokenKey, token)
 }
 

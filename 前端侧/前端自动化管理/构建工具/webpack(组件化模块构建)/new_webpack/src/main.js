@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
+
 
 // var fs = require('fs');
 //var path = require('path');
@@ -13,28 +13,29 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss' // global css
 
 import App from './App.vue'
-import routes from './router'
-// import store from './store'
+import router from './router'
+import store from './store'
 
 
-// 或去路由
-// var routeFilePath = path.resolve('./views');
+import utils from './utils'
+Vue.use(utils)
+
+
+// 路由权限--根据生成的路由。
+import '@/router/permission'
+
+
 
 
 Vue.use(Element);
-Vue.use(VueRouter);
+https://webpack.js.org/plugins/define-plugin/#usage
 
-const router = new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes
-});
 
 new Vue({
   el: '#app',
   render: h => h(App),
   router,
-  // store
+  store
 })
 
 

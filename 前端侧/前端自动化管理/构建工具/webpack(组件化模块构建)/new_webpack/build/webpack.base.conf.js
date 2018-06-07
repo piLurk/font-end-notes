@@ -1,6 +1,7 @@
-var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var config = require('jr-config')(__dirname);
+const path = require('path');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('jr-config')(__dirname);
 // 15+版本vue-loader需要这个插件
 const { VueLoaderPlugin } = require('vue-loader');
 
@@ -24,7 +25,8 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js',
       '@':resolve('src'),
       'components': resolve('src/components'),
-      'utils': resolve('src/utils')
+      'utils': resolve('src/utils'),
+      'api': resolve('src/api')
     },
     extensions:['.js', '.vue', '.json'], //扩展名匹配规则
     mainFields:['module', 'main'],   //修改包查找路径(有package.json文件时)， 默认是module ,main
@@ -142,7 +144,11 @@ module.exports = {
       favicon: path.resolve('favicon.ico'),
       inject: true
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      // 注意； 由于DefinePlugin插件是直接文本替换，使用时必须要是‘“ss”’格式，或者使用stringify('ss')
+      BROWSER_CONFIG: JSON.stringify(config.BROWSER_CONFIG)
+    })
   ]
 
   

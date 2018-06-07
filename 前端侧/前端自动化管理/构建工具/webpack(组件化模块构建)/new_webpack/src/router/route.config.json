@@ -2,11 +2,13 @@
   {
     "title": "公告设置",
     "icon": "i-workBench",
+    "path": "/noticemgmt",
+    "redirect": "/noticemgmt/noticeAdd",
     "children": [
       {
         "name": "noticeAdd",
         "title": "添加公告",
-        "path": "/noticeAdd",
+        "path": "/noticemgmt/noticeAdd",
         "filePath": "noticemgmt/noticeAdd.vue",
         "meta": {
           "roles": []
@@ -26,11 +28,13 @@
   {
     "title": "答疑中心",
     "icon": "i-workBench",
+    "path": "/questioncenter",
+    "redirect": "noredirect",
     "children": [
       {
         "name": "questionAdd",
         "title": "新建问题",
-        "path": "/questionAdd",
+        "path": "/questioncenter/questionAdd",
         "filePath": "questioncenter/questionAdd.vue",
         "meta": {
           "roles": []
@@ -39,7 +43,7 @@
       {
         "name": "qatypesmgmt",
         "title": "问题分类管理",
-        "path": "/qatypesmgmt",
+        "path": "/questioncenter/qatypesmgmt",
         "filePath": "questioncenter/qatypesmgmt.vue",
         "meta": {
           "roles": []
@@ -48,7 +52,7 @@
       {
         "name": "qaList",
         "title": "问题列表",
-        "path": "/qaList",
+        "path": "/questioncenter/qaList",
         "filePath": "noticemgmt/qaList.vue",
         "meta": {
           "roles": []
