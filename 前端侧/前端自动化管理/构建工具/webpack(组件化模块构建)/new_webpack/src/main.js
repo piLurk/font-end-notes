@@ -1,10 +1,11 @@
 import Vue from 'vue';
 
-
 // var fs = require('fs');
 //var path = require('path');
 
-
+// utils需要最早初始化
+import utils from './utils'
+Vue.use(utils)
 
 
 import Element from 'element-ui'
@@ -17,18 +18,13 @@ import router from './router'
 import store from './store'
 
 
-import utils from './utils'
-Vue.use(utils)
 
 
 // 路由权限--根据生成的路由。
 import '@/router/permission'
 
 
-
-
 Vue.use(Element);
-https://webpack.js.org/plugins/define-plugin/#usage
 
 
 new Vue({

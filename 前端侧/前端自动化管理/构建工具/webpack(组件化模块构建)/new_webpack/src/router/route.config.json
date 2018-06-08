@@ -11,7 +11,7 @@
         "path": "/noticemgmt/noticeAdd",
         "filePath": "noticemgmt/noticeAdd.vue",
         "meta": {
-          "roles": []
+          "roles": [1]
         }
       },
       {
@@ -20,7 +20,7 @@
         "path": "/noticeList",
         "filePath": "noticemgmt/noticeList.vue",
         "meta": {
-          "roles": []
+          "roles": [1]
         }
       }
     ]
@@ -37,7 +37,7 @@
         "path": "/questioncenter/questionAdd",
         "filePath": "questioncenter/questionAdd.vue",
         "meta": {
-          "roles": []
+          "roles": [1]
         }
       },
       {
@@ -46,7 +46,7 @@
         "path": "/questioncenter/qatypesmgmt",
         "filePath": "questioncenter/qatypesmgmt.vue",
         "meta": {
-          "roles": []
+          "roles": [2]
         }
       },
       {
@@ -55,7 +55,7 @@
         "path": "/questioncenter/qaList",
         "filePath": "noticemgmt/qaList.vue",
         "meta": {
-          "roles": []
+          "roles": [1]
         }
       }
     ]

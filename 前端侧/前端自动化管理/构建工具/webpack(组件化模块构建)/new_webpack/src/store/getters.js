@@ -8,7 +8,11 @@ const getters = {
   avatar: state => state.user.avatar,
   name: state => state.user.name,
 
-  roles: state => state.user.roles
+  roles: state => state.user.roles,
+  // 有权限的路由
+  permission_routers: state => state.permission.routers,
+
+  errorLogs: state => state.errorLog.logs
 }
 
 export default getters

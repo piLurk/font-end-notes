@@ -6,8 +6,21 @@ Vue.use(VueRouter)
 /* Layout 基础布局父组件 */
 import Layout from '@/views/layout/Layout'
 
+let defaultPath = '/noticemgmt';
+
+//静态路由
+export const constantRouterMap = [ 
+  {
+    path: '',
+    redirect: defaultPath
+  },{
+    path: '/',
+    redirect: defaultPath
+  }
+]
+ 
 const registerRoute = (navConfig) => {
-  let route = [];
+  let routes = [];
   let navs = navConfig;
 
   navs.forEach((nav, index) => {
@@ -17,39 +30,38 @@ const registerRoute = (navConfig) => {
       nav.children.forEach( page => {
         children.push({
           name: page.name,
-          component: Layout,
+          component: () => import(`@/views/${page.filePath}`),
           path: page.path,
           meta: page.meta
         })
       })
     }
-    route.push(
+    routes.push(
       {
         path: nav.path,
         component: Layout,
         redirect: nav.redirect,
-        children: children
+        children
       }
     )
 
     
   });
 
-  return route
+  return routes
 }
 
-let defaultPath = '/noticemgmt';
 
-let route = registerRoute(navConfig);
-route = route.concat([{
-  path: '',
-  redirect: defaultPath
-}])
 
+export let routes = registerRoute(navConfig);
+
+routes = routes.concat(constantRouterMap)
+
+console.log(routes, 'afafaa')
 let router = new VueRouter({
   mode: 'history',
-  base: __dirname,
   scrollBehavior: () => ({ y: 0 }),
-  route
+  routes
 });
+
 export default router

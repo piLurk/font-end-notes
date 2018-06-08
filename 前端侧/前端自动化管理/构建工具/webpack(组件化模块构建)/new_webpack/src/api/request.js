@@ -88,15 +88,17 @@ function sendErrorMessage(errorMsg) {
     duration: 4 * 1000
   })
 }
-const request = function ({ method, data, cb, errorCb }) {
+const request = function ({ method, url, params, cb = function() { }, errorCb = sendErrorMessage }) {
   // if(!this instanceof request) {
   //   return new request(arguments);
   // }
-  _request({
+  _request['jid'] = '11000';
+  return _request({
     method,
-    data,
+    params,
     url
   }).then((res) => {
+    console.log(res,'gogg')
     if (res.code === 200) {
       cb(res.data)
     } else {
@@ -104,6 +106,7 @@ const request = function ({ method, data, cb, errorCb }) {
       errorCb(res.message)
     }
   }).catch(error => {
+    console.log(error)
     if (typeof error === 'string' && error.indexOf('@') === 0) {
       sendErrorMessage(error.slice(1));
     } else {

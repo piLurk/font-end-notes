@@ -8,13 +8,11 @@ export function logout() {
   })
 }
 
-export function getUserInfo(token) {
-  console.log('a')
+export function getUserInfo(options) {
   return request({
     url: '/user/info',
     method: 'get',
-    params: { token }
+    ...options
   })
-  console.log("b")
 }
 
