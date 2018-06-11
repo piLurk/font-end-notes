@@ -1,61 +1,70 @@
 [
   {
-    "title": "公告设置",
     "icon": "i-workBench",
     "path": "/noticemgmt",
-    "redirect": "/noticemgmt/noticeAdd",
+    "redirect": "/noticemgmt/noticeList",
+    "isSideBar": true,
+    "meta": {
+      "title": "公告设置"
+    },
     "children": [
       {
         "name": "noticeAdd",
-        "title": "添加公告",
-        "path": "/noticemgmt/noticeAdd",
+        "path": "noticeAdd",
         "filePath": "noticemgmt/noticeAdd.vue",
         "meta": {
-          "roles": [1]
+          "roles": [1],
+          "title": "添加公告"
+          
         }
       },
       {
         "name": "noticeList",
-        "title": "公告列表",
-        "path": "/noticeList",
+        "path": "noticeList",
         "filePath": "noticemgmt/noticeList.vue",
         "meta": {
+          "title": "公告列表",
           "roles": [1]
         }
       }
     ]
   },
   {
-    "title": "答疑中心",
     "icon": "i-workBench",
     "path": "/questioncenter",
     "redirect": "noredirect",
+    "isSideBar": true,
+    "meta": {
+      "title": "答疑中心"
+    },
     "children": [
       {
         "name": "questionAdd",
-        "title": "新建问题",
-        "path": "/questioncenter/questionAdd",
+        "path": "questionAdd",
         "filePath": "questioncenter/questionAdd.vue",
         "meta": {
-          "roles": [1]
+          "roles": [1],
+          "title": "新建问题"
         }
       },
       {
         "name": "qatypesmgmt",
-        "title": "问题分类管理",
-        "path": "/questioncenter/qatypesmgmt",
+        "path": "qatypesmgmt",
         "filePath": "questioncenter/qatypesmgmt.vue",
+        "isSideBar": true,
         "meta": {
-          "roles": [2]
+          "roles": [2],
+          "title": "问题分类管理"
         }
       },
       {
         "name": "qaList",
-        "title": "问题列表",
-        "path": "/questioncenter/qaList",
-        "filePath": "noticemgmt/qaList.vue",
+        "path": "qaList",
+        "filePath": "questioncenter/qaList.vue",
+        "isSideBar": true,
         "meta": {
-          "roles": [1]
+          "roles": [1],
+          "title": "问题列表"
         }
       }
     ]

@@ -21,7 +21,6 @@ if (token) {
   setToken(token)
 }
 if (process.env.NODE_ENV === 'development') {
-  console.log('yes', BROWSER_CONFIG.COOKIE)
   setToken(BROWSER_CONFIG.COOKIE)
 }
 

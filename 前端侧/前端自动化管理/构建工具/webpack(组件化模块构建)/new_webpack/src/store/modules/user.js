@@ -11,6 +11,7 @@ const user = {
     avatar: '',
     introduction: '',
     roles: [],
+    userId: '',
     setting: {
       articlePlatform: []
     }
@@ -40,6 +41,9 @@ const user = {
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_USERID: (state, userId) => {
+      state.userId = userId
     }
   },
 
@@ -61,28 +65,29 @@ const user = {
 
     // 获取用户信息
     GetUserInfo({ commit, state }) {
+      console.log('触发获取用户信息')
       return new Promise((resolve, reject) => {
-        console.log(getUserInfo({params:{token:state.token}}))
-        console.log('bbbbbb')
         getUserInfo({
-          params:{token:state.token},
-          cb(data){
-              if (!data) { 
-                reject('error')
-              }
+          params: { token: state.token },
+          cb(data) {
+            console.log(data)
+            if (!data) {
+              reject('error')
+            }
 
-              if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-                commit('SET_ROLES', data.roles)
-              } else {
-                reject('getInfo: roles must be a non-null array !')
-              }
-
-              commit('SET_NAME', data.name)
-              commit('SET_AVATAR', data.avatar)
-              commit('SET_INTRODUCTION', data.introduction)
-              resolve(data)
+            if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+              commit('SET_ROLES', data.roles)
+            } else {
+              reject('getInfo: roles must be a non-null array !')
+            }
+            
+            commit('SET_NAME', data.name)
+            commit('SET_AVATAR', data.avatar)
+            commit('SET_INTRODUCTION', data.introduction)
+            commit('SET_USERID', data.userId)
+            resolve(data)
           },
-          errorCb(){
+          errorCb(error) {
             reject(error)
           }
         })

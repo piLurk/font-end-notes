@@ -1,0 +1,61 @@
+/**
+* 搜索块
+*/ 
+
+.form-box {
+  padding: 15px 10px;
+  background-color: #fff;
+  .item {
+    margin-bottom: 15px;
+  };
+  .item .tit {
+    float: left;
+    padding-left: 15px;
+    width: 95px;
+    line-height: 36px;
+  };
+  .item .inp-box {
+    margin-left:100px;
+  };
+  .item.long {
+    .tit {
+      width: 135px;
+    };
+    .inp-box {
+      margin-left: 135px;
+    };
+    
+  };
+  .item.middle {
+    .tit {
+      width: 120px;
+    };
+    .inp-box{
+      margin-left: 120px;
+    }
+  }
+}
+.table-box{
+  margin-top: 15px;
+  background-color: #fff;
+}
+
+.el-button.icon_button{
+  position: relative;
+  padding-left:40px;
+  i.add-icon {
+    position: absolute;
+    left: 16px;
+    top:7px;
+    color: #fff;
+    font-size: 25px;
+    padding-right:15px;
+  } 
+} 
+.table-wrap {
+  .toolBar {
+    padding: 15px 0;
+    .miniPages {float: right; line-height: 23px;font-size: 12px;color:#999;}
+    .miniPages .fc { color: #3ba0ff; }
+  }
+}

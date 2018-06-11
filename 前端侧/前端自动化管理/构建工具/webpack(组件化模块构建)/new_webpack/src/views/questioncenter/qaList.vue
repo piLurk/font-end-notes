@@ -5,7 +5,14 @@
 </template>
 <script>
   export default {
-    name: 'qaList'
+    name: 'qaList',
+    data() {
+      return {
+        form:{
+          name:'g'
+        }
+      }
+    }
   }
 
 </script>

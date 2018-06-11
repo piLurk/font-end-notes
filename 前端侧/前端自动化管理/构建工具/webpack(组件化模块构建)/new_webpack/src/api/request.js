@@ -98,7 +98,6 @@ const request = function ({ method, url, params, cb = function() { }, errorCb = 
     params,
     url
   }).then((res) => {
-    console.log(res,'gogg')
     if (res.code === 200) {
       cb(res.data)
     } else {

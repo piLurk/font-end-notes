@@ -7,7 +7,6 @@ Vue.use(VueRouter)
 import Layout from '@/views/layout/Layout'
 
 let defaultPath = '/noticemgmt';
-
 //静态路由
 export const constantRouterMap = [ 
   {
@@ -18,7 +17,6 @@ export const constantRouterMap = [
     redirect: defaultPath
   }
 ]
- 
 const registerRoute = (navConfig) => {
   let routes = [];
   let navs = navConfig;
@@ -30,17 +28,23 @@ const registerRoute = (navConfig) => {
       nav.children.forEach( page => {
         children.push({
           name: page.name,
+          title: nav.title,
           component: () => import(`@/views/${page.filePath}`),
           path: page.path,
-          meta: page.meta
+          meta: page.meta,
+          isSideBar: page.isSideBar
         })
       })
     }
     routes.push(
       {
-        path: nav.path,
+        name: nav.name,
+        title: nav.title,
         component: Layout,
+        path: nav.path,
+        meta: nav.meta,
         redirect: nav.redirect,
+        isSideBar: nav.isSideBar,
         children
       }
     )
@@ -51,17 +55,13 @@ const registerRoute = (navConfig) => {
   return routes
 }
 
-
-
 export let routes = registerRoute(navConfig);
 
-routes = routes.concat(constantRouterMap)
 
-console.log(routes, 'afafaa')
 let router = new VueRouter({
   mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
-  routes
+  routes: constantRouterMap
 });
 
 export default router
