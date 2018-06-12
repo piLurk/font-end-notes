@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "env"
+    ]
+  ],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-default"
+      }
+    ],
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",
+    "transform-vue-jsx"
+  ]
+}
