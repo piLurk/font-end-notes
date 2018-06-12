@@ -36,7 +36,6 @@
       </div>
       
       <pagination-table ref="pagenationTable" :formQuery="formQuery" :pageSize="pageSize"  :getData="getAllNotice">
-        <template>
           <table class="modtable">
             <thead>
               <th>发布部门</th>
@@ -58,7 +57,6 @@
               </tr> 
             </tbody>
           </table>
-        </template>
       </pagination-table>
     </div>
   </div>
@@ -68,7 +66,7 @@
   const { mapGetters, mapActions } = createNamespacedHelpers('noticemgmt')
 
   import PaginationTable from '@/components/paginationTable'
-  //import { getAllNotice } from '@/api/noticemgmt'
+  import { getAllNotice } from '@/api/noticemgmt'
 
 
   const resetForm = () => {
@@ -78,7 +76,7 @@
     }
   }
   export default {
-    name: 'noticeList',
+    name: 'qaList',
     components: { "pagination-table":  PaginationTable },
     data() {
       return {
@@ -147,6 +145,7 @@
   }
   
 </script>
+
 <style lang="scss" scoped>
 
 

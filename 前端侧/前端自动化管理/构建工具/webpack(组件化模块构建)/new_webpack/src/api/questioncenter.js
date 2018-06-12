@@ -1,5 +1,8 @@
 import request from './request'
 
+export function ggg() {
+  console.log('ggg')
+}
 // ---- 分类管理
 // 新增问题分类 
 export function addQuestionType(options) {

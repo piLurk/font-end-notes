@@ -58,10 +58,7 @@ module.exports = {
       {
         resource: {
           test: /\.js$/,
-          include: [
-            resolve('src'),
-            resolve('test')
-          ]
+          exclude: /node_modules/
         },
         use: 'babel-loader' // 
       },

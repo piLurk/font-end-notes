@@ -3,6 +3,9 @@ import request from './request'
 // ---- 公告设置
 
 
+export function ggg() {
+  console.log('ggg')
+}
 
 // 公告列表
 export function getAllNotice(options) {
