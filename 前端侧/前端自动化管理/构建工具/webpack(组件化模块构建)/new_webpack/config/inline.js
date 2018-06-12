@@ -5,7 +5,8 @@ module.exports = {
     hosts:"dev.jiangroom.com"
   },
   build:{
-    distPath: path.resolve(__dirname, '../dist')
+    distPath: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'static'
   },
   dev:{
     port:8071,

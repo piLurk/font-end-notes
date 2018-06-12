@@ -1,8 +1,11 @@
       
 <template>
   <div class="table-wrap">
-    <my-pagination :total="total" :page-size="pageSize" :curr="curr" @pageChange="pageGo"></my-pagination>
+    <my-pagination :total="total" :page-size="pageSize" :curr="curr" :pageChange="pageGo"></my-pagination>
     <slot></slot>
+    <div class="footPages">
+      <el-pagination v-on:current-change="pageGo" v-show="total > pageSize"  layout="prev, pager, next" :page-size="pageSize" :current-page="curr" :total="total" ></el-pagination>
+    </div>
   </div>
 </template>
 
@@ -20,32 +23,30 @@
         require: true,
         type: Function
       },
-      initFormQueryFlag: {
+      formQuery: {
         require: true,
-        type: Boolean,
-        default: true
+        type: Object
       }
     },
     components: { "my-pagination":  MyPagination },
     data() {
       return {
         total:0,
-        curr:1,
-        formQuery:{
-
-        }
+        curr:1
       }
     },
     methods:{
       paginationReq() {
         var formQuery = JSON.parse(JSON.stringify(this.formQuery))
+        
         formQuery['pageSize'] = this.pageSize
         formQuery['pageIndex'] = this.curr
-        this.getData(formQuery).then( (res) => {
-          console.log('res是', res)
+        var p = this.getData(formQuery).then( (res) => {
+          this.total = res.data.total;
         } )
       },
       pageGo(curr) {
+        console.log('wafas')
         if (this.curr === curr) {
           return
         }
@@ -65,12 +66,11 @@
       }, 300),
     },
     watch:{
-      initFormQueryFlag: {
+      formQuery: {
         immediate: true,
+        deep: true,
         handler(newValue,oldValue) {
-          if(newValue) {
-            this.paginationReq()
-          } 
+          this.paginationReq()
         }
       }
     }

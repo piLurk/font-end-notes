@@ -66,8 +66,9 @@ app.use(devMilddleware);
 // compilation error display
 app.use(hotMiddleware);
 
+// 静态文件请求
 var distPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory);
-app.use(distPath, express.static('./dist'));
+app.use(distPath, express.static('./static'));
 
 var uri = host + ':' + port;
 

@@ -6,7 +6,6 @@ import { getToken, removeToken } from '@/utils/auth'
 
 
 // create an axios instance
-console.log();
 const _request = axios.create({
   baseURL: BROWSER_CONFIG.BASE_API, // api的base_url
   timeout: 5000, // request timeout
@@ -88,18 +87,19 @@ function sendErrorMessage(errorMsg) {
     duration: 4 * 1000
   })
 }
-const request = function ({ method, url, params, cb = function() { }, errorCb = sendErrorMessage }) {
+const request = function ({ method, url, params, data, cb = function() { }, errorCb = sendErrorMessage }) {
   // if(!this instanceof request) {
   //   return new request(arguments);
   // }
-  _request['jid'] = '11000';
   return _request({
     method,
     params,
+    data,
     url
   }).then((res) => {
     if (res.code === 200) {
       cb(res.data)
+      return res
     } else {
       console.log('[error] ' + res.message)
       errorCb(res.message)

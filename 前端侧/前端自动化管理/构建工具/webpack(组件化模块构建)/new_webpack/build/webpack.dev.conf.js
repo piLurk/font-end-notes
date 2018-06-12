@@ -25,9 +25,7 @@ function resolve(dir) {
 }
 let plugins = ( () => {
   let plugins =[];
-
   
-
   if(isCssExtract) {
     plugins.push(
       new MiniCssExtractPlugin({
@@ -66,7 +64,13 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       maxAssetSize:20000000    // 最大单个文件体积
     },
     plugins: plugins.concat([
-
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: 'index.html',
+        favicon: path.resolve('favicon.ico'),
+        inject: true,
+        path: config.dev.assetsPublicPath + config.dev.assetsSubDirectory
+      }),
     ])
   }
   

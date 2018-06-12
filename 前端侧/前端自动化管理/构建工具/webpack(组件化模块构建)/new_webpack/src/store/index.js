@@ -19,15 +19,28 @@ import permission from './modules/permission'
 
 // 用户信息管理
 import user from './modules/user'
-Vue.use(Vuex)
 
+// 全局信息
+import message from './modules/message'
+
+// 公告设置
+import noticemgmt from './modules/noticemgmt/noticemgmt'
+
+// 常见问题
+import questioncenter from './modules/questioncenter/questioncenter'
+
+
+Vue.use(Vuex)
 const store = new Vuex.Store({
   modules: {
     app,
     errorLog,
     user,
     tagsView,
-    permission
+    permission,
+    message,
+    noticemgmt,
+    questioncenter
   },
   getters
 })

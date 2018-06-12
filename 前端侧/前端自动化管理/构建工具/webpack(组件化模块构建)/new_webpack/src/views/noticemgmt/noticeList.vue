@@ -5,17 +5,15 @@
         <el-col class="item" :md="{span:8}" :lg="{span:6}">
           <p class="tit">分布部门：</p>
           <div class="inp-box">
-            <el-select v-model="form.departmentId" placeholder="请选择">
-							<el-option v-for="(item,key) in deparments" :label="item.label" :value="item.value" :key="key"></el-option>
+            <el-select v-model="form.departmentName" placeholder="请选择">
+							<el-option v-for="(item, key) in departments" :label="item.departmentName" :value="item" :key="key"></el-option>
 						</el-select>
           </div>
         </el-col>
         <el-col class="item middle" :md="{span:8}" :lg="{span:6}">
           <p class="tit middle">关键词搜索：</p>
           <div class="inp-box">
-            <el-select v-model="form.code" placeholder="请选择">
-							<el-option v-for="(item,key) in deparments" :label="item.label" :value="item.value" :key="key"></el-option>
-						</el-select>
+            <el-input type="text" v-model="form.code" placeholder="请输入关键字"></el-input>
           </div>
         </el-col>
       </el-row>
@@ -30,11 +28,14 @@
       </el-row>
     </div>
     <div class="table-box">
-      <div class="fl">
-        <el-button class="icon_button" type="success"><i class="add-icon">+</i>新建公告</el-button>
+      <div class="fl table-top-box">
+        <router-link ref='tag'
+          :to="{ name: 'noticeAdd', params: { isEdit: false }}">
+          <el-button class="icon_button" type="success"><i class="add-icon">+</i>新建公告</el-button>
+        </router-link>
       </div>
       
-      <pagination-table ref="pagenationTable" :initFormQueryFlag='initFormQueryFlag' :pageSize="pageSize" :formQurey="formQurey"  :getData="getAllNotice">
+      <pagination-table ref="pagenationTable" :formQuery="formQuery" :pageSize="pageSize"  :getData="getAllNotice">
         <template>
           <table class="modtable">
             <thead>
@@ -47,13 +48,12 @@
               <tr v-for="(item, index) in noticeList" :key="index">
                 <td>{{item.departmentName}}</td>
                 <td>{{item.content}}</td>
-                <td>{{item.publishFlag === 0 ? '编辑中' : '已发布'}}</td>
+                <td :class="{success: item.publishFlag === 0}">{{item.publishFlag === 0 ? '编辑中' : '已发布'}}</td>
                 <td>
-                  <span @click="editNotice">
+                  <span class="edit operate" @click="editNotice(item)">
                     <i class="el-icon-edit"></i>
                     编辑
                   </span>
-                  
                 </td>
               </tr> 
             </tbody>
@@ -64,9 +64,12 @@
   </div>
 </template>
 <script>
+  import { createNamespacedHelpers } from 'vuex';
+  const { mapGetters, mapActions } = createNamespacedHelpers('noticemgmt')
 
   import PaginationTable from '@/components/paginationTable'
   import { getAllNotice } from '@/api/noticemgmt'
+
 
   const resetForm = () => {
     return {
@@ -79,26 +82,28 @@
     components: { "pagination-table":  PaginationTable },
     data() {
       return {
+        userId:'',
         pageSize: 10,
-        form:{
-          userId:'',
-          ...resetForm()
-        },
-        formQurey:{},
+        form: resetForm(),
+        formQuery: resetForm(),
         //是否更新子组件fromQuery
         initFormQueryFlag: true,
-        noticeList: [],
-        deparments:[{
-          label:'技术中心',
-          id: 10
-        }]
+        noticeList: []
       }
     },
+    computed: {
+      ...mapGetters({
+        departments:'departments'
+      })
+    },
     methods: {
-      getAllNotice(params) {
+      ...mapActions({
+				getAllDepartments:'getAllDepartments'
+			}),
+      getAllNotice(data) {
         var that = this;
         return getAllNotice({
-          params,
+          data,
           cb(data){
             that.noticeList = data.list;
             that.$message({
@@ -115,25 +120,28 @@
         })
       },
       noticeQuery(){
-        this.formQurey = JSON.parse(JSON.stringify(this.form))
-
-        this.initFormQueryFlag = true;
+        this.formQuery = JSON.parse(JSON.stringify(this.form))
       },
       noticeReset() {
-        this.form = {
-          userId: this.form.userId,
-          ...resetForm()
-        };
-        this.formQurey = JSON.parse(JSON.stringify(this.form))
-        this.initFormQueryFlag = true;
+        this.form = resetForm()
+        this.formQuery = JSON.parse(JSON.stringify(this.form))
       },
-      editNotice() {
-
+      pageInit() {
+        let departments = this.departments;
+        this.userId = this.$store.getters.userId;
+        if(!departments || departments.length === 0) {
+          this.getAllDepartments()
+        }
+      },
+      editNotice(notice) {
+        this.$route.to({ 
+          name: 'noticeAdd', 
+          params: { isEdit: true,  noticeId: notice.id}})
       }
     },
     beforeMount() {
-      this.form.userId = this.$store.getters.userId ;
-      console.log(this.form.userId)
+      // 初始化页面
+      this.pageInit();
     }
     
   }

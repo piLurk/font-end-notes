@@ -18,7 +18,9 @@ module.exports = {
   output: {
     path: config.build.distPath,
     filename:'[name].js',
-    publicPath:'/'
+    publicPath:  process.env.NODE_ENV === 'production'
+      ? config.build.assetsPublicPath
+      : config.dev.assetsPublicPath
   },
   resolve: {
     alias: { //别名
@@ -135,12 +137,6 @@ module.exports = {
     // ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      favicon: path.resolve('favicon.ico'),
-      inject: true
-    }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       // 注意； 由于DefinePlugin插件是直接文本替换，使用时必须要是‘“ss”’格式，或者使用stringify('ss')
