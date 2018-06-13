@@ -71,7 +71,7 @@ module.exports = function (app) {
 
   // 上传文件
   app.post('/notice/uploadFile', (req, res) => {
-    res.josn({
+    res.json({
       code: 200,
       data: {
         state: '',
@@ -82,7 +82,7 @@ module.exports = function (app) {
 
   // 新增公告保存
   app.post('/notice/addNotice', (req, res) => {
-    res.josn({
+    res.json({
       code: 200,
       data: {
         id: '2018notice'
@@ -91,7 +91,7 @@ module.exports = function (app) {
   })
   // 获取公告详情
   app.get('/notice/findNoticeById', (req, res) => {
-    res.josn({
+    res.json({
       code: 200,
       data: {
         fileURL: ['http://baidu.com', 'http://jiangroom.com'],
@@ -110,8 +110,21 @@ module.exports = function (app) {
   })
   //编辑公告保存
   app.post('/notice/editNotice', (req, res) => {
-    res.josn({
+    res.json({
       code: 200
+    })
+  })
+
+  // 公告文件上传
+
+  app.post('/notice/uploadNoticeFile', (req, res) => {
+    res.json({
+      code: 200,
+      data: {
+        fileId: '1110000',
+        fileName:'测试文件名',
+        fileUrl:'http://baidu.com'
+      }
     })
   })
 

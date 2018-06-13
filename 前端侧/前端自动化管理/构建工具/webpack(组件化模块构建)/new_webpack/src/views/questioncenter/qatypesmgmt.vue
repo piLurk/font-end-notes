@@ -1,11 +1,230 @@
 <template>
-  <div >
-    <h3>问题管理</h3>
+  <div class="noticeList">
+    <div class="table-box">
+      <div class="fl table-top-box">
+          <el-button @click="createQaType" class="icon_button" type="success"><i class="add-icon">+</i>新建分类</el-button>
+      </div>
+      
+      <pagination-table ref="pagenationTable" :formQuery="formQuery" :pageSize="pageSize"  :getData="getQuestionList">
+          <table class="modtable">
+            <thead>
+              <th>分类名称</th>
+              <th>操作</th>
+            </thead>
+            <tbody>
+              <tr v-for="(item, index) in questionTypeList" :key="index">
+                <td>{{item.typeName}}</td>
+                <td>
+                  <span class="edit operate" @click="editQuestion(item)">
+                    <i class="el-icon-edit"></i>
+                    编辑
+                  </span>
+                  <span class="edit operate" @click="deleteQuestion(item)">
+                    <el-switch
+                      v-model="item.stopFlag"
+                      active-value = "0"
+                      inactive-value = "1"
+                      active-color="#13ce66"
+                      inactive-color="#B3B7BC"
+                      @change = "toggleQuestionTypeState(item)">
+                    </el-switch>
+                  </span>
+                </td>
+              </tr> 
+            </tbody>
+          </table>
+      </pagination-table>
+    </div>
+
+    
+    <el-dialog
+      width="30%"
+      :visible.sync="createDialogVisible"
+      >
+      <h3 slot="title" class="el-dialog__title">新建分类</h3>
+      <div class="dialog-form-wrap">
+        <el-form
+          ref = "createTypeForm" 
+          :model="createTypeForm"
+          label-width="85px"
+          label-position="left">
+          <el-form-item
+            prop="typeName"
+            label="分类名称："
+            :rules="rules.checkTypeName">
+            <el-input type="text" v-model="createTypeForm.typeName"></el-input>
+          </el-form-item>
+        </el-form>
+        <div class="inp-box">
+          <el-button type="info"  @click="createDialogVisible = false">取消</el-button>
+          <el-button type="primary"  @click="createTypeSave">保存</el-button>
+        </div>
+      </div>
+      
+    </el-dialog>
   </div>
 </template>
 <script>
-  export default {
-    name: 'qatypesmgmt'
+
+  import PaginationTable from '@/components/paginationTable'
+  import { 
+    getQuestionTypeList,  
+    toggleQuestionTypeState,
+    addQuestionType
+  } from '@/api/questioncenter'
+
+  const resetCreateTypeForm = () =>  {
+    return {
+      typeName:''
+    }
   }
 
+  export default {
+    name: 'qaList',
+    components: { "pagination-table":  PaginationTable },
+    data() {
+      var checkTypeName = (rule, value, cb) => {
+        if(value === '') {
+          return cb(new Error('输入不能为空'))
+        }else if(value.length > 6) {
+          return cb(new Error('输入字符不能超过6个'))
+        }
+        cb()
+      }
+      return {
+        userId:'',
+        pageSize: 10,
+        formQuery: {},
+        //是否更新子组件fromQuery
+        initFormQueryFlag: true,
+        questionTypeList: [],
+        createDialogVisible: false,
+        createTypeForm: resetCreateTypeForm(),
+        rules:{
+          checkTypeName: {validator: checkTypeName, trigger:'blur'}
+        }
+
+      }
+    },
+    computed: {
+    },
+    methods: {
+      getQuestionList(data) {
+        var that = this;
+        return getQuestionTypeList({
+          data,
+          cb(data){
+            that.questionTypeList = data.list;
+            that.$message({
+              message: '问题分类列表获取成功！',
+              type: 'success'
+            })
+          },
+          errorCb(){
+            that.$message({
+              message: '问题分类列表获取失败！',
+              type: 'error'
+            })
+          }
+        })
+      },
+      pageInit() {
+        this.userId = this.$store.getters.userId;
+      },
+      editQuestion(questionType) {
+        
+      },
+      deleteQuestion(questionType) {
+        
+      },
+      createQaType() {
+        // 先初始化dialog
+        setTimeout( () => {
+          this.$refs['createTypeForm'].resetFields()
+        }, 0)
+        
+        this.createTypeForm = resetCreateTypeForm();
+        this.createDialogVisible = true;
+      },
+      createTypeSave() {
+        var that = this;
+        this.$refs['createTypeForm'].validate(valid => {
+          if(!valid) return
+        })
+        let data = {
+          typeName: this.createTypeForm.typeName,
+          userId: this.userId
+        }
+        addQuestionType({
+          data,
+          cb() {
+            that.$message({
+              message: '分类新建成功！',
+              type: 'success'
+            })
+          },
+          errorCb(message) {
+            that.$message({
+              message: message || '分类新建失败！',
+              type: 'error'
+            })
+          }
+        }).finally(() => {
+          that.createDialogVisible = false
+        })
+      },
+      editTypeSave() {
+
+      },
+      getStateName(stopFlag) {
+        if(stopFlag === '1') {
+          return '停用'
+        }
+        return '启用'
+      },
+      toggleQuestionTypeState (item) {
+        console.log(item)
+        var that = this;
+        toggleQuestionTypeState({
+          data: {
+            userId: this.userId,
+            questionTypeId:item.id
+          },
+          cb() {
+            let statName = that.getStateName(item.stopFlag);
+            that.$message({
+              message: `${item.typeName}${statName}成功！`,
+              type: 'success'
+            })
+          },
+          errorCb() {
+            let statName = that.getStateName(item.stopFlag);
+            if(item.stopFlag === '0') {
+              item.stopFlag = '1'
+            }else {
+              item.stopFlag = '0'
+            }
+            that.$message({
+              message: `${item.typeName}${statName}失败！`,
+              type: 'error'
+            })
+          }
+        })
+      }
+
+    },
+    beforeMount() {
+      // 初始化页面
+      this.pageInit();
+    }
+    
+  }
+  
 </script>
+
+<style lang="scss" scoped>
+  .dialog-form-wrap {
+    padding: 8px 30px 10px;
+  }
+
+</style>

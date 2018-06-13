@@ -7,36 +7,13 @@
     <div class="right-menu">
       <error-log class="errLog-container right-menu-item"></error-log>
 
-      <el-tooltip effect="dark" :content="'navbar.screenfull'" placement="bottom">
+      <el-tooltip effect="dark" :content="'全屏'" placement="bottom">
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
+      <div class="logout"><i class="icon i-logout"></i>退出登陆</div>
 
-      <el-tooltip effect="dark" :content="'navbar.theme'" placement="bottom">
-        <theme-picker class="theme-switch right-menu-item"></theme-picker>
-      </el-tooltip>
-
-      <el-dropdown class="avatar-container right-menu-item" trigger="click">
-        <div class="avatar-wrapper">
-          <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
-          <i class="el-icon-caret-bottom"></i>
-        </div>
-        <el-dropdown-menu slot="dropdown">
-          <router-link to="/">
-            <el-dropdown-item>
-              {{'navbar.dashboard'}}
-            </el-dropdown-item>
-          </router-link>
-          <a target='_blank' href="https://github.com/PanJiaChen/vue-element-admin/">
-            <el-dropdown-item>
-              {{'navbar.github'}}
-            </el-dropdown-item>
-          </a>
-          <el-dropdown-item divided>
-            <span @click="logout" style="display:block;">{{'navbar.logOut'}}</span>
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
+      
     </div>
   </el-menu>
 </template>
@@ -47,20 +24,20 @@ import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import ErrorLog from '@/components/ErrorLog'
 import Screenfull from '@/components/Screenfull'
-import ThemePicker from '@/components/ThemePicker'
+
 
 export default {
   components: {
     Breadcrumb,
     Hamburger,
     ErrorLog,
-    Screenfull,
-    ThemePicker
+    Screenfull
   },
   computed: {
     ...mapGetters([
       'sidebar',
       'name',
+      'jobName',
       'avatar'
     ])
   },
@@ -107,6 +84,7 @@ export default {
     }
     .screenfull {
       height: 20px;
+      vertical-align: text-bottom;
     }
     .international{
       vertical-align: top;
@@ -134,6 +112,29 @@ export default {
         }
       }
     }
+  }
+}
+.logout {
+  display: inline-block;
+  border-left:1px solid #f2f2f2;
+  line-height: 50px;
+  height: 50px;
+  cursor: pointer;
+  padding-right: 15px;
+  .icon{
+    display: inline-block;
+    height: 17px;
+    width: 16px;
+    background-position: left center;
+    background-repeat: no-repeat;
+    margin:0 10px;
+    &.i-logout {
+      background-image: url(/static/images/logout.png);
+      vertical-align: -2px;
+    } 
+  }
+  &:hover .icon.i-logout {
+    background-image: url(/static/images/logoutcur.png)
   }
 }
 </style>

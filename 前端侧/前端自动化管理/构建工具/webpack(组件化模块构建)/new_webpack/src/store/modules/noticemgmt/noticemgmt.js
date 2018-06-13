@@ -31,11 +31,4 @@ const noticemgmt = {
   }
 
 } 
-
-
-
-
-
-
-
 export default noticemgmt

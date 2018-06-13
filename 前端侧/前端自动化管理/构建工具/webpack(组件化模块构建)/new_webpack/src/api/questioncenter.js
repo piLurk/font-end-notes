@@ -3,7 +3,8 @@ import request from './request'
 export function ggg() {
   console.log('ggg')
 }
-// ---- 分类管理
+
+// ---- 问题分类管理
 // 新增问题分类 
 export function addQuestionType(options) {
   return request({
@@ -17,10 +18,20 @@ export function addQuestionType(options) {
 export function getQuestionTypeList(options) {
   return request({
     url:'cmsQuestionType/listCmsQuestionTypeByPage',
-    method:'get',
+    method:'post',
     ...options
   })
 } 
+
+// 切换问题分类状态
+export function toggleQuestionTypeState(options) {
+  return request({
+    url:'/cmsQuestionType/stopOrStartCmsQuestionType',
+    method:'post',
+    ...options
+  })
+} 
+
 //获取问题分类(回显)
 export function getQuestionType(options) {
   return request({
@@ -47,14 +58,24 @@ export function stopOrStartQuestionType(options) {
 
 // ---- 问题列表
 
-//问题列表
+
+//分页问题列表
 export function getQuestionList(options) {
   return request({
-    url:'cmsQuestion/listNoStopCmsQuestionType',
-    method:'get',
+    url:'/cmsQuestion/listCmsQuestionByPageAndCondition',
+    method:'post',
     ...options
   })
 } 
+ // 获取所有问题分类
+
+ export function getQuestionTypes(options) {
+  return request({
+    url:'/cmsQuestion/listCmsQuestionType',
+    method:'get',
+    ...options
+  })
+ }
 //新增问题
 export function addQuestion(options) {
   return request({
@@ -64,7 +85,7 @@ export function addQuestion(options) {
   })
 } 
 //编辑问题(回显)
-export function geteQuestioDetail(options) {
+export function getQuestionDetail(options) {
   return request({
     url:'cmsQuestion/editorCmsQuestion',
     method:'get',

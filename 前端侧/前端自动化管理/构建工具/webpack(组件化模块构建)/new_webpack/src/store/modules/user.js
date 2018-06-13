@@ -12,6 +12,7 @@ const user = {
     introduction: '',
     roles: [],
     userId: '',
+    jobName: '',
     setting: {
       articlePlatform: []
     }
@@ -44,6 +45,9 @@ const user = {
     },
     SET_USERID: (state, userId) => {
       state.userId = userId
+    },
+    SET_JOBNAME: (state, jobName) => {
+      state.jobName = jobName
     }
   },
 
@@ -85,6 +89,7 @@ const user = {
             commit('SET_AVATAR', data.avatar)
             commit('SET_INTRODUCTION', data.introduction)
             commit('SET_USERID', data.userId)
+            commit('SET_JOBNAME', data.jobName)
             resolve(data)
           },
           errorCb(error) {

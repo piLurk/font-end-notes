@@ -11,7 +11,8 @@ module.exports = function(app) {
         name:'吴东岳',
         avatar:null,
         introduction: null,
-        userId: 110
+        userId: 110,
+        jobName: '前端工程师'
       }
       
     })

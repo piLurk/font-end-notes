@@ -37,17 +37,20 @@
 }
 .tableLoading{position: relative !important;}
 
-
+.modtable .edit {
+  &:not(:last-child) {
+    padding-right: 15px;
+  };
+  &:hover{
+    color:#3BA0FF;
+  }
+}
 
 
 /**
 *    公告列表页
 */
-.modtable .edit {
-  &:hover{
-    color:#3BA0FF;
-  }
-}
+
 /**
 *    公告新增页
 */

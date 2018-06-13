@@ -2,6 +2,7 @@
   {
     "icon": "i-workBench",
     "path": "/noticemgmt",
+    "name": "noticemgmt",
     "redirect": "/noticemgmt/noticeList",
     "isSideBar": true,
     "meta": {
@@ -32,6 +33,7 @@
   {
     "icon": "i-workBench",
     "path": "/questioncenter",
+    "name": "questioncenter",
     "redirect": "noredirect",
     "isSideBar": true,
     "meta": {

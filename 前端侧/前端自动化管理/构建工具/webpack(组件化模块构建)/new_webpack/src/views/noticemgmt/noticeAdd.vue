@@ -6,7 +6,7 @@
         <el-col class="item" :sm="{span:12}" :xs="{span:24}">
           <p class="tit">公告标题：</p>
           <div class="inp-box">
-            <el-input type="text" v-model="form.title" placeholder="请输入（**个字以内）"></el-input>
+            <el-input type="text" v-model="form.title" placeholder="请输入（15个字以内）"></el-input>
           </div>
         </el-col>
         <el-col class="item" :sm="{span:6}" :xs="{span:24}">
@@ -49,6 +49,19 @@
       </p>
       <tinymce :height="300" v-model="content"></tinymce>
     </div>
+    <div class="upload-wrap">
+      <el-upload
+        class="upload-demo"
+        :data="{userId}"
+        :action="host + '/notice/uploadNoticeFile'"
+        :on-remove="handleRemove"
+        :on-success="handleSuccess"
+        :on-error="handleError"
+        multiple
+        :file-list="form.fileList">
+        <el-button size="small" type="primary">点击上传</el-button>
+      </el-upload>
+    </div>
   </div>
 </template>
 
@@ -68,7 +81,7 @@
       fileUrl:'',
       stickFlag:'',
       noticeBelongto:[],
-      fileURL:[]
+      fileList:[], // 文件id数组
     }
   }
   export default {
@@ -80,7 +93,8 @@
         form: resetForm(),
         isEdit: null,
         publishFlag: '',
-        content: '' // 富文本内容
+        content: '', // 富文本内容
+        
       }
     },
     computed: {
@@ -132,22 +146,45 @@
       },
       getNoticeDetail({userId, noticeId}) {
         let that = this;
-        // getNoticeDetail({
-        //   params: {
-        //     userId,
-        //     noticeId
-        //   },
-        //   cb(data) {
-        //     that.pageDataInject({fileURL:data.fileURL, ...data.noticeDetail})
-        //   },
-        //   errorCb() {
-        //     this.$message({
-        //       type:'error',
-        //       message:'公告详情获取失败！'
-        //     })
-        //   }
-        // })
-      } 
+        getNoticeDetail({
+          params: {
+            userId,
+            noticeId
+          },
+          cb(data) {
+            that.pageDataInject({fileURL:data.fileURL, ...data.noticeDetail})
+          },
+          errorCb() {
+            this.$message({
+              type:'error',
+              message:'公告详情获取失败！'
+            })
+          }
+        })
+      },
+      handleRemove(file, fileList) {
+
+      },
+      handleSuccess(res, file, fileList) {
+        if(res.code !== 200) {
+					this.$message.error('文件上传失败！')
+					var index = fileList.findIndex( (ele) =>{
+						return file.fileId === ele.fileId;
+					} )
+					fileList.splice(index,1)
+				} else {
+          var data = res.data;
+					var file = {
+            fileUrl: data.fileUrl,
+            fileId: data.fileId
+          };
+					this.form.fileList.push(file);
+
+				}
+      },
+      handleError() {
+        this.$message.error('文件上传失败')
+      }
     },
     beforeMount() {
       let params = this.$route.params;
