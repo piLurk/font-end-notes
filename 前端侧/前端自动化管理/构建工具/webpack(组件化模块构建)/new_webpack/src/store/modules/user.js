@@ -1,4 +1,4 @@
-import { logout, getUserInfo } from '@/api/login'
+import { logout, getUserId, getUserInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -68,34 +68,56 @@ const user = {
     },
 
     // 获取用户信息
-    GetUserInfo({ commit, state }) {
-      console.log('触发获取用户信息')
+    GetUserInfo({ commit, state, dispatch }) {
       return new Promise((resolve, reject) => {
-        getUserInfo({
+        getUserId({
           params: { token: state.token },
-          cb(data) {
-            console.log(data)
-            if (!data) {
-              reject('error')
-            }
-
-            if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-              commit('SET_ROLES', data.roles)
-            } else {
-              reject('getInfo: roles must be a non-null array !')
+          cb(userId) {
+            console.log(userId)
+            if(!userId) {
+              dispatch("sendMessage", {
+                type:'error',
+                message: '用户id获取失败！'
+              }, {root: true})
+            }else {
+              commit('SET_USERID', userId)
+              getUserInfo({
+                params: { userId },
+                cb(data) {
+                  if (!data) {
+                    reject('error')
+                  }
+      
+                  if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+                    commit('SET_ROLES', data.roles)
+                  } else {
+                    reject('getInfo: roles must be a non-null array !')
+                  }
+                  
+                  commit('SET_NAME', data.name)
+                  commit('SET_AVATAR', data.avatar)
+                  commit('SET_INTRODUCTION', data.introduction)
+                  commit('SET_JOBNAME', data.jobName)
+                  resolve(data)
+                },
+                errorCb(error) {
+                  reject(error)
+                }
+              })
             }
             
-            commit('SET_NAME', data.name)
-            commit('SET_AVATAR', data.avatar)
-            commit('SET_INTRODUCTION', data.introduction)
-            commit('SET_USERID', data.userId)
-            commit('SET_JOBNAME', data.jobName)
-            resolve(data)
+
+
           },
-          errorCb(error) {
-            reject(error)
+          errorCb(message) {
+            console.log('guapi')
+            dispatch("sendMessage", {
+              type:'error',
+              message: message || '用户id获取失败！'
+            }, {root: true})
           }
         })
+        
       })
     },
 

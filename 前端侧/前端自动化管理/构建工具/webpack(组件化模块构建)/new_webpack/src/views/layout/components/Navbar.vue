@@ -11,7 +11,7 @@
         <screenfull class="screenfull right-menu-item"></screenfull>
       </el-tooltip>
 
-      <div class="logout"><i class="icon i-logout"></i>退出登陆</div>
+      <div @click="logout" class="logout"><i class="icon i-logout"></i>退出登陆</div>
 
       
     </div>

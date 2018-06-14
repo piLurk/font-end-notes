@@ -15,7 +15,7 @@ export function getAllNotice(options) {
 // 获取所有部门
 export function getAllDepartments(options) {
   return request({
-    url:'/notice/getDepartments',
+    url:'/notice/toNoticeAdd',
     method:'get',
     ...options
   })
@@ -39,6 +39,24 @@ export function addNotice(options) {
     ...options
   })
 }
+// 公告发布
+export function publishNotice(options) {
+  return request({
+    url:'/notice/publishNotice',
+    method:'post',
+    ...options
+  })
+}
+
+// 删除文件
+export function deleteFile(options) {
+  return request({
+    url:'/notice/deleteAttach',
+    method:'post',
+    ...options
+  })
+}
+
 
 // 获取公告详情
 export function getNoticeDetail(options) {
@@ -49,7 +67,7 @@ export function getNoticeDetail(options) {
   })
 }
 //编辑公告保存
-export function editNoticeSave(options) {
+export function editNotice(options) {
   return request({
     url:'/notice/editNotice',
     method:'post',

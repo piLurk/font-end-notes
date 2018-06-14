@@ -1,8 +1,5 @@
 import request from './request'
 
-export function ggg() {
-  console.log('ggg')
-}
 
 // ---- 问题分类管理
 // 新增问题分类 
@@ -13,6 +10,7 @@ export function addQuestionType(options) {
     ...options
   })
 } 
+
 
 //分页查询问题分类列表
 export function getQuestionTypeList(options) {
@@ -31,6 +29,7 @@ export function toggleQuestionTypeState(options) {
     ...options
   })
 } 
+
 
 //获取问题分类(回显)
 export function getQuestionType(options) {
@@ -84,6 +83,15 @@ export function addQuestion(options) {
     ...options
   })
 } 
+
+//删除问题
+export function deleteQuestion(options) {
+  return request({
+    url:'cmsQuestion/deleteCmsQuestion',
+    method:'post',
+    ...options
+  })
+} 
 //编辑问题(回显)
 export function getQuestionDetail(options) {
   return request({
@@ -93,18 +101,11 @@ export function getQuestionDetail(options) {
   })
 } 
 //编辑问题(保存)
-export function saveQuestion(options) {
+export function editQuestion(options) {
   return request({
-    url:'cmsQuestion/saveCmsQuestionType',
+    url:'cmsQuestion/saveCmsQuestion',
     method:'post',
     ...options
   })
 } 
-//删除问题
-export function deleteQuestion(options) {
-  return request({
-    url:'cmsQuestion/deleteCmsQuestion',
-    method:'post',
-    ...options
-  })
-} 
+

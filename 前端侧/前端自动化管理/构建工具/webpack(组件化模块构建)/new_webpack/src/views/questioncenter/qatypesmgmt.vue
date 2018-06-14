@@ -15,7 +15,7 @@
               <tr v-for="(item, index) in questionTypeList" :key="index">
                 <td>{{item.typeName}}</td>
                 <td>
-                  <span class="edit operate" @click="editQuestion(item)">
+                  <span class="edit operate" @click="editQaType(item)">
                     <i class="el-icon-edit"></i>
                     编辑
                   </span>
@@ -40,6 +40,7 @@
     <el-dialog
       width="30%"
       :visible.sync="createDialogVisible"
+      class="has-header"
       >
       <h3 slot="title" class="el-dialog__title">新建分类</h3>
       <div class="dialog-form-wrap">
@@ -111,8 +112,9 @@
     methods: {
       getQuestionList(data) {
         var that = this;
+        data['userId'] = this.userId;
         return getQuestionTypeList({
-          data,
+          params: data,
           cb(data){
             that.questionTypeList = data.list;
             that.$message({
@@ -128,11 +130,18 @@
           }
         })
       },
+      refreshList() {
+        this.formQuery = JSON.parse(JSON.stringify(this.formQuery));
+      },
       pageInit() {
         this.userId = this.$store.getters.userId;
       },
-      editQuestion(questionType) {
-        
+      editQaType(questionType) {
+        // setTimeout( () => {
+        //   this.$refs['createTypeForm'].resetFields()
+        // }, 0)
+        this.createTypeForm['typeName'] = questionType.typeName;
+        this.createDialogVisible = true;
       },
       deleteQuestion(questionType) {
         
@@ -156,12 +165,14 @@
           userId: this.userId
         }
         addQuestionType({
-          data,
+          params:data,
           cb() {
+            that.refreshList();
             that.$message({
               message: '分类新建成功！',
               type: 'success'
             })
+
           },
           errorCb(message) {
             that.$message({
@@ -183,10 +194,9 @@
         return '启用'
       },
       toggleQuestionTypeState (item) {
-        console.log(item)
         var that = this;
         toggleQuestionTypeState({
-          data: {
+          params: {
             userId: this.userId,
             questionTypeId:item.id
           },

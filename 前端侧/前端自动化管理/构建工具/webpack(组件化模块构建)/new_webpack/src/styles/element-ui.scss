@@ -60,14 +60,14 @@
  }
 
  
- .el-dialog__header {
+ .has-header .el-dialog__header {
   background: #f7f7f7;
   padding: 10px 20px;
   padding-left: 0;
   height: 26px;
   box-sizing: content-box;
 }
- .el-dialog__header .el-dialog__title {
+.has-header .el-dialog__header .el-dialog__title {
   line-height: 26px;
   height: 26px;
   display: inline-block;

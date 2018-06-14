@@ -46,7 +46,6 @@
         } )
       },
       pageGo(curr) {
-        console.log('wafas')
         if (this.curr === curr) {
           return
         }

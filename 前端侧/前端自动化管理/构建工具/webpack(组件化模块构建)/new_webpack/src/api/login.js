@@ -7,10 +7,16 @@ export function logout() {
     method: 'post'
   })
 }
-
+export function getUserId(options) {
+  return request({
+    url: '/cms/validToken',
+    method: 'get',
+    ...options
+  })
+}
 export function getUserInfo(options) {
   return request({
-    url: '/user/info',
+    url: '/cms/getRolesAndPermissionsByUserId',
     method: 'get',
     ...options
   })

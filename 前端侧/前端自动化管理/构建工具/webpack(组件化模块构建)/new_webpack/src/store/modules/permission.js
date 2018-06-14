@@ -68,12 +68,10 @@ const permission = {
       state.addRouters = routers
       // 避免addRouters routers生成过程相互影响,应该深度复制
       state.routers = filterSideBarRouter(JSON.parse(JSON.stringify(constantRouterMap.concat(routers))));
-      console.log('state.routers', state.routers)  
     }
   },
   actions: {
     GenerateRoutes({ commit }, data) {
-      console.log(data,'动态路由开始生成')
       return new Promise(resolve => {
         const { roles } = data
         let accessedRouters;
@@ -83,7 +81,6 @@ const permission = {
       })
     },
     addRoutes({ commit, state }) {
-      console.log('路由开始添加')
       router.addRoutes(state.addRouters)
 
     },
@@ -100,9 +97,7 @@ const permission = {
             .then(res => {
               // 拉取user_info
               let roles = res.roles; // note: roles must be a array! such as: ['editor','develop']
-              console.log('roles', roles)
               dispatch("GenerateRoutes", { roles }, {root: true}).then(() => {
-                console.log('动态路由生成完毕')
                 // 根据roles权限生成可访问的路由表
                 dispatch("addRoutes");
               });

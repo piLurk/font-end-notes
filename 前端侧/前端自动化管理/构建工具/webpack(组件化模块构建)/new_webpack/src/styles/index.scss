@@ -15,7 +15,6 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
   font-size: 14px;
 }
-
 label {
   font-weight: 700;
 }
@@ -195,24 +194,3 @@ code {
   z-index: 1000 !important;
 }
 
-.logout {
-  display: inline-block;
-  line-height: 50px;
-  height: 50px;
-  cursor: pointer;
-  padding-right: 15px;
-  .icon{
-    display: inline-block;
-    height: 17px;
-    width: 16px;
-    background-position: left center;
-    background-repeat: no-repeat;
-    margin:0 10px;
-    &.i-logout {
-      background-image: url(/static/images/logout.png)
-    } 
-  }
-  &:hover .icon.i-logout {
-    background-image: url(/static/images/logoutcur.png)
-  }
-}

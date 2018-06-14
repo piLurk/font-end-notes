@@ -68,8 +68,7 @@ const request = function ({ method, url, params, data, cb = function() { }, erro
     data,
     url
   }).then((res) => {
-    console.log(res,'faafaggg')
-    if (res.code === 200) {
+    if (res.code === 0) {
       cb(res.data)
       return res
     } else {

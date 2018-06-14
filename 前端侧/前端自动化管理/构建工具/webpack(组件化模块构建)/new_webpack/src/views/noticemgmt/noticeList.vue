@@ -6,14 +6,14 @@
           <p class="tit">分布部门：</p>
           <div class="inp-box">
             <el-select v-model="form.departmentName" placeholder="请选择">
-							<el-option v-for="(item, key) in departments" :label="item.departmentName" :value="item" :key="key"></el-option>
+							<el-option v-for="item in departments" :label="item.departmentName" :value="item.departmentName" :key="item.departmentName"></el-option>
 						</el-select>
           </div>
         </el-col>
         <el-col class="item middle" :md="{span:8}" :lg="{span:6}">
           <p class="tit middle">关键词搜索：</p>
           <div class="inp-box">
-            <el-input type="text" v-model="form.code" placeholder="请输入关键字"></el-input>
+            <el-input type="text" v-model="form.keywords" placeholder="请输入关键字"></el-input>
           </div>
         </el-col>
       </el-row>
@@ -47,7 +47,7 @@
             <tbody>
               <tr v-for="(item, index) in noticeList" :key="index">
                 <td>{{item.departmentName}}</td>
-                <td>{{item.content}}</td>
+                <td>{{item.title}}</td>
                 <td :class="{success: item.publishFlag === 0}">{{item.publishFlag === 0 ? '编辑中' : '已发布'}}</td>
                 <td>
                   <span class="edit operate" @click="editNotice(item)">
@@ -73,8 +73,8 @@
 
   const resetForm = () => {
     return {
-      departmentId:'',
-      code:''
+      departmentName:'',
+      keywords:''
     }
   }
   export default {
@@ -102,8 +102,12 @@
 			}),
       getAllNotice(data) {
         var that = this;
+        var data = {
+          userId: that.userId,
+          ...data
+        }
         return getAllNotice({
-          data,
+          params:data,
           cb(data){
             that.noticeList = data.list;
             that.$message({
@@ -113,7 +117,7 @@
           },
           errorCb(){
             that.$message({
-              message: '公告列表失败！',
+              message: '公告列表请求失败！',
               type: 'error'
             })
           }
@@ -130,13 +134,13 @@
         let departments = this.departments;
         this.userId = this.$store.getters.userId;
         if(!departments || departments.length === 0) {
-          this.getAllDepartments()
+          this.getAllDepartments({userId:this.userId})
         }
       },
       editNotice(notice) {
-        this.$route.to({ 
+        this.$router.push({
           name: 'noticeAdd', 
-          params: { isEdit: true,  noticeId: notice.id}})
+          query: { noticeId: notice.id}})
       }
     },
     beforeMount() {

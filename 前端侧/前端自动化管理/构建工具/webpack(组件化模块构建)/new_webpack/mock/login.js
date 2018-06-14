@@ -3,18 +3,25 @@ module.exports = function(app) {
 
 
   //获取用户信息
-  app.get('/user/info', (req, res) => {
+  app.get('/cms/validToken', (req, res) => {
     res.json({
-      code:200,
+      code:0,
+      data:{
+        userId: 110
+      }
+    })
+  })
+
+  app.get('/cms/getRolesAndPermissionsByUserId', (req, res) => {
+    res.json({
+      code:0,
       data:{
         roles: [1, 2],
         name:'吴东岳',
         avatar:null,
         introduction: null,
-        userId: 110,
         jobName: '前端工程师'
       }
-      
     })
   })
 }

@@ -61,6 +61,19 @@
           </table>
       </pagination-table>
     </div>
+    <el-dialog
+      width="30%"
+      :visible.sync="deleteDialogVisible"
+      center>
+			<div style="margin-bottom: 20px;margin-top: 25px;text-align: center;">
+				<img src="/static/images/tips.png" alt="" />
+				<span style="font-size: 18px;font-weight: 600;vertical-align: middle;">确定要删除此项？</span>
+			</div>
+			<div slot="footer" class="dialog-footer">
+		    	<el-button @click="deleteDialogVisible = false">取 消</el-button>
+		    	<el-button type="primary" @click="sureDelete" >提 交</el-button>
+		  	</div>
+		</el-dialog>
   </div>
 </template>
 <script>
@@ -68,7 +81,7 @@
   const { mapGetters, mapActions } = createNamespacedHelpers('questioncenter')
 
   import PaginationTable from '@/components/paginationTable'
-  import { getQuestionList } from '@/api/questioncenter'
+  import { getQuestionList, deleteQuestion } from '@/api/questioncenter'
 
 
   const resetForm = () => {
@@ -86,9 +99,9 @@
         pageSize: 10,
         form: resetForm(),
         formQuery: resetForm(),
-        //是否更新子组件fromQuery
-        initFormQueryFlag: true,
-        questionList: []
+        deleteDialogVisible: false,
+        questionList: [],
+        deleteItem:{},
       }
     },
     computed: {
@@ -99,11 +112,18 @@
     methods: {
       ...mapActions({
 				getAllquestionType:'getAllquestionType'
-			}),
+      }),
+      refreshList() {
+        this.formQuery = JSON.parse(JSON.stringify(this.formQuery));
+      },
       getQuestionList(data) {
         var that = this;
+        var data = {
+          userId: that.userId,
+          ...data
+        }
         return getQuestionList({
-          data,
+          params:data,
           cb(data){
             that.questionList = data.list;
             that.$message({
@@ -134,13 +154,37 @@
         }
       },
       editQuestion(question) {
-        this.$route.to({ 
-          name: 'noticeAdd', 
-          params: { isEdit: true,  noticeId: notice.id}})
+        this.$router.push({ 
+          name: 'questionAdd', 
+          query: { questionId: question.id}
+        })
       },
       deleteQuestion(question) {
-        
+        this.deleteItem = question;
+        this.deleteDialogVisible = true;
+
       },
+      sureDelete() {
+        var that = this;
+        deleteQuestion({
+          params:{questionId: this.deleteItem.id, userId: this.userId },
+          cb() {
+            that.refreshList();
+            that.$message({
+              message: '删除问题成功！',
+              type: 'success'
+            })
+          },
+          errorCb(message) {
+            that.$message({
+              message: message || '删除问题失败！',
+              type: 'error'
+            })
+          }
+        }).finally( () => {
+          that.deleteDialogVisible = false
+        })
+      }
 
     },
     beforeMount() {
