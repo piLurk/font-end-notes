@@ -1,0 +1,127 @@
+
+.border-l-h3 {
+  line-height: 30px;
+  height: 30px;
+  border-left: 3px solid #3BA0FF;
+  padding-left: 22px;
+  font-size: 18px;
+  margin: 6px 0;
+  color:#1C2B36;
+}
+
+// 表格
+.table-box {
+  padding: 15px;
+  width: 100%;
+  .modtable{
+    width:100%;
+    border-collapse: collapse;
+    .hide{display: none;};
+    td,th{
+      background: #fff;
+      font-size: 14px;
+      vertical-align: middle;
+      text-align: left;
+      height: 40px;
+      &:first-child{
+        text-align: center;
+      }
+      &.success{
+        color: #0FD38A;
+      }
+    }
+    td{
+      border-bottom: 1px solid #f1f1f1;
+      .tit {
+        font-size: 14px;
+        color: #576578;
+      }
+      .b_msg {
+        color: #a3b2c6;
+        font-size: 12px;
+        span:not(:last-child) {
+          margin-right: 35px;
+        }
+        .icon{
+          display: inline-block;
+          width:16px;
+          height: 11px;
+          background-repeat: no-repeat;
+          background-position: center center;
+          &.eyes{
+            background-image: url(/static/images/eye.png)
+          }
+          &.yes {
+            background-image: url(/static/images/yes.png)
+          }
+          &.no {
+            background-image: url(/static/images/no.png)
+          }
+        }
+      }
+    }
+    th{
+      background-color: #f6f8f8;border-bottom: 2px solid #e2e5e5;color: #a3b2c6;font-weight: 500;
+    };
+    tr:hover {
+      td {
+        background-color: #f6f7f9;
+      }
+    };
+    .operate {
+      cursor: pointer;
+    }
+    
+  }
+}
+.tableLoading{position: relative !important;}
+
+.modtable .edit {
+  &:not(:last-child) {
+    padding-right: 15px;
+  };
+  &:hover{
+    color:#3BA0FF;
+  }
+}
+
+
+/**
+*    公告列表页
+*/
+
+/**
+*    公告新增页
+*/
+.noticeAdd {
+  background-color:#fff;
+  padding: 15px 0;
+}
+.check-wrap {
+  display: inline-block;
+  padding-left: 15px;
+  vertical-align: middle;
+  
+}
+.notice-wrap {
+  margin: 0 22px;
+  padding-top: 10px;
+  border-top: 1px solid #DFE5E7;
+  .title {
+    line-height: 45px;
+    height: 45px;
+
+  }
+}
+
+
+.upload-wrap {
+  margin: 0 22px;
+  .title {
+    line-height: 45px;
+    height: 45px;
+  }
+  .upload-box {
+    width: 250px;
+  }
+}

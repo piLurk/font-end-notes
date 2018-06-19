@@ -49,6 +49,21 @@ app.use('/data', proxy({
 	cookieDomainRewrite: 'dongyuewu.me'  // 可以为false，表示不修改
 }));
 
+app.use('/examples', proxy({
+	// 代理跨域目标接口
+	target: 'http://echarts.baidu.com',
+	changeOrigin: true,
+
+	// 修改响应头信息，实现跨域并允许带cookie
+	onProxyRes: function(proxyRes, req, res) {
+			res.header('Access-Control-Allow-Origin', 'http://dongyuewu.me');
+			res.header('Access-Control-Allow-Credentials', 'true');
+	},
+
+	// 修改响应信息中的cookie域名
+	cookieDomainRewrite: 'dongyuewu.me'  // 可以为false，表示不修改
+}));
+
 
 
 
