@@ -1,5 +1,5 @@
 
-body {
+body,html {
   height: 100%;
   width: 100%;
   padding: 0;
@@ -8,6 +8,8 @@ body {
 #app {
   height: 100%;
   width: 100%;
+  background: url(/static/images/bg.png) center center no-repeat;
+  background-size: cover;
 }
 #main {
   height: 100%;

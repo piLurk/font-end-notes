@@ -1,30 +1,17 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-import store from '@/store'
-import { getToken, removeToken } from '@/utils/auth'
 
 
 
 // create an axios instance
 const _request = axios.create({
   baseURL: BROWSER_CONFIG.BASE_API, // api的base_url
-  timeout: 5000, // request timeout
+  timeout: 10000, // request timeout
   responseType: 'json'
 
 })
 
-// request interceptor
-_request.interceptors.request.use(config => {
-  // Do something before request is sent
-  if (store.getters.token) {
-    config.headers['token'] = getToken() // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改
-  }
-  return config
-}, error => {
-  // Do something with request error
-  console.log(error) // for debug
-  Promise.reject(error)
-})
+
 
 // respone interceptor
 _request.interceptors.response.use(

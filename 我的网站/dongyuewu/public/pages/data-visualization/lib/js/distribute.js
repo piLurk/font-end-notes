@@ -67,7 +67,6 @@ var series = labels.map((i, j) => {
   }
 })
 
-console.log(series, 'ggg')
 
 
 var option = {
@@ -135,7 +134,9 @@ var myChart = echarts.init(document.getElementById('main'),
   {
     renderer: 'svg'
   }
-)
+);
+
+console.log(option, 'ggg')
 myChart.setOption(option);
 setTimeout(init, 0)
 
