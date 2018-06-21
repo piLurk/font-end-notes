@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <div class="left"></div>
-    <div id="main"></div>
+    <div class="left">
+      <div id="main"></div>
+    </div>
+    
     <div class="right">
       <p class="time">
         <i class="num">2018</i><i class="txt">年</i>
@@ -293,6 +295,20 @@ export default {
         series: series
       };
       this.series = series;
+    }
+  },
+  beforeMount() {
+    //自适应代码rem单位
+    function rePosition(){
+        var width = document.documentElement.clientWidth || document.body.clientWidth;
+        var ratio = width/750;
+        
+        document.getElementsByTagName('html')[0].style.fontSize=100*ratio+"px";
+        
+    }
+    rePosition();
+    window.onresize = function(){
+        rePosition();
     }
   },
   mounted() {
