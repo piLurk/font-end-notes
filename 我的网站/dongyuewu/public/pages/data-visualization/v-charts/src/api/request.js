@@ -12,32 +12,6 @@ const _request = axios.create({
 })
 
 
-
-// respone interceptor
-_request.interceptors.response.use(
-  response => {
-    // 拦截过期请求
-    let res = response.data;
-    if (res.code === 10001) {
-      removeToken();
-      location.href = config.logOut + '/logout';
-      return Promise.reject('error')
-    } else {
-      return res
-    }
-  },
-  error => {
-    console.log('err' + error)// for debug
-
-    // token无权限，前端登出
-    if (error && error.response && error.response.status === 401) {
-      removeToken()
-      location.href = config.logOut + '/logout'
-    }
-
-    return Promise.reject(error)
-  })
-
 function sendErrorMessage(errorMsg) {
   Message({
     message: errorMsg,
@@ -54,7 +28,9 @@ const request = function ({ method, url, params, data, cb = function() { }, erro
     params,
     data,
     url
-  }).then((res) => {
+  }).then((response) => {
+    var res = response.data;
+    
     if (res.code === 0) {
       cb(res.data)
       return res

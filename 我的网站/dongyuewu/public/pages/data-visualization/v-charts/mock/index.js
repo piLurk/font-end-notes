@@ -1,19 +1,9 @@
 
-
-var login = require("./login")
-
-var noticemgmt = require('./noticemgmt')
-
-var questioncenter = require('./questioncenter')
+var main = require('./main')
 
 module.exports = function(app) {
-  // 登陆
-  login(app);
-  
-  // 公告管理
-  noticemgmt(app);
+  //首屏展示
+  main(app);
 
-  // 问题中心
-  questioncenter(app);
   
 }

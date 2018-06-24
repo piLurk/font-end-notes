@@ -23,9 +23,9 @@ module.exports = {
   },
   BROWSER_CONFIG:{
 
-    BASE_API: 'http://192.168.1.82:8082', 
+    // BASE_API: 'http://192.168.1.82:8082', 
 
-    // BASE_API: 'http://localhost:8072',
+    BASE_API: 'http://localhost:8072',
     COOKIE:'aaabbbccc' // 开发环境的cookie
   }
 }

@@ -1,10 +1,11 @@
 import request from './request'
 
 
-export function queryRightData() {
+export function queryRightData(options) {
   return request({
     url: '/queryRightData',
-    method: 'get'
+    method: 'get',
+    ...options
   })
 }
 export function queryLeftData(options) {

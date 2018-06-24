@@ -48,7 +48,10 @@ const app = {
       state.dataList = list
     },
     'SET_MAPDATA':(state, list) => {
-      state.mapData = list
+      state.mapData = state.mapData.concat(...list)
+    },
+    'ADD_MAPDATA': (state) => {
+      state.mapData = [...state.mapData, ...state.newMapData]
     },
     'SET_NEW_MAP_DATA': (state, list) => {
       state.newMapData = list
@@ -57,7 +60,7 @@ const app = {
 
 
   actions: {
-    queryRightData({ commit } ) {
+    queryRightData({ commit, dispatch } ) {
       queryRightData({
         cb(data) {
           commit('SET_HOUSE_COUNT', data.count)
@@ -72,7 +75,7 @@ const app = {
 
       })
     },
-    queryLeftData({ commit }) {
+    queryLeftData({ commit, dispatch }) {
 
       queryLeftData({
         cb(data) {
@@ -86,10 +89,22 @@ const app = {
         }
       })
     },
-    getNewOrderList({ commit }) {
+    getNewOrderList({ commit, dispatch, state }) {
       getNewOrderList({
         cb(data){
-          commit('SET_NEW_MAP_DATA', data.ten)
+          let list = data.ten;
+
+          // 有新的收房数据
+          if(list && list.length > 0) {
+            commit('SET_NEW_MAP_DATA', data.ten);
+            //同时存在老的收房数据
+            if(state.newMapData && state.newMapData.length > 0) {
+              commit('ADD_MAPDATA')
+            }
+          }
+          
+          
+          
         },
         errorCb(msg) {
           dispatch("sendMessage", {
