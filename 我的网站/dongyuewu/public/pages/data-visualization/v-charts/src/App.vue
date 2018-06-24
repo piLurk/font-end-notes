@@ -39,12 +39,19 @@
               <th width="20%">单量</th>
             </thead>
             <tbody>
-              <tr v-for="item in dataList" :key="item.employeeId">
-                <td>{{item.userName}}</td>
-                <td>{{item.areaNm}}</td>
-                <td>{{item.businessAreaNm}}</td>
-                <td>处房{{item.orderCnt}}单</td>
+              <tr>
+                <td colspan="4">
+                  <table class="second">
+                    <tr v-for="item in dataList" :key="item.employeeId">
+                      <td>{{item.userName}}</td>
+                      <td>{{item.areaNm}}</td>
+                      <td>{{item.businessAreaNm}}</td>
+                      <td>处房{{item.orderCnt}}单</td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
+              
             </tbody>
           </table>
         </div>

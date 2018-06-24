@@ -116,6 +116,13 @@ body,html {
             width: 100%;
             box-sizing: border-box;
             padding-left: 0.02rem;
+            &.second{
+              th,td {
+                &:first-child{
+                  padding-left: 0;
+                }
+              }
+            }
             th,td {
               font-size: 0.05rem;
               color: #ffcc00;
