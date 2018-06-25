@@ -146,12 +146,10 @@ export default {
         let num = data.length, 
             index = 0;
         
-        console.log(index,newData)
         this.setNewMapSeries([data[0]]);
         this.timerId = setInterval(() => {
           ++index;
           if(index === num) index = 0
-          console.log(index)
           this.setNewMapSeries([data[index]])
         },5000)
       }
@@ -228,7 +226,6 @@ export default {
       };
     },
     checkDate() {
-      console.log('is check')
       let timer = new Date();
       let year = timer.getFullYear(),
           month = timer.getMonth() + 1,

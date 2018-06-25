@@ -1,0 +1,92 @@
+@import './variables.scss';
+@import './mixin.scss';
+@import './transition.scss';
+@import './element-ui.scss';
+@import './sidebar.scss';
+
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+div:focus{
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+}
+body,html,form,ul,ol,li,p,h1,h2,h3,h4,h5,h6,dl,dt,dd,table,fieldset,div,tr,td,img{margin:0; padding:0;}
+img{border:0;}
+em,i{font-style:normal;}
+ol,ul,li{ list-style:none;}
+.clearfix {
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+  }
+}
+
+//main-container全局样式
+.app-main{
+//min-height: 100%
+}
+
+.app-container {
+  padding: 20px;
+}
+
+.t_r {text-align: right}
+.t_c {text-align: center}
+.t_l {text-align: left}
+
+.tableContent {padding: 15px;}
+.miniPages {float: right; padding: 5px 0; line-height: 23px;font-size: 14px;color:#999;}
+.miniPages i {font-style: normal}
+.miniPages .fc { color: #3ba0ff; }
+.footPages {padding-top: 15px;}
+
+.tableBox .modtable td,.tableBox .modtable th{background: #fff;font-size: 14px;vertical-align: middle;text-align: left;height: 48px;padding: 0 10px;}
+.tableBox .modtable th {font-size: 14px;background-color: #f6f8f8;border-bottom: 2px solid #e2e5e5;color: #a3b2c6;font-weight: 500;}
+
+.tableBox .modtable td {color: #576578;word-break: break-all;font-size: 14px;border-bottom: 1px solid #f1f1f1;}
+.tableBox .modtable tr:hover>td{background-color: #f6f7f9;}
+
+
+.modtable .typeControl { text-align: left;}
+.modtable .typeControl .mgr {margin-right: 8px;}
+.modtable .typeControl a {color: #d1d1d1; cursor: pointer;}
+.modtable .typeControl .e-btn i,.modtable .typeControl .d-btn i,
+.modtable .typeControl .a-btn i,.modtable .typeControl .c-btn i,
+.modtable .typeControl .r-btn i,.modtable .typeControl .t-btn i,
+.modtable .typeControl .q-btn i
+{background: url(/static/images/control.png);margin-right: 4px; width: 11px; height: 11px;display: inline-block;}
+
+.modtable .typeControl .e-btn i {background-position: -11px -11px; }
+.modtable .typeControl .e-btn:hover {color: #3ba0ff;}
+.modtable .typeControl .e-btn:hover i {background-position: -11px 0;}
