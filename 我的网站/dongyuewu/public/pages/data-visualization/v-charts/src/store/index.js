@@ -14,7 +14,8 @@ const app = {
       range:'',
       count:''
     },
-    dataList: []
+    dataList: [],
+    newdataList: []
     
   },
   getters: {
@@ -29,6 +30,9 @@ const app = {
     },
     dataList(state) {
       return state.dataList
+    },
+    newdataList(state) {
+      return state.newdataList
     }
 
 
@@ -44,8 +48,22 @@ const app = {
         }
       })
     },
-    'SET_DATALIST': (state, list) => {
-      state.dataList = list
+    'ADD_DATALIST': (state, list) => {
+      if(list && list.length > 0) {
+        
+        if(state.dataList.length === 0) {
+          state.dataList = list
+        }else {
+          let newList = list.filter((item, i) => {
+            return state.dataList.every((p) => {
+              return p.employeeId !== item.employeeId
+            })
+          }) 
+          state.newdataList = newList
+        }
+        
+      }
+      
     },
     'SET_MAPDATA':(state, list) => {
       state.mapData = state.mapData.concat(...list)
@@ -55,6 +73,12 @@ const app = {
     },
     'SET_NEW_MAP_DATA': (state, list) => {
       state.newMapData = list
+    },
+    'REFRESH_DATALIST': (state) => {
+      state.dataList = [...state.newdataList, ...state.dataList].splice(0, 10)
+    },
+    'EMPTY_NEWDATALIST': (state) => {
+      state.newdataList = []
     }
   },
 
@@ -64,7 +88,7 @@ const app = {
       queryRightData({
         cb(data) {
           commit('SET_HOUSE_COUNT', data.count)
-          commit('SET_DATALIST', data.ten)
+          commit('ADD_DATALIST', data.ten)
         },
         errorCb(msg) {
           dispatch("sendMessage", {
@@ -113,6 +137,10 @@ const app = {
           }, {root: true})
         }
       })
+    },
+    setAllList({ commit }) {
+      commit('REFRESH_DATALIST')
+      commit('EMPTY_NEWDATALIST')
     }
 
   }

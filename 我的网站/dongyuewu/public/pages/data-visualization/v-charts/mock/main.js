@@ -105,6 +105,7 @@ module.exports = function(app) {
           }
         ],
         ten:[{
+          "employeeId": "27000456",
           userName:'陈思佳',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
@@ -112,6 +113,7 @@ module.exports = function(app) {
           "longitude": 114.317665,
           "latitude": 30.64804
         },{
+          "employeeId": "27000502",
           userName:'陈思佳',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
@@ -119,6 +121,7 @@ module.exports = function(app) {
           "longitude": 114.33176,
           "latitude": 30.510769
         },{
+          "employeeId": "27000512",
           userName:'陈思佳',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
@@ -126,6 +129,7 @@ module.exports = function(app) {
           "longitude": 114.255273,
           "latitude": 30.552504
         },{
+          "employeeId": "27000112",
           userName:'陈思佳',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
@@ -133,6 +137,7 @@ module.exports = function(app) {
           "longitude": 114.248439,
           "latitude": 30.617544
         },{
+          "employeeId": "27000502",
           userName:'陈思佳',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
@@ -140,35 +145,40 @@ module.exports = function(app) {
           "longitude": 114.360084,
           "latitude": 30.574829
         },{
-          userName:'陈思佳',
+          employeeId: Math.floor(Math.random() * 100000),
+          userName:'陈大牛',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
           orderCnt: 20,
           "longitude": 114.313781,
           "latitude": 30.562189
         },{
-          userName:'陈思佳',
+          employeeId: Math.floor(Math.random() * 100000),
+          userName:'吴仪',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
           orderCnt: 20,
           "longitude": 114.24102,
           "latitude": 30.593946
         },{
-          userName:'陈思佳',
+          employeeId: Math.floor(Math.random() * 100000),
+          userName:'胡宗信',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
           orderCnt: 25,
           "longitude": 114.178284,
           "latitude": 30.664108
         },{
-          userName:'陈思佳',
+          employeeId: Math.floor(Math.random() * 100000),
+          userName:'王可儿',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
           orderCnt: 30,
           "longitude": 114.237267,
           "latitude": 30.657556
         },{
-          userName:'陈思佳',
+          employeeId: Math.floor(Math.random() * 100000),
+          userName:'赵信',
           areaNm:'光谷区',
           businessAreaNm: '关东业务组',
           orderCnt: 15,

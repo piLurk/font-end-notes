@@ -5,6 +5,7 @@
     </div>
     
     <div class="right">
+      
       <p class="time">
         <i class="num">{{dateMap.year}}</i><i class="txt">年</i>
         <i class="num">{{dateMap.month}}</i><i class="txt">月</i>
@@ -31,29 +32,39 @@
       <div class="detail-box">
         <div class="detail-inner">
           <h3>收出房实时</h3>
-          <table>
+          <table class="first">
             <thead>
               <th width="20%">姓名</th>
               <th width="20%">区域</th>
               <th width="40%">业务组</th>
               <th width="20%">单量</th>
             </thead>
-            <tbody>
-              <tr>
-                <td colspan="4">
-                  <table class="second">
-                    <tr v-for="item in dataList" :key="item.employeeId">
-                      <td>{{item.userName}}</td>
-                      <td>{{item.areaNm}}</td>
-                      <td>{{item.businessAreaNm}}</td>
-                      <td>处房{{item.orderCnt}}单</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              
-            </tbody>
           </table>
+          <div class="data-wrap">
+            <div class="data-inner" ref="dataWrap">
+              <table :class="{'new-data': true}" >
+                <tr v-for="item in newdataList" :key="item.employeeId">
+                  <td>{{item.userName}}</td>
+                  <td>{{item.areaNm}}</td>
+                  <td>{{item.businessAreaNm}}</td>
+                  <td>{{ item.type === '1' ? "出房":"收房" + item.orderCnt}}单</td>
+                </tr>
+              </table>
+              
+              <table class="second" ref="secondTable">
+                <tr v-for="item in dataList" :key="item.employeeId">
+                  <td>{{item.userName}}</td>
+                  <td>{{item.areaNm}}</td>
+                  <td>{{item.businessAreaNm}}</td>
+                  <td>{{item.type === '1' ? "出房":"收房" + item.orderCnt}}单</td>
+                </tr>
+              </table>
+            </div>
+              
+          </div>
+            
+
+          
         </div>
         
         
@@ -75,7 +86,9 @@ export default {
       myChart: null,
       mapSeries: null, // 底图点
       newMapSeries: null, //新增点
-      dateMap:{} //时间map
+      dateMap:{}, //时间map
+      timerId: null,
+      devicePixelRatio: '',//物理像素分辨率与css像素像素分辨率的比值。
     };
   },
   computed:{
@@ -83,7 +96,8 @@ export default {
       mapData:'mapData',
       newMapData:'newMapData',
       house_count:'house_count',
-      dataList:'dataList'
+      dataList:'dataList',
+      newdataList: 'newdataList'
     }),
     series() {
       let series = [];
@@ -120,43 +134,26 @@ export default {
     newMapData:{
       handler(newData) {
         
+
         let data = newData.reduce((accumulator, currentValue) => {
           accumulator.push([currentValue.longitude, currentValue.latitude, `${currentValue.userName}\n${currentValue.businessAreaNm}`]) 
           return accumulator
-        } 
+        }
         , []);
-        this.newMapSeries = {
-          name:'最近10个收房',
-          type: 'effectScatter',
-          coordinateSystem: 'geo',
-          symbolSize: 5,
-          data,
-          showEffectOn: 'render',
-          rippleEffect: {
-            period: 15,
-            scale: 6,
-            brushType: 'fill'
-          },
-          itemStyle: { 
-            normal:{
-              color: "#ffcc00"
-            }
-          },
-          label: {
-            normal: {
-              show: true,
-              formatter({data}){
-                return data[2]
-              },
-              position:'right',
-              distance: 15,
-              color: '#fff'
-            }
-            
 
-          }
-        };
+        clearInterval(this.timerId);
+
+        let num = data.length, 
+            index = 0;
         
+        console.log(index,newData)
+        this.setNewMapSeries([data[0]]);
+        this.timerId = setInterval(() => {
+          ++index;
+          if(index === num) index = 0
+          console.log(index)
+          this.setNewMapSeries([data[index]])
+        },5000)
       }
     },
     series: {
@@ -164,15 +161,74 @@ export default {
         this.generateMap();
       }
     },
+    newdataList: {
+      handler(newList) {
+        let $tableWrap = this.$refs['dataWrap'];
+        if(newList && newList.length > 0) {
+          
+          
+          $tableWrap.style.top = '-' + newList.length * 0.16 + 'rem';
+          //  $tableWrap.style.top = 0;
+          setTimeout(()=> {
+             $tableWrap.style.top = 0;
+             $tableWrap.style.transition = `all ${0.1*newList.length}s ease`;
+            //  transition: ;
+            // 动画完成，合并list
+            setTimeout(() => {
+              this.setAllList()
+            }, 0.1*newList.length*1000 + 1000);
+            
+          }, 10)
+          
+
+        }else {
+          $tableWrap.style.transition = 'none';
+        }
+      }
+    }
     
   },
   methods: {
     ...mapActions({
       queryRightData:'queryRightData',
       queryLeftData:'queryLeftData',
-      getNewOrderList:'getNewOrderList'
+      getNewOrderList:'getNewOrderList',
+      setAllList:'setAllList'
     }),
+    setNewMapSeries(data) {
+      this.newMapSeries = {
+        name:'最近10个收房',
+        type: 'effectScatter',
+        coordinateSystem: 'geo',
+        symbolSize: 5,
+        data: data,
+        showEffectOn: 'render',
+        rippleEffect: {
+          period: 15,
+          scale: 6,
+          brushType: 'fill'
+        },
+        itemStyle: { 
+          normal:{
+            color: "#ffcc00"
+          }
+        },
+        label: {
+          normal: {
+            show: true,
+            formatter({data}){
+              return data[2]
+            },
+            rotate: 0,
+            position:'right',
+            distance: 15,
+            color: '#fff'
+          }
+        }
+      };
+    },
     checkDate() {
+      console.log('is check')
       let timer = new Date();
       let year = timer.getFullYear(),
           month = timer.getMonth() + 1,
@@ -197,16 +253,38 @@ export default {
       });
 
     },
+    getRealSize(size) {
+      return size * this.devicePixelRatio
+    },
     generateMap() {
       var myChart = this.myChart;
       myChart.hideLoading();
       myChart.setOption( {
+          title: { 
+            text: '吉家江寓',
+            subtext:'收出房数据展示',
+            left: "left",
+            top: '10%',
+            left: '6%',
+            textStyle: {
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: this.getRealSize(30)
+            },
+            subtextStyle: {
+              color: "#fff",
+              fontWeight: "bold",
+              fontSize: this.getRealSize(30)
+            },
+            itemGap: this.getRealSize(10)
+            
+          },
           tooltip: {
               trigger: 'item',
               // formatter: '{b}<br/>{c} (p / km2)'
           },
           geo: {
-            // aspectScale: 1,
+            aspectScale: 1,
             // show: true,
             map: 'wuhan',
             label: {
@@ -230,31 +308,39 @@ export default {
               }
               
             },
-            regions:[{
-              name: '江夏区',
-              itemStyle: {
-                normal: {
-                  borderWidth:5
-                }
+            // regions:[{
+            //   name: '江夏区',
+            //   itemStyle: {
+            //     normal: {
+            //       borderWidth:5
+            //     }
                 
-              }
-            }]
+            //   }
+            // }]
           },
           
           series: this.series
       });
     },
-    cicleReq() {
+    cicleMapReq() {
       this.getNewOrderList();
     },
+    cicleListReq() {
+      this.queryRightData()
+    },
     cicleTimer() {
-      var timer = setInterval( () => {
-        console.log('request')
-        this.cicleReq();
-      },30000)
+      var time = 60 * 1000;
+      var mapTimer = setInterval( () => {
+        this.cicleMapReq();
+        this.cicleListReq();
+        this.checkDate();
+      },time);
     }
   },
-  beforeMount() {
+  beforeMount() { 
+    // 获取分辨率比
+    this.devicePixelRatio = window.devicePixelRatio;
+
     //自适应代码rem单位
     function rePosition(){
         var width = document.documentElement.clientWidth || document.body.clientWidth;

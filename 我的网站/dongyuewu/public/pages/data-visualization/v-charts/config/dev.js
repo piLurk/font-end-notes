@@ -12,7 +12,7 @@ module.exports = {
   
   dev:{
     port:8072, // 选填项
-    host:'http://localhost',  // 选填
+    host:'http://192.168.1.91',  // 选填
     proxyTable:{},
     autoOpenBrowser:true, // 必填项
     cssSourceMap:true, // 必填项
@@ -25,7 +25,7 @@ module.exports = {
 
     // BASE_API: 'http://192.168.1.82:8082', 
 
-    BASE_API: 'http://localhost:8072',
+    BASE_API: 'http://192.168.1.91:8072',
     COOKIE:'aaabbbccc' // 开发环境的cookie
   }
 }
