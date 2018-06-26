@@ -16,7 +16,6 @@ const noticemgmt = {
   },
   actions: {
     getAllDepartments({ state, dispatch }, params) {
-      console.log(params)
       getAllDepartments({
         params:params,
         cb(departments) {

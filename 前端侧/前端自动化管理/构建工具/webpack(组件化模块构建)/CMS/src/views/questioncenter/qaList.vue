@@ -45,7 +45,15 @@
             <tbody>
               <tr v-for="(item, index) in questionList" :key="index">
                 <td>{{item.questionTypeName}}</td>
-                <td>{{item.questionTitle}}</td>
+                <td>
+                  <span class="tit"  @click="qaDetail(item)">{{item.questionTitle}}</span>
+                  <div class="b_msg">
+                    <span>发布日期：&nbsp;{{item.gmtModified | toDate('{y}-{m}-{d}')}}</span>
+                    <span><i class="icon eyes"></i>&nbsp;&nbsp;浏览量：{{item.viewCount | blank}}</span>
+                    <span><i class="icon yes"></i>&nbsp;&nbsp;{{item.resolvedCount | blank}}</span>
+                    <span><i class="icon no"></i>&nbsp;&nbsp;{{item.unsolvedCount | blank}}</span>
+                  </div>
+                </td>
                 <td>
                   <span class="edit operate" @click="editQuestion(item)">
                     <i class="el-icon-edit"></i>
@@ -116,6 +124,7 @@
       refreshList() {
         this.formQuery = JSON.parse(JSON.stringify(this.formQuery));
       },
+      
       getQuestionList(data) {
         var that = this;
         var data = {
@@ -151,6 +160,12 @@
         this.userId = this.$store.getters.userId;
         this.getAllquestionType()
         
+      },
+      qaDetail(question) {
+        this.$router.push({
+          name: 'qaDetail',
+          query: { questionId: question.id}
+        })
       },
       editQuestion(question) {
         this.$router.push({ 
@@ -196,6 +211,11 @@
 </script>
 
 <style lang="scss" scoped>
-
-
+  .modtable {
+    td {
+      position: relative;
+      line-height: 25px;
+      padding: 5px 0;
+    }
+  }
 </style>

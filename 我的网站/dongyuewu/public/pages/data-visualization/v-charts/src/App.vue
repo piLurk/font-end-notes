@@ -118,9 +118,9 @@ export default {
         , []);
         this.mapSeries = {
           name:'dots',
-          type: 'scatter',
+          type: 'effectScatter',
           coordinateSystem: 'geo',
-          symbolSize: 1,
+          symbolSize: 2 * this.devicePixelRatio,
           data,
           itemStyle: { 
             normal:{
@@ -142,16 +142,17 @@ export default {
         , []);
 
         clearInterval(this.timerId);
+        this.setNewMapSeries(data)
 
-        let num = data.length, 
-            index = 0;
+        // let num = data.length, 
+        //     index = 0;
         
-        this.setNewMapSeries([data[0]]);
-        this.timerId = setInterval(() => {
-          ++index;
-          if(index === num) index = 0
-          this.setNewMapSeries([data[index]])
-        },5000)
+        // this.setNewMapSeries([data[0]]);
+        // this.timerId = setInterval(() => {
+        //   ++index;
+        //   if(index === num) index = 0
+        //   this.setNewMapSeries([data[index]])
+        // },5000)
       }
     },
     series: {
@@ -198,12 +199,12 @@ export default {
         name:'最近10个收房',
         type: 'effectScatter',
         coordinateSystem: 'geo',
-        symbolSize: 5,
+        symbolSize: this.getRealSize(5),
         data: data,
         showEffectOn: 'render',
         rippleEffect: {
-          period: 15,
-          scale: 6,
+          period: this.getRealSize(15),
+          scale: this.getRealSize(6),
           brushType: 'fill'
         },
         itemStyle: { 
@@ -281,12 +282,14 @@ export default {
               // formatter: '{b}<br/>{c} (p / km2)'
           },
           geo: {
-            aspectScale: 1,
+            aspectScale: 0.75,
+            zoom:3,
+            center:[114.319347,30.593244],
             // show: true,
             map: 'wuhan',
             label: {
               normal: {
-                show: false
+                show: true
               },
               emphasis: {
                 show: false
@@ -300,20 +303,10 @@ export default {
                 borderWidth: 2,
                 shadowColor:'rgb(65,141,255)',
                 shadowBlur:20
-
-                
               }
               
             },
-            // regions:[{
-            //   name: '江夏区',
-            //   itemStyle: {
-            //     normal: {
-            //       borderWidth:5
-            //     }
-                
-            //   }
-            // }]
+            regions:[]
           },
           
           series: this.series

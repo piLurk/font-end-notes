@@ -11,8 +11,8 @@ module.exports = function (app) {
           departmentName: '技术中心',
           gmtModified: 1528704548766,
           labelMsg: '',
-          publishFlag: 0,
-          stickFlag: 0,
+          publishFlag: '0',
+          stickFlag: '1',
           viewTimes: 10530,
           id: 1256
         },
@@ -67,7 +67,7 @@ module.exports = function (app) {
   })
 
   // 获取所有部门
-  app.get('/notice/getDepartments', (req, res) => {
+  app.get('/notice/toNoticeAdd', (req, res) => {
     res.json({
       code: 0,
       data: [{'departmentName':'技术中心', id: 100}, {'departmentName':'素质拓展部', id: 101}, {'departmentName':'人事部', id: 102}]
@@ -99,14 +99,15 @@ module.exports = function (app) {
     res.json({
       code: 0,
       data: {
-        fileURL: ['http://baidu.com', 'http://jiangroom.com'],
+        portalYunFiles: [{fileName:'测试问价1111', fileUrl:'http://baidu.com'}, {fileName:'测试文件222', fileUrl:'http://baidu.com'}],
         noticeDetail: {
           title: '这是测试标题jdad111',
           content: '这是测试数据，这是测试数据这是测试数据这是测试数据这是测试数据这是测试数据',
           departmentName: '技术中心',
+          noticeBelongto:'1',
           gmtModified: 1528704548766,
           labelMsg: '火',
-          publishFlag: 0,
+          publishFlag: '0',
           stickFlag: 0,
           viewTimes: 10530
         }

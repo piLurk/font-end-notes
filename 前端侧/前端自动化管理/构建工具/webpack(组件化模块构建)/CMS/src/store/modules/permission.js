@@ -1,6 +1,6 @@
 // import { asyncRouterMap, constantRouterMap } from '@/router'
 
-import { getToken } from '@/utils/auth';
+import { getToken, getHost } from '@/utils/auth';
 import { Message } from 'element-ui';
 import { routes, constantRouterMap } from '@/router'
 
@@ -15,7 +15,7 @@ const whiteList = ["/login", "/authredirect"]; // no redirect whitelist
  * @param route
  */
 function hasPathPermission(roles, route) {
-  if (route.meta && route.meta.roles) {
+  if (route.meta && route.meta.roles && route.meta.roles.length > 0) {
     return roles.some(role => route.meta.roles.indexOf(role) >= 0)
   } else {
     return true
@@ -116,15 +116,8 @@ const permission = {
           // 可删 ↑
         }
       } else {
-        /* has no token*/
-        // if (whiteList.indexOf(to.path) !== -1) {
-        //   // 在免登录白名单，直接进入
-        //   next();
-        // } else {
-        //   // location.href = BROWSER_CONFIG.BASE_API;
-        //   // next('/login') // 否则全部重定向到登录页
-        //   // NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
-        // }
+        // 无token
+        location.href = getHost()
       }
     }
 

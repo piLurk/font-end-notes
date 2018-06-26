@@ -1,5 +1,5 @@
 import { logout, getUserId, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, getHost } from '@/utils/auth'
 
 const user = {
   state: {
@@ -71,9 +71,8 @@ const user = {
     GetUserInfo({ commit, state, dispatch }) {
       return new Promise((resolve, reject) => {
         getUserId({
-          params: { token: state.token },
+          params: { token: getToken() },
           cb(userId) {
-            console.log(userId)
             if(!userId) {
               dispatch("sendMessage", {
                 type:'error',
@@ -87,17 +86,17 @@ const user = {
                   if (!data) {
                     reject('error')
                   }
-      
+                  console.log(data)
                   if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
                     commit('SET_ROLES', data.roles)
                   } else {
                     reject('getInfo: roles must be a non-null array !')
                   }
                   
-                  commit('SET_NAME', data.name)
+                  commit('SET_NAME', data.realName)
                   commit('SET_AVATAR', data.avatar)
                   commit('SET_INTRODUCTION', data.introduction)
-                  commit('SET_JOBNAME', data.jobName)
+                  commit('SET_JOBNAME', data.position)
                   resolve(data)
                 },
                 errorCb(error) {
@@ -110,11 +109,12 @@ const user = {
 
           },
           errorCb(message) {
-            console.log('guapi')
+            
             dispatch("sendMessage", {
               type:'error',
               message: message || '用户id获取失败！'
             }, {root: true})
+            
           }
         })
         
@@ -137,16 +137,7 @@ const user = {
 
     // 登出
     LogOut({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
+      removeToken();
     },
 
     // 前端 登出
@@ -155,6 +146,7 @@ const user = {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
+        location.href = getHost() + '/ajaxLogout'
       })
     },
 

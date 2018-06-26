@@ -12,7 +12,7 @@ module.exports = {
   
   dev:{
     port:8072, // 选填项
-    host:'http://localhost',  // 选填
+    host:'http://192.168.1.91',  // 选填
     proxyTable:{},
     autoOpenBrowser:true, // 必填项
     cssSourceMap:true, // 必填项
@@ -22,8 +22,11 @@ module.exports = {
     cssExtract: true, // 是否分割css文件
   },
   BROWSER_CONFIG:{
-    // BASE_API: 'http://192.168.1.243:8095', // 必填项 - 后端地址
-    BASE_API: 'http://192.168.1.160:8095', 
+    // BASE_API: 'http://192.168.1.194:8095', // 必填项 - 后端地址
+    // BASE_API: 'http://192.168.1.160:8095', 
+
+    // BASE_API: 'http://192.168.1.91:8072',
+    BASE_API: 'http://192.168.1.88:8096',
     COOKIE:'aaabbbccc' // 开发环境的cookie
   }
 }

@@ -7,6 +7,10 @@ import Vue from 'vue';
 import utils from './utils'
 Vue.use(utils)
 
+// 全局过滤器
+import filters from './filters'
+Vue.use(filters)
+
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'

@@ -30,7 +30,6 @@ export function toggleQuestionTypeState(options) {
   })
 } 
 
-
 //获取问题分类(回显)
 export function getQuestionType(options) {
   return request({
@@ -54,6 +53,8 @@ export function stopOrStartQuestionType(options) {
     ...options
   })
 } 
+
+// 
 
 // ---- 问题列表
 
@@ -92,10 +93,19 @@ export function deleteQuestion(options) {
     ...options
   })
 } 
+
 //编辑问题(回显)
 export function getQuestionDetail(options) {
   return request({
     url:'cmsQuestion/editorCmsQuestion',
+    method:'get',
+    ...options
+  })
+} 
+// 问题详情
+export function getQuestionDetail_2(options) {
+  return request({
+    url:'cmsQuestion/showCmsQuestionDetail',
     method:'get',
     ...options
   })

@@ -14,7 +14,7 @@
         "path": "noticeAdd",
         "filePath": "noticemgmt/noticeAdd.vue",
         "meta": {
-          "roles": [1],
+          "roles": [],
           "title": "添加公告"
           
         }
@@ -25,7 +25,16 @@
         "filePath": "noticemgmt/noticeList.vue",
         "meta": {
           "title": "公告列表",
-          "roles": [1]
+          "roles": []
+        }
+      },
+      {
+        "name": "noticeDetail",
+        "path": "noticeDetail",
+        "filePath": "noticemgmt/noticeDetail.vue",
+        "meta": {
+          "title": "公告详情",
+          "roles": []
         }
       }
     ]
@@ -45,7 +54,7 @@
         "path": "questionAdd",
         "filePath": "questioncenter/questionAdd.vue",
         "meta": {
-          "roles": [1],
+          "roles": [],
           "title": "新建问题"
         }
       },
@@ -55,7 +64,7 @@
         "filePath": "questioncenter/qatypesmgmt.vue",
         "isSideBar": true,
         "meta": {
-          "roles": [2],
+          "roles": [],
           "title": "问题分类管理"
         }
       },
@@ -65,8 +74,17 @@
         "filePath": "questioncenter/qaList.vue",
         "isSideBar": true,
         "meta": {
-          "roles": [1],
+          "roles": [],
           "title": "问题列表"
+        }
+      },
+      {
+        "name": "qaDetail",
+        "path": "qaDetail",
+        "filePath": "questioncenter/qaDetail.vue",
+        "meta": {
+          "title": "问题详情",
+          "roles": []
         }
       }
     ]

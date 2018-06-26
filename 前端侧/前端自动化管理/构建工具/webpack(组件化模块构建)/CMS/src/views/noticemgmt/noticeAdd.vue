@@ -177,8 +177,6 @@
         
       },
       pageDataInject(details) {
-        console.log(details)
-        
         details.noticeBelongto = details.noticeBelongto || '';
         let noticeBelongto = details.noticeBelongto.split(',');
         let {
@@ -196,7 +194,6 @@
             fileId: item.id
           }
         })
-        console.log(fileList)
         this.form ={
           title,
           content,
@@ -356,7 +353,6 @@
           
 
           form.fileIds = that.getfileIds(form);
-          console.log(form.noticeBelongto)
           form.noticeBelongto = form.noticeBelongto.join(',');
           delete form['fileList']
 
