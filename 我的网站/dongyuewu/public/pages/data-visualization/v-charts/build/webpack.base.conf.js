@@ -11,10 +11,11 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
+
 module.exports = {
   entry: {
-    // vendor:['vue', 'vue-router', 'lodash', 'vuex'], //第三方库，提出来会放在vendorjs中，方便做缓存。
-    app:['babel-polyfill', './src/index.js']
+  // vendor:['vue', 'vue-router', 'element-ui', 'lodash', 'vuex'], //第三方库，提出来会放在vendorjs中，方便做缓存。
+  app:['babel-polyfill', './src/index.js']
   },
   output: {
     path: config.build.distPath,
@@ -116,25 +117,7 @@ module.exports = {
       }
     ]
   },
-  performance: {
-    hints:'error',
-    maxEntrypointSize:1000000, // 最大html + js体积
-    maxAssetSize:500000    // 最大单个文件体积
-  },
-  optimization: {
-    splitChunks: {
-      // chunks: "all",  //所有公共chunk代码的公共部分分离成为一个文件。
-      chunks:'async',
-      minSize: 10000,
-      minChunks: 1, 
-      maxInitialRequests: 3, // 最大初始化请求数
-      maxAsyncRequests: 5, // 最大异步请求数
-    },
-    minimize:false,  // UglifyjsWebpackPlugin production中默认为true。开启压缩
-    // minimizer: [  // 使用另外的压缩插件
-    //   new webpack.optimize.UglifyJsPlugin({ /* your config */ })
-    // ]
-  },
+  
   plugins: [
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({

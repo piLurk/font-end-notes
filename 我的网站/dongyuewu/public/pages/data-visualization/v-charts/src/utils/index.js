@@ -1,28 +1,27 @@
-import { setToken, getToken, TokenKey } from './auth'
+import { setToken, getToken, TokenKey, getHost } from './auth'
 
 
-function getHost() {
-  return BROWSER_CONFIG.BASE_API
-}
 function getTokenFromUrl() {
   try {
     const search = decodeURIComponent(location.search)
-    const loginInfo = search.slice(1).split('=')[1]
-    const infoObj = JSON.parse(loginInfo)
-    return infoObj[TokenKey]
+    const token = search.split('?token=')[1]
+    return token
   } catch (error) {
     // console.log(error)
     return ''
   }
 }
 
-const token = getTokenFromUrl()
+let token = getTokenFromUrl()
 if (token) {
   setToken(token)
+} else {
+  token = getToken()
 }
-if (process.env.NODE_ENV === 'development') {
-  setToken(BROWSER_CONFIG.COOKIE)
-}
+
+// if (process.env.NODE_ENV === 'development' & !token) {
+//   setToken(BROWSER_CONFIG.COOKIE)
+// }
 
 export default {
   install(Vue, options) {

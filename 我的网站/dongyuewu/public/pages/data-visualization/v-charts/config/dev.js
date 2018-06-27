@@ -22,10 +22,11 @@ module.exports = {
     cssExtract: true, // 是否分割css文件
   },
   BROWSER_CONFIG:{
+    // BASE_API: 'http://192.168.1.194:8095', // 必填项 - 后端地址
+    // BASE_API: 'http://192.168.1.160:8095', 
 
-    // BASE_API: 'http://192.168.1.82:8082', 
-
-    BASE_API: 'http://192.168.1.91:8072',
+    // BASE_API: 'http://192.168.1.91:8072',
+    BASE_API: 'http://192.168.1.88:8096',
     COOKIE:'aaabbbccc' // 开发环境的cookie
   }
 }

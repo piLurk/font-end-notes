@@ -11,6 +11,9 @@ export function setToken(token) {
   return Cookies.set(TokenKey, token)
 }
 
+export function getHost() {
+  return BROWSER_CONFIG.BASE_API
+}
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }

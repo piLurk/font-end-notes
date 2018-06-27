@@ -12,7 +12,6 @@ var spinner = ora('building for production...')
 spinner.start()
 
 console.log('-----------')
-console.log(config)
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, function (err, stats) {
