@@ -163,7 +163,10 @@
       '$route': {
         immediate:true,
         handler() {
-          this.initAll()
+          let $route = this.$route;
+          if($route.name === 'noticeAdd') {
+            this.initAll()
+          }
         }
       }
     },

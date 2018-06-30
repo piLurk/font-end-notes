@@ -164,13 +164,13 @@
       qaDetail(question) {
         this.$router.push({
           name: 'qaDetail',
-          query: { questionId: question.id}
+          params: { questionId: question.id, title:'问题详情'}
         })
       },
       editQuestion(question) {
         this.$router.push({ 
-          name: 'questionAdd', 
-          query: { questionId: question.id}
+          name: 'questionAdd',
+          params: { questionId: question.id, title:'编辑问题'}
         })
       },
       deleteQuestion(question) {

@@ -5,13 +5,25 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEWS: (state, view) => {
-      if (state.visitedViews.some(v => v.path === view.path)) return
+      // 对于parmas不同，但是路径相同路由，不应该多次缓存。不使用parmas,而用query无问题，
+      if (state.visitedViews.some(v => {
+        if(v.path === view.path) {
+           // 如果query变更，需要刷新
+          v.query = view.query;
+          return true
+        }
+        return false
+      })) {
+
+        return
+      }
       state.visitedViews.push({
         name: view.name,
         path: view.path,
         query: view.query,
         title: view.meta.title || 'no-name'
       })
+   
       if (!view.meta.noCache) {
         state.cachedViews.push(view.name)
       }

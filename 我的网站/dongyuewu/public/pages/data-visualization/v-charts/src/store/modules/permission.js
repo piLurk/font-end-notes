@@ -82,7 +82,7 @@ const permission = {
     },
     addRoutes({ commit, state }) {
       router.addRoutes(state.addRouters)
-
+      console.log(state.addRouters)
     },
     routeInit({ commit, dispatch, getters }) {
 
