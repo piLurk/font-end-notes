@@ -118,7 +118,11 @@
       '$route': {
         immediate:true,
         handler() {
-          this.initAll()
+          let $route = this.$route;
+          if($route.name === 'questionAdd') {
+            this.initAll()
+          }
+          
         }
       }
     },
@@ -245,7 +249,7 @@
         });
       },
       initAll() {
-        let params = this.$route.query;
+        let params = this.$route.params;
         //页面所需数据获取
         this.pageInit();
 
