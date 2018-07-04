@@ -1,7 +1,5 @@
 
 
-// 分离文件 use  mini-css-extract-plugin instead of extract-text-webpack-plugin in webpack4
-//var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 function cssLoaders( options ) {

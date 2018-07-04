@@ -42,7 +42,7 @@
     }
   }
   export default {
-    name: 'noticeDetail',
+    name: 'qaDetail',
     data() {
       return {
         pageId:'',
@@ -99,6 +99,12 @@
       },
       getQuestionDetail({userId, questionId}) {
         let that = this;
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         getQuestionDetail_2({
           params: {
             userId,
@@ -114,21 +120,23 @@
               message:'问题详情获取失败！'
             })
           }
+        }).finally( () => {
+          loading.close()
         })
       },
       initAll() {
         let params = this.$route.query;
 
         //页面所需数据获取
-          var pageId = `noticeDetail&${params.questionId}`;
+          var pageId = `qaDetail&${params.questionId}`;
           this.questionId = params.questionId;
+
           if(!this.pageId || this.pageId !== pageId) {
             this.getQuestionDetail({userId:this.userId, questionId: params.questionId})
           }
-
           // 赋予当前页面一个id，用于判断是否应该重新加载数据
-          
           this.pageId = pageId;
+
 
       }
       

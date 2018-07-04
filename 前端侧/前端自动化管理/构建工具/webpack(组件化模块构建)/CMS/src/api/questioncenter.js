@@ -10,6 +10,14 @@ export function addQuestionType(options) {
     ...options
   })
 } 
+//编辑报错分类
+export function editQuestionType(options) {
+  return request({
+    url:'/cmsQuestionType/saveCmsQuestionType',
+    method:'post',
+    ...options
+  })
+} 
 
 
 //分页查询问题分类列表

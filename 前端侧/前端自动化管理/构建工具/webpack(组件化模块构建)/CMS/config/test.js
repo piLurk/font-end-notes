@@ -6,7 +6,8 @@ module.exports = {
   },
   build:{
     distPath: path.resolve(__dirname, '../dist'),
-    assetsPublicPath: "/", // 必填项
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsPublicPath: "./", // 必填项
     assetsSubDirectory: 'static',// 必填项
   },
   
@@ -22,6 +23,6 @@ module.exports = {
     cssExtract: true, // 是否分割css文件
   },
   BROWSER_CONFIG: {
-    BASE_API: 'http://thcrm.jyroom.com' // 必填项 - 后端地址
+    BASE_API: 'http://thcms.jiangroom.com' // 必填项 - 后端地址
   }
 }

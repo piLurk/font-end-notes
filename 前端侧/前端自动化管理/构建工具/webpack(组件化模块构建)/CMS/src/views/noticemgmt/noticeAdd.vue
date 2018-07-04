@@ -12,7 +12,7 @@
               <el-form-item
                 prop="title"
                 :rules="rules.checkNoticeTitle">
-                <el-input type="text" v-model="form.title" placeholder="请输入（15个字以内）"></el-input>
+                <el-input type="text" v-model.trim="form.title" placeholder="请输入（50个字符以内）"></el-input>
               </el-form-item>
               
             </div>
@@ -23,7 +23,7 @@
               <el-form-item
                 prop="labelMsg"
                 :rules="rules.checkLabelMsg">
-                <el-input type="text" v-model="form.labelMsg" placeholder="请输入（一个字）"></el-input>
+                <el-input type="text" v-model.trim="form.labelMsg" placeholder="请输入（一个字）"></el-input>
               </el-form-item>
             </div>
           </el-col>
@@ -47,7 +47,7 @@
           <el-col class="item" :xs="{span:24}">
             <p class="tit">设&nbsp;&nbsp;置</p>
             <div class="inp-box">
-              <el-checkbox :true-label="1" :false-label="0" v-model="form.stickFlag">置顶</el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="form.stickFlag">置顶</el-checkbox>
               <div class="check-wrap">
                 <el-form-item
                   prop="noticeBelongto"
@@ -71,8 +71,9 @@
         </p>
         <el-form-item
           prop="content"
+          
           :rules="rules.isRequired">
-          <tinymce :height="300" v-model="form.content"></tinymce>
+          <tinymce ref="tinymce" :height="300" v-model.trim="form.content"></tinymce>
         </el-form-item>
         
       </div>
@@ -112,7 +113,7 @@
       title:'',
       labelMsg:'',
       departmentName:'',
-      stickFlag:'',
+      stickFlag:'0',
       noticeBelongto:[],
       fileList:[], // 文件id数组
       content: '', // 富文本内容
@@ -130,7 +131,7 @@
         publishFlag: '',
         rules: {
           isRequired:{validator: isRequired },
-          checkNoticeTitle: { validator: isMax(15), trigger:'blur'},
+          checkNoticeTitle: { validator: isMax(50), trigger:'blur'},
           checkLabelMsg: { validator: isLength(1), trigger:'blur'},
           checkNoticeBelongto: { validator: checkboxRequired, trigger:'change'}
         }
@@ -141,6 +142,7 @@
       ...mapGetters({
         departments:'departments'
       }),
+      
       noticeStateName() {
         if(this.isEdit) {
           return  this.publishFlag === '0' ? '编辑中' : '已发布'
@@ -157,20 +159,27 @@
         handler() {
           // 对于没有change表单元素进行验证检测
             this.$refs['form'].validateField('content', () => {
-          })
+
+            })
         }
       },
       '$route': {
         immediate:true,
         handler() {
-          this.initAll()
+          if(this.$route.name ===  'noticeAdd') {
+            this.initAll()
+          }
+          
         }
       }
     },
     methods:{
       ...mapActions({
 				getAllDepartments:'getAllDepartments'
-			}),
+      }),
+      getText() {
+        return this.$refs['tinymce'].getText();
+      },
       pageReset() {
         this.clearFormValidate();
         this.form = resetForm();
@@ -217,6 +226,12 @@
       },
       getNoticeDetail({userId, noticeId}) {
         let that = this;
+        const loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        });
         getNoticeDetail({
           params: {
             userId,
@@ -232,6 +247,8 @@
               message:'公告详情获取失败！'
             })
           }
+        }).finally(() => {
+          loading.close()
         })
       },
       handleRemove(file, fileList) {
@@ -292,29 +309,42 @@
       pageChange(view) {
         this.$store.dispatch('delVisitedViews', view).then((views) => {
           const latestView = views.slice(-1)[0]
-          if (latestView) {
-            this.$router.push(latestView.path)
-          } else {
-            this.$router.push('/')
-          }
+          this.$router.push({name: 'noticeList'})
         })
+        // this.$store.dispatch('delVisitedViews', view).then((views) => {
+        //   const latestView = views.slice(-1)[0]
+        //   if (latestView) {
+        //     this.$router.push(latestView.path)
+        //   } else {
+        //     this.$router.push('/')
+        //   }
+        // })
       },
       publishNotice() {
         var that = this,
             route = this.$route;
+        
+        
         this.$refs['form'].validate( ( valid ) => {
           if(!valid) return
           var form = JSON.parse(JSON.stringify(this.form));
             form.fileIds = that.getfileIds(form);
             form.noticeBelongto = form.noticeBelongto.join(',');
             delete form['fileList']
-          
-            var publishNoticeApi = this.isEdit ? editNotice : publishNotice;
+            let contentAbbr = this.getText();
+            var publishNoticeApi = publishNotice;
+            const loading = this.$loading({
+              lock: true,
+              text: 'Loading',
+              spinner: 'el-icon-loading',
+              background: 'rgba(0, 0, 0, 0.7)'
+            });
             publishNoticeApi({
               data: {
                 userId: this.userId,
                 id: this.noticeId,
                 publishFlag: this.isEdit ? '0' : '1',
+                contentAbbr,
                 ...form
               },
               cb() {
@@ -334,6 +364,8 @@
                   type: 'error'
                 })
               }
+            }).finally( () => {
+              loading.close()
             })
           
 
@@ -345,7 +377,8 @@
         })
       },
       saveNotice() {
-        var that = this;
+        var that = this,
+            route = this.$route;
         this.$refs['form'].validate( ( valid ) => {
           if(!valid) return
 
@@ -354,20 +387,33 @@
 
           form.fileIds = that.getfileIds(form);
           form.noticeBelongto = form.noticeBelongto.join(',');
+          let contentAbbr = this.getText();
           delete form['fileList']
 
           var noticeApi = this.isEdit ? editNotice : addNotice;
 
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
           noticeApi({
             data:{
               userId: this.userId,
               id: this.noticeId,
+              contentAbbr,
               ...form
             },
             cb() {
               that.$message({
                 message: '公告保存成功！',
                 type: 'success'
+              });
+              that.pageChange({
+                name: route.name,
+                path: route.path,
+                title: route.meta.title
               });
             },
             errorCb(message) {
@@ -376,6 +422,8 @@
                 type: 'error'
               })
             }
+          }).finally( () => {
+            loading.close()
           })
           
 

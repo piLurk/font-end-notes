@@ -19,9 +19,9 @@ if (token) {
   token = getToken()
 }
 
-// if (process.env.NODE_ENV === 'development' & !token) {
-//   setToken(BROWSER_CONFIG.COOKIE)
-// }
+if (process.env.NODE_ENV === 'development' & !token) {
+  setToken(BROWSER_CONFIG.COOKIE)
+}
 
 export default {
   install(Vue, options) {

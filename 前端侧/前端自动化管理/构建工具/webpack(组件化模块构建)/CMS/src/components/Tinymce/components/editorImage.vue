@@ -4,7 +4,7 @@
     </el-button>
     <el-dialog append-to-body :visible.sync="dialogVisible">
       <el-upload class="editor-slide-upload" action="https://httpbin.org/post" :multiple="true" :file-list="fileList" :show-file-list="true"
-        list-type="picture-card" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUpload">
+        list-type="picture-card" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUploadImage">
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
       <el-button @click="dialogVisible = false">取 消</el-button>
@@ -16,6 +16,14 @@
 <script>
 // import { getToken } from 'api/qiniu'
 
+function checkType(arr,type) {
+	for(var i=0 ;i<arr.length;i++){
+		if (arr[i]==type) {
+			return true;
+		}
+	}
+	return false;
+}
 export default {
   name: 'editorSlideUpload',
   props: {
@@ -67,6 +75,21 @@ export default {
         }
       }
     },
+    beforeUploadImage(file) {
+      const isImage = checkType(['image/jpeg','image/bmp','image/png'],file.type);
+      const isLt10M = file.size / 1024 / 1024 < 10;
+      if (!isImage) {
+        this.$message.error('上传文件只能是指定格式!')
+      }
+      if (!isLt10M) {
+        this.$message.error('上传文件大小不能超过 10MB!');
+      }
+      if(isImage && isLt10M) {
+        return this.beforeUpload(file)
+      } else {
+        return false
+      }
+		},
     beforeUpload(file) {
       const _self = this
       const _URL = window.URL || window.webkitURL

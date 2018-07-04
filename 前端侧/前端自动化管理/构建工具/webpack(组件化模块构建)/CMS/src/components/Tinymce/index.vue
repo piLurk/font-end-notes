@@ -38,6 +38,7 @@ export default {
       required: false,
       default: 360
     }
+    
   },
   data() {
     return {
@@ -64,6 +65,10 @@ export default {
     this.destroyTinymce()
   },
   methods: {
+    getText() {
+      let text = window.tinymce.get(this.tinymceId).getContent({format: 'text'});
+      return text
+    },
     initTinymce() {
       const _this = this
       window.tinymce.init({

@@ -13,7 +13,7 @@
         <el-col class="item middle" :md="{span:8}" :lg="{span:6}">
           <p class="tit middle">关键词搜索：</p>
           <div class="inp-box">
-            <el-input type="text" v-model="form.keyWord" placeholder="请输入关键字"></el-input>
+            <el-input type="text" v-model.trim="form.keyWord" placeholder="请输入关键字"></el-input>
           </div>
         </el-col>
       </el-row>
@@ -30,7 +30,7 @@
     <div class="table-box">
       <div class="fl table-top-box">
         <router-link ref='tag'
-          :to="{ name: 'questionAdd', params: { isEdit: false }}">
+          :to="{ name: 'questionAdd', query: { title: '新建问题' }}">
           <el-button class="icon_button" type="success"><i class="add-icon">+</i>新建问题</el-button>
         </router-link>
       </div>
@@ -46,19 +46,27 @@
               <tr v-for="(item, index) in questionList" :key="index">
                 <td>{{item.questionTypeName}}</td>
                 <td>
-                  <span class="tit"  @click="qaDetail(item)">{{item.questionTitle}}</span>
+                  <router-link ref='tag'
+                    :to="{ name: 'qaDetail', query: { title: '问题详情',questionId: item.id }}">
+                    <span class="tit">{{item.questionTitle}}</span>
+                  </router-link>
+                  
                   <div class="b_msg">
-                    <span>发布日期：&nbsp;{{item.gmtModified | toDate('{y}-{m}-{d}')}}</span>
+                    <span>发布日期：&nbsp;{{item.gmtCreate}}</span>
                     <span><i class="icon eyes"></i>&nbsp;&nbsp;浏览量：{{item.viewCount | blank}}</span>
                     <span><i class="icon yes"></i>&nbsp;&nbsp;{{item.resolvedCount | blank}}</span>
                     <span><i class="icon no"></i>&nbsp;&nbsp;{{item.unsolvedCount | blank}}</span>
                   </div>
                 </td>
                 <td>
-                  <span class="edit operate" @click="editQuestion(item)">
-                    <i class="el-icon-edit"></i>
-                    编辑
-                  </span>
+                  <router-link ref='tag'
+                    :to="{ name: 'questionAdd', query: { title: '编辑问题',questionId: item.id }}">
+                    <span class="edit operate">
+                      <i class="el-icon-edit"></i>
+                      编辑
+                    </span>
+                  </router-link>
+                  
                   <span class="edit operate" @click="deleteQuestion(item)">
                     <i class="el-icon-delete"></i>
                     删除
@@ -135,10 +143,6 @@
           params:data,
           cb(data){
             that.questionList = data.list;
-            that.$message({
-              message: '问题列表成功！',
-              type: 'success'
-            })
           },
           errorCb(){
             that.$message({
@@ -164,13 +168,13 @@
       qaDetail(question) {
         this.$router.push({
           name: 'qaDetail',
-          query: { questionId: question.id}
+          query: { questionId: question.id, title:'问题详情'}
         })
       },
       editQuestion(question) {
         this.$router.push({ 
           name: 'questionAdd', 
-          query: { questionId: question.id}
+          query: { questionId: question.id, title:'编辑问题'}
         })
       },
       deleteQuestion(question) {
@@ -200,6 +204,9 @@
         })
       }
 
+    },
+    activated() {
+      this.refreshList();
     },
     beforeMount() {
       // 初始化页面

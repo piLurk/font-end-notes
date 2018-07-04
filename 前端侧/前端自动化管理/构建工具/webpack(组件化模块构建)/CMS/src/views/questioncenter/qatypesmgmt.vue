@@ -42,7 +42,7 @@
       :visible.sync="createDialogVisible"
       class="has-header"
       >
-      <h3 slot="title" class="el-dialog__title">新建分类</h3>
+      <h3 slot="title" class="el-dialog__title">{{dialogType == 'add'?'新建':'编辑'}}分类</h3>
       <div class="dialog-form-wrap">
         <el-form
           ref = "createTypeForm" 
@@ -53,7 +53,7 @@
             prop="typeName"
             label="分类名称："
             :rules="rules.checkTypeName">
-            <el-input type="text" v-model="createTypeForm.typeName"></el-input>
+            <el-input type="text" v-model.trim="createTypeForm.typeName"></el-input>
           </el-form-item>
         </el-form>
         <div class="inp-box">
@@ -66,17 +66,20 @@
   </div>
 </template>
 <script>
-
+  import { createNamespacedHelpers } from 'vuex';
+  const { mapActions } = createNamespacedHelpers('questioncenter')
   import PaginationTable from '@/components/paginationTable'
   import { 
     getQuestionTypeList,  
     toggleQuestionTypeState,
-    addQuestionType
+    addQuestionType,
+    editQuestionType
   } from '@/api/questioncenter'
 
   const resetCreateTypeForm = () =>  {
     return {
-      typeName:''
+      typeName:'',
+      questionTypeId:''
     }
   }
 
@@ -103,13 +106,17 @@
         createTypeForm: resetCreateTypeForm(),
         rules:{
           checkTypeName: {validator: checkTypeName, trigger:'blur'}
-        }
+        },
+        dialogType:''
 
       }
     },
     computed: {
     },
     methods: {
+      ...mapActions({
+				getAllquestionType:'getAllquestionType'
+      }),
       getQuestionList(data) {
         var that = this;
         data['userId'] = this.userId;
@@ -117,10 +124,7 @@
           params: data,
           cb(data){
             that.questionTypeList = data.list;
-            that.$message({
-              message: '问题分类列表获取成功！',
-              type: 'success'
-            })
+            
           },
           errorCb(){
             that.$message({
@@ -137,10 +141,12 @@
         this.userId = this.$store.getters.userId;
       },
       editQaType(questionType) {
-        // setTimeout( () => {
-        //   this.$refs['createTypeForm'].resetFields()
-        // }, 0)
+        setTimeout( () => {
+          this.$refs['createTypeForm'].clearValidate()
+        }, 0)
         this.createTypeForm['typeName'] = questionType.typeName;
+        this.createTypeForm['questionTypeId'] = questionType.id;
+        this.dialogType = 'edit';
         this.createDialogVisible = true;
       },
       deleteQuestion(questionType) {
@@ -149,43 +155,49 @@
       createQaType() {
         // 先初始化dialog
         setTimeout( () => {
-          this.$refs['createTypeForm'].resetFields()
+          this.$refs['createTypeForm'].clearValidate()
         }, 0)
-        
-        this.createTypeForm = resetCreateTypeForm();
+        this.createTypeForm['typeName'] = '';
         this.createDialogVisible = true;
+        this.dialogType = 'add';
       },
       createTypeSave() {
         var that = this;
         this.$refs['createTypeForm'].validate(valid => {
-          if(!valid) return
-        })
-        let data = {
-          typeName: this.createTypeForm.typeName,
-          userId: this.userId
-        }
-        addQuestionType({
-          params:data,
-          cb() {
-            that.refreshList();
-            that.$message({
-              message: '分类新建成功！',
-              type: 'success'
-            })
+          if(valid) { 
+            let data = {
+              typeName: this.createTypeForm.typeName,
+              userId: this.userId
+            }
+            let type = this.dialogType;
+            let saveApi = ( type === 'edit' ?  editQuestionType : addQuestionType );
 
-          },
-          errorCb(message) {
-            that.$message({
-              message: message || '分类新建失败！',
-              type: 'error'
+            if(type === 'edit') {
+              data['questionTypeId'] = this.createTypeForm.questionTypeId;
+            }
+            saveApi({
+              params:data,
+              cb() {
+                that.refreshList();
+                that.$message({
+                  message: type === 'edit' ? '分类新建成功！' : '分类修改成功！',
+                  type: 'success'
+                });
+                that.getAllquestionType();
+              
+              },
+              errorCb(message) {
+                that.$message({
+                  message: message || type === 'edit' ? '分类新建失败！' : '分类修改失败！',
+                  type: 'error'
+                })
+              }
+            }).finally(() => {
+              that.createDialogVisible = false
             })
           }
-        }).finally(() => {
-          that.createDialogVisible = false
         })
-      },
-      editTypeSave() {
-
+        
       },
       getStateName(stopFlag) {
         if(stopFlag === '1') {
@@ -206,6 +218,7 @@
               message: `${item.typeName}${statName}成功！`,
               type: 'success'
             })
+            that.getAllquestionType();
           },
           errorCb() {
             let statName = that.getStateName(item.stopFlag);

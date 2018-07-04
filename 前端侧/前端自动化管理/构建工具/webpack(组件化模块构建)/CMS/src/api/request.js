@@ -8,7 +8,7 @@ import { getToken, removeToken } from '@/utils/auth'
 // create an axios instance
 const _request = axios.create({
   baseURL: BROWSER_CONFIG.BASE_API, // api的base_url
-  timeout: 5000, // request timeout
+  timeout: 10000, // request timeout
   responseType: 'json'
 
 })

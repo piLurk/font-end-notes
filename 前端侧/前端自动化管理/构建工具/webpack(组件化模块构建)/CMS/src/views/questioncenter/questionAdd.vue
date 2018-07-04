@@ -12,7 +12,7 @@
               <el-form-item
                 prop="questionTitle"
                 :rules="rules.checkQuestionTitle">
-                <el-input type="text" v-model="form.questionTitle" placeholder="请输入（20个字以内）"></el-input>
+                <el-input type="text" v-model.trim="form.questionTitle" placeholder="请输入（50个字符以内）"></el-input>
               </el-form-item>
               
             </div>
@@ -41,7 +41,7 @@
         <el-form-item
           prop="questionAnswer"
           :rules="rules.isRequired">
-          <tinymce :height="400" v-model="form.questionAnswer"></tinymce>
+          <tinymce ref="tinymce" :height="400" v-model.trim="form.questionAnswer"></tinymce>
         </el-form-item>
         
         <div class="btn-wrap">
@@ -82,7 +82,7 @@
         publishFlag: '',
         rules: {
           isRequired:{validator: isRequired },
-          checkQuestionTitle: { validator: isMax(20), trigger:'blur'}
+          checkQuestionTitle: { validator: isMax(50), trigger:'blur'}
         },
         questionId:''
       }
@@ -118,14 +118,19 @@
       '$route': {
         immediate:true,
         handler() {
-          this.initAll()
+          if(this.$route.name ===  'questionAdd') {
+            this.initAll()
+          }
         }
       }
     },
     methods:{
       ...mapActions({
 				getAllquestionType:'getAllquestionType'
-			}),
+      }),
+      getText() {
+        return this.$refs['tinymce'].getText();
+      },
       pageReset() {
         this.clearFormValidate();
         this.form = resetForm();
@@ -181,11 +186,19 @@
 
         this.$refs['form'].validate( ( valid ) => {
           if(!valid) return
+          const loading = this.$loading({
+            lock: true,
+            text: 'Loading',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+          let contentAbbr = this.getText();
           if(this.isEdit){
             editQuestion({
               data:{
                 userId: this.userId,
                 id: this.questionId,
+                contentAbbr,
                 ...this.form
               },
               cb() {
@@ -205,12 +218,15 @@
                   type: 'error'
                 })
               }
-            }) 
+            }).finally( () => {
+              loading.close()
+            })
 
           } else {
             addQuestion({
               data:{
                 userId:this.userId,
+                contentAbbr,
                 ...this.form
               },
               cb() {
@@ -230,6 +246,8 @@
                   type: 'error'
                 })
               }
+            }).finally( () => {
+              loading.close()
             })
           }
 

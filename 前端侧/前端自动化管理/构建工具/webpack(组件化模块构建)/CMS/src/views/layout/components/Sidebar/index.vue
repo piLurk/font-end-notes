@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar-container">
     <div class="logo-wrap">
-      <a href="//wwww.jiangroom.com">
+      <a href="//www.jiangroom.com">
         <div class="logo"></div>
       </a>
     </div>

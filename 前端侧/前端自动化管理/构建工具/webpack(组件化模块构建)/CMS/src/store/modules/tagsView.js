@@ -5,7 +5,17 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEWS: (state, view) => {
-      if (state.visitedViews.some(v => v.path === view.path)) return
+      if (state.visitedViews.some(v => {
+        // 对于parmas不同，但是路径相同路由，不应该多次缓存。不使用parmas,而用query无问题，
+        if(v.path === view.path) {
+          v.query = view.query;
+          return true
+        }
+      })) {
+
+        return 
+      }
+      
       state.visitedViews.push({
         name: view.name,
         path: view.path,

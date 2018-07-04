@@ -1,6 +1,6 @@
       
 <template>
-  <div class="table-wrap">
+  <div class="table-wrap" v-loading="loading">
     <my-pagination :total="total" :page-size="pageSize" :curr="curr" :pageChange="pageGo"></my-pagination>
     <slot></slot>
     <div class="footPages">
@@ -11,7 +11,7 @@
 
 <script>
   import debounce from 'lodash/debounce'
-  import MyPagination from './components/MyPagination.vue'
+  import MyPagination from './components/mypagination.vue'
 
   export default {
     props:{
@@ -32,18 +32,22 @@
     data() {
       return {
         total:0,
-        curr:1
+        curr:1,
+        loading:false
       }
     },
     methods:{
       paginationReq() {
+        this.loading = true;
         var formQuery = JSON.parse(JSON.stringify(this.formQuery))
         
         formQuery['pageSize'] = this.pageSize
         formQuery['pageIndex'] = this.curr
         var p = this.getData(formQuery).then( (res) => {
           this.total = res.data.total;
-        } )
+        } ).finally( () => {
+          this.loading = false;
+        })
       },
       pageGo(curr) {
         if (this.curr === curr) {

@@ -86,7 +86,6 @@ const user = {
                   if (!data) {
                     reject('error')
                   }
-                  console.log(data)
                   if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
                     commit('SET_ROLES', data.roles)
                   } else {
@@ -109,11 +108,13 @@ const user = {
 
           },
           errorCb(message) {
+            // 获取userid失败，从新登陆
+            dispatch('FedLogOut');
             
-            dispatch("sendMessage", {
-              type:'error',
-              message: message || '用户id获取失败！'
-            }, {root: true})
+            // dispatch("sendMessage", {
+            //   type:'error',
+            //   message: message || '用户id获取失败！'
+            // }, {root: true})
             
           }
         })

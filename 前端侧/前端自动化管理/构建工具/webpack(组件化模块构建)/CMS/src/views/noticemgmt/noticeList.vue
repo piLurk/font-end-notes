@@ -13,7 +13,7 @@
         <el-col class="item middle" :md="{span:8}" :lg="{span:6}">
           <p class="tit middle">关键词搜索：</p>
           <div class="inp-box">
-            <el-input type="text" v-model="form.keywords" placeholder="请输入关键字"></el-input>
+            <el-input type="text" v-model.trim="form.keywords" placeholder="请输入关键字"></el-input>
           </div>
         </el-col>
       </el-row>
@@ -30,7 +30,7 @@
     <div class="table-box">
       <div class="fl table-top-box">
         <router-link ref='tag'
-          :to="{ name: 'noticeAdd'}">
+          :to="{ name: 'noticeAdd', query:{ title: '新建公告' }}">
           <el-button class="icon_button" type="success"><i class="add-icon">+</i>新建公告</el-button>
         </router-link>
       </div>
@@ -49,20 +49,24 @@
                 <td>{{item.departmentName}}</td>
                 <td>
                   <span v-if="item.stickFlag === '1'" class="tip">置顶</span>
-                  <span class="tit" @click="noticeDetail(item)">{{item.title}}</span>
+                  <router-link ref='tag'
+                    :to="{ name: 'noticeAdd', query: { title: '公告详情',noticeId: item.id }}">
+                    <span class="tit" >{{item.title}}</span>
+                  </router-link>
                   <div class="b_msg">
                     <span>发布日期：&nbsp;{{item.gmtModified | toDate('{y}-{m}-{d}')}}</span>
                     <span><i class="icon eyes"></i>&nbsp;&nbsp;浏览量：{{item.viewTimes}}</span>
                   </div>
-
-
                 </td>
                 <td :class="{success: item.publishFlag === '0'}">{{item.publishFlag === '0' ? '编辑中' : '已发布'}}</td>
                 <td>
-                  <span class="edit operate" @click="editNotice(item)">
-                    <i class="el-icon-edit"></i>
-                    编辑
-                  </span>
+                  <router-link ref='tag'
+                    :to="{ name: 'noticeAdd', query: { title: '编辑公告', noticeId: item.id }, params:{refreshList} }">
+                    <span class="edit operate">
+                      <i class="el-icon-edit"></i>
+                      编辑
+                    </span>
+                  </router-link>
                 </td>
               </tr> 
             </tbody>
@@ -118,10 +122,6 @@ export default {
         params: data,
         cb(data) {
           that.noticeList = data.list;
-          that.$message({
-            message: "公告列表成功！",
-            type: "success"
-          });
         },
         errorCb() {
           that.$message({
@@ -148,15 +148,21 @@ export default {
     editNotice(notice) {
       this.$router.push({
         name: "noticeAdd",
-        query: { noticeId: notice.id }
+        query: { noticeId: notice.id, title:'编辑公告' }
       });
     },
     noticeDetail(notice) {
       this.$router.push({
         name: "noticeDetail",
-        query: { noticeId: notice.id }
+        query: { noticeId: notice.id, title:'公告详情' }
       });
-    }
+    },
+    refreshList() {
+      this.formQuery = JSON.parse(JSON.stringify(this.formQuery));
+    },
+  },
+  activated() {
+    this.refreshList();
   },
   beforeMount() {
     // 初始化页面
