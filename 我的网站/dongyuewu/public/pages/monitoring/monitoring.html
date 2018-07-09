@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>前端监控</title>
+</head>
+<body>
+  <script>
+    var lastTime = performance.now();
+    var frame = 0;
+    var lastFameTime = performance.now();
+    var fpsArr = [];
+    var loop = function(time) {
+      var now =  performance.now();
+      var fs = (now - lastFameTime);
+      lastFameTime = now;
+      var fps = Math.round(1000/fs);
+      frame++;
+      if (now > 1000 + lastTime) {
+          var fps = Math.round( ( frame * 1000 ) / ( now - lastTime ) );
+          frame = 0;    
+          lastTime = now;    
+      };    
+      fpsArr.push(fps);
+      fpsArr = fpsArr.slice(-5)
+      window.requestAnimationFrame(loop);   
+    }
+    loop();
+
+    function isBlocking(fpsList, below=20, last=3) {
+      var count = 0
+      for(var i = 0; i < fpsList.length; i++) {
+        if (fpsList[i] && fpsList[i] < below) {
+          count++;
+        } else {
+          count = 0
+        }
+        if (count >= last) {
+          return true
+        }
+      }
+      return false
+    }
+
+  </script>
+  
+</body>
+</html>

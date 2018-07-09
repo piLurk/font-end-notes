@@ -1,0 +1,92 @@
+[
+  {
+    "icon": "i-workBench",
+    "path": "/noticemgmt",
+    "name": "noticemgmt",
+    "redirect": "/noticemgmt/noticeList",
+    "isSideBar": true,
+    "meta": {
+      "title": "公告设置"
+    },
+    "children": [
+      {
+        "name": "noticeAdd",
+        "path": "noticeAdd",
+        "filePath": "noticemgmt/noticeAdd.vue",
+        "meta": {
+          "roles": [],
+          "title": "添加公告"
+          
+        }
+      },
+      {
+        "name": "noticeList",
+        "path": "noticeList",
+        "filePath": "noticemgmt/noticeList.vue",
+        "meta": {
+          "title": "公告列表",
+          "roles": []
+        }
+      },
+      {
+        "name": "noticeDetail",
+        "path": "noticeDetail",
+        "filePath": "noticemgmt/noticeDetail.vue",
+        "meta": {
+          "title": "公告详情",
+          "roles": []
+        }
+      }
+    ]
+  },
+  {
+    "icon": "i-workBench",
+    "path": "/questioncenter",
+    "name": "questioncenter",
+    "redirect": "noredirect",
+    "isSideBar": true,
+    "meta": {
+      "title": "答疑中心"
+    },
+    "children": [
+      {
+        "name": "questionAdd",
+        "path": "questionAdd",
+        "filePath": "questioncenter/questionAdd.vue",
+        "meta": {
+          "roles": [],
+          "title": "新建问题"
+        }
+      },
+      {
+        "name": "qatypesmgmt",
+        "path": "qatypesmgmt",
+        "filePath": "questioncenter/qatypesmgmt.vue",
+        "isSideBar": true,
+        "meta": {
+          "roles": [],
+          "title": "问题分类管理"
+        }
+      },
+      {
+        "name": "qaList",
+        "path": "qaList",
+        "filePath": "questioncenter/qaList.vue",
+        "isSideBar": true,
+        "meta": {
+          "roles": [],
+          "title": "问题列表"
+        }
+      },
+      {
+        "name": "qaDetail",
+        "path": "qaDetail",
+        "filePath": "questioncenter/qaDetail.vue",
+        "meta": {
+          "title": "问题详情",
+          "roles": []
+        }
+      }
+    ]
+  }
+]
