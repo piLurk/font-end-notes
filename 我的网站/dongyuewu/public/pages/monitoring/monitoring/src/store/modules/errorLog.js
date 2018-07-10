@@ -1,6 +1,7 @@
 
 import { sendLogs } from '@/api/errorLog'
 
+
 const errorLog = {
   state: {
     userAgent:navigator.userAgent,
@@ -18,6 +19,9 @@ const errorLog = {
     CLEAR_LOG: (state) => {
       state.cacheWarninLogs = [];
       state.cacheErrorLogs = [];
+    },
+    DATE_RESET: (state) => {
+      state.requestEndTime = Date.now()
     }
   },
   getters: {
@@ -33,19 +37,20 @@ const errorLog = {
         commit('ADD_ERROR_LOG', log)
       }
       if( !(state.requestEndTime && now - state.requestEndTime < 1000) ) {
-        // console.log(JSON.stringify(getters.cacheErrorLogs) )
         let data = {
           userAgent:state.userAgent,
           timestamp: Date.now(),
           logs:[
-            {type:'warning', list:getters.cacheWarninLogs},
-            {type:'error', list:getters.cacheErrorLogs}
+            {type:'warning', list:state.cacheWarninLogs},
+            {type:'error', list:state.cacheErrorLogs}
           ]
         };
         sendLogs({
           data
         }).then( () => {
+          commit('DATE_RESET')
           commit('CLEAR_LOG')
+
         })
       }
       
