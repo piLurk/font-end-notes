@@ -11,8 +11,7 @@ Vue.config.errorHandler = function(err, vm, info, a) {
     store.dispatch('sendLog', {
       type:'error',
       log: {
-        err,
-        vm,
+        err:err.stack,
         info,
         url: window.location.href
       }

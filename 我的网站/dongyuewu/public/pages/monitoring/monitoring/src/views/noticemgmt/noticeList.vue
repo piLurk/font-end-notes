@@ -134,6 +134,8 @@ export default {
       });
     },
     noticeQuery() {
+      let a = 10;
+      this.go();
       this.formQuery = JSON.parse(JSON.stringify(this.form));
     },
     noticeReset() {
