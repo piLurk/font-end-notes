@@ -44,7 +44,6 @@ function partition(array, left, right) {
 
 function swapQuickStort(array, index1, index2) {
   var aux = array[index1];
-  
   array[index2] = aux;
 }
 function ArraySort () {
