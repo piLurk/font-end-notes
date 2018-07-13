@@ -86,48 +86,84 @@ function mergeSortRec (arr) {
     return result
   }
 }
-var s = mergeSortRec([140,25,1,2,58,12,36,96,5])
-console.log(s)
+
 
 // 快速排序
-  // 同样适用分治算法， 区别是在数组的分解上
+  // 同样适用分治算法， 区别是快排是在划分阶段排序，
+  //而归并是在 merge阶段排序
 
 
-  function quick(array, left, right) { 
-    var index;
-  
-    if(array.length > 1) {
-      index = partition(array, left, right);
-  
-      if(left < index - 1) {
-        quick(array, left, index - 1);
-      }
-  
-      if(index < right) {
-        quick(array, index, right);
-      }
+function quick(array, left, right) {
+  var index;
+  if(array.length > 1) {
+    
+    index = partition(array, left, right);
+
+    if(left < index - 1) {
+      quick(array, left, index - 1)
     }
-  }
-  
-  function partition(array, left, right) {
-    var pivot = array[Math.floor(( right + left ) / 2)],
-        i = left,
-        j = right;
-    while(i <= j) {
-      while(array[i] < pivot) {
-        i++;
-      }
-      while(array[j] > pivot) {
-        j--;
-      }
-      if(i<=j) {
-        [array[i] , array[j]] = [array[j] , array[i]];
-        i++;
-        j--;
-      }
+    if(index < right) {
+      quick(array, index, right)
     }
-    return i;
+
   }
-var arr = [140,25,1,2,58,12,36,96,5];
+}
+function partition(array, left, right) {
+  var pivot = array[ Math.floor( (left + right) /2 ) ],
+      l = left,
+      r = right;
+  while(l <= r ) {
+
+    while(array[l] < pivot) {
+      l++;
+    }
+    while(array[r] > pivot) {
+      r--;
+    }
+    if(l <= r) {
+      [array[l], array[r]] =[array[r], array[l]];
+      l++
+      r--;
+    }
+  } 
+  return l
+}
+
+var arr = [140,25,1,2,58,12,36,96,35, 35];
 quick(arr, 0 , arr.length -1)
-console.log(arr)
+console.log(arr, 'a')
+
+function mergeSortRec(array) {
+  var len = array.length;
+  if(len === 1) return array
+  var mid = Math.floor(len / 2),
+      left = array.slice(0, mid),
+      right = array.slice(mid,len);
+
+  return merge(mergeSortRec(left), mergeSortRec(right) );
+  
+}
+function merge(left, right) {
+  var result = [],
+      l = 0,
+      r = 0;
+
+  while(l < left.length && r < right.length) {
+    if(left[l] < right[r] ) {
+      result.push(left[l++])
+    } else {
+      result.push(right[r++])
+    }
+  }
+  while(l < left.length) {
+    result.push(left[l++])
+  }
+  while(r < right.length) {
+    result.push(right[r++])
+  }
+  return result
+  
+}
+
+var s = mergeSortRec([140,25,1,2,58,12,36,96,5])
+console.log(s, 'wa10')

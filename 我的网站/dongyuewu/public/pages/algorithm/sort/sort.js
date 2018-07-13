@@ -6,7 +6,7 @@ function bind(fn,target){
   }
 }
 
-function quick(array, left, right) {
+function quick(array, left, right) { 
   var index;
 
   if(array.length > 1) {
